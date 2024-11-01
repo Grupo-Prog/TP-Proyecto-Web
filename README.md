@@ -24,4 +24,4 @@ Desarrollo Frontend:
 - [@Mateo Del Lungo 412337](https://www.github.com/Mudo0)
 - [@Franco Chachaua 412139](https://www.github.com/Mudo0)
 - [@Santiago Cotaimich 412285](https://www.github.com/Mudo0)
-
+- [@Tobias Zair Usandivara 412309](https://github.com/tobiaszairusandivara)
