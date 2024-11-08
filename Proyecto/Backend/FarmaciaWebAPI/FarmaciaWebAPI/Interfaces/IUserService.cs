@@ -11,6 +11,6 @@ namespace FarmaciaWebAPI.Interfaces
     {
         //devuelve una Respuesta
         //se le ingresa una peticion de autenticación
-        UserResponse Auth(AuthenticationRequest request);
+        Task<UserResponse> Auth(AuthenticationRequest request);
     }
 }
