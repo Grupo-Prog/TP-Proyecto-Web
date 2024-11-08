@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARGAR VENTA</title>
+    <link rel="stylesheet" href="../css/sales-lmce.css"> <!-- referencia a css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- referencia a Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet"> <!-- referencia a Google Fonts -->
+</head>
+<body class="pagina-principal">
+    <nav class="navbar bg-body-tertiary">
+        <form class="container-fluid justify-content-center">
+          <a href="index.html">
+            <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button> <!-- botón para ir al DASHBOARD -->
+          </a> 
+          <button class="btn btn-outline-success me-2" type="button">VENTAS</button>  <!-- botón para ir a VENTAS -->
+          <a href="clients.html">
+          <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- botón para ir a CLIENTES -->
+        </a>
+          <a href="login.html">
+            <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- botón para SALIR -->
+          </a>
+        </form>
+    </nav>
+
+    <div class="d-flex justify-content-center mt-4">
+        <p class="d-inline-flex gap-1 text-center">
+          <a class="btn btn-primary-active active" href="sales-load.html">CARGAR VENTA</a> <!-- botón para CARGAR VENTA -->
+          <a class="btn btn-primary" href="sales-edit.html">MODIFICAR VENTA</a> <!-- botón para MODIFICARR VENTA -->
+          <a class="btn btn-primary" href="sales-consult.html">CONSULTAR VENTA</a> <!-- botón para CONSULTAR VENTA -->
+          <a class="btn btn-primary-eliminate" href="sales-eliminate.html">ELIMINAR VENTA</a> <!-- botón para ELIMINAR VENTA -->
+        </p>
+    </div>
+    <div class="container mt-5">
+        <form> 
+            <div class="mb-3 row justify-content-center">
+                <div class="col-md-4"> 
+                    <input type="number" class="form-control" id="id" placeholder="Escribir el código de venta"> <!-- input para código -->
+                </div>
+            </div>
+
+            <div class="mb-3 row justify-content-center">
+                <div class="col-md-4"> 
+                    <input type="text" class="form-control" id="producto" placeholder="Escribir el nombre del producto">  <!-- input para producto -->
+                </div>
+                <div class="col-md-2"> 
+                    <input type="number" class="form-control" id="cantidad" placeholder="Cantidad">  <!-- input para cantidad -->
+                </div>
+                <div class="col-md-2"> 
+                    <input type="number" class="form-control" id="precio" placeholder="Precio">  <!-- input para precio -->
+                </div>
+            </div>
+            
+            <div class="mb-3 row justify-content-center">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="col-md-12"> 
+                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Escribir o seleccionar un cliente">
+                        <datalist id="datalistOptions">
+                        </datalist>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="mb-3 row justify-content-center">
+                <div class="col-md-4">
+                    <label for="fecha" class="form-label custom-label">Fecha de venta</label>
+                    <input type="date" class="form-control" id="fecha" placeholder="Selecciona una fecha">  <!-- input para fecha -->
+                </div>
+            </div>
+        </div>
+
+<div class="mb-3 row justify-content-center mt-4">
+    <div class="col-md-4 d-flex justify-content-center gap-3">
+        <button type="button" class="btn btn-primary">CARGAR VENTA</button>  <!-- botón para cargar venta -->
+        <button type="reset" class="btn btn-secondary">CANCELAR</button>  <!-- boton para borrar campos -->
+        </form>
+    
+
+    
+
+    <footer class="custom-footer-index text-center mt-4">
+        <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
+    </footer>
+    
+</body>
+</html>

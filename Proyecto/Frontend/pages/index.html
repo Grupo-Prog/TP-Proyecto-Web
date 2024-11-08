@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRINCIPAL</title>
+    <link rel="stylesheet" href="../css/index.css"> <!-- referencia a css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- referencia a Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet"> <!-- referencia a Google Fonts -->
+</head>
+<body class="pagina-principal">
+    <nav class="navbar bg-body-tertiary">
+        <form class="container-fluid justify-content-center">
+          <a href="index.html">
+          <button class="btn btn-outline-success me-2" type="button">DASHBOARD</button> <!-- botón para ir al DASHBOARD -->
+        </a>
+        <a href="sales.html">
+          <button class="btn btn-sm btn-outline-secondary" type="button">VENTAS</button> <!-- botón para ir a ventas -->
+        </a>
+        <a href="clients.html">
+          <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- botón para ir a clientes -->
+        </a>
+          <button class="btn btn-sm btn-outline-secondary btn-terciary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> <!-- botón para el "acerca de:" -->
+          ACERCA DE: 
+        </button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> <!-- contenido del "acerca de:" -->
+            CREADORES:<br>
+            Santiago Cotaimich - 412285<br>
+            Santiago Cotaimich - 412285<br>
+            Santiago Cotaimich - 412285<br>
+            Santiago Cotaimich - 412285<br>
+            Santiago Cotaimich - 412285
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <!-- botón para cerrar el cuadro de "acerca de:" -->
+        </div>
+      </div>
+    </div>
+  </div>
+          <a href="login.html">
+          <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- botón para salir de la página -->
+        </a>
+
+        </form>
+      </nav>
+      
+    </ul>
+
+
+<div class="card-container">
+    <div class="card custom-card-background-ventas" style="width: 18rem;">
+        <h5 class="card-title-ventas">VENTAS</h5>
+        <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item-ventas">
+                <a href="sales-load.html">
+                <button type="button" class="btn btn-custom-cargar">CARGAR VENTA</button>  <!-- botón para ir directamente a cargar una venta -->
+            </a>
+            </li>
+        </div>
+        <li class="list-group-item-ventas">
+          <a href="sales-edit.html">
+          <button type="button" class="btn btn-custom-ventas">MODIFICAR VENTA</button> <!-- botón para ir directamente a modificar una venta -->
+            </a>
+            </li>  
+            <li class="list-group-item-ventas">
+              <a href="sales-consult.html">
+              <button type="button" class="btn btn-custom-ventas">CONSULTAR VENTA</button>  <!-- botón para ir directamente a consultar una venta -->
+            </a>
+            </li>      
+            <li class="list-group-item-ventas">
+                <a href="sales-eliminate.html">
+                <button type="button" class="btn btn-custom-eliminar">ELIMINAR VENTA</button> <!-- botón para ir directamente a eliminar una venta -->
+            </a>
+            </li>  
+        </ul>
+    </div>
+
+    <div class="card custom-card-background-clientes" style="width: 18rem;">
+        <h5 class="card-title-clientes">CLIENTES</h5>
+        <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item-clientes">
+                <a href="clients-load.html">
+                <button type="button" class="btn btn-custom-carga-cliente">CARGAR CLIENTE</button> <!-- botón para ir directamente a cargar un cliente -->
+            </a>
+            </li>
+                    </div>
+                    <li class="list-group-item-clientes">
+                      <a href="clients-edit.html">
+                      <button type="button" class="btn btn-custom-clientes">MODIFICAR CLIENTE</button>  <!-- botón para ir directamente a modificar un cliente -->
+                  </a>
+            </a>
+            </li>
+            <li class="list-group-item-clientes">
+              <a href="clients-consult.html">
+              <button type="button" class="btn btn-custom-clientes">CONSULTAR CLIENTE</button> <!-- botón para ir directamente a consultar un cliente -->
+            </a>
+            </li>
+            <li class="list-group-item-clientes">
+                <a href="clients-eliminate.html">
+                <button type="button" class="btn btn-custom-eliminar-cliente">ELIMINAR CLIENTE</button> <!-- botón para ir directamente a eliminar un cliente -->
+                            </a>
+            </li>        
+        </ul>
+    </div>
+</div>
+    
+        <footer class="custom-footer-index text-center mt-4">  <!-- pie de página -->
+        <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzE1LJ2NK5lZeA6yjGgYI/iJJ3z9lFVRV92B8xZq0UGp" crossorigin="anonymous"></script> <!-- ambas líneas son para que el botón de "acerca de: funcione, agregar a Javascrip" -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</html>

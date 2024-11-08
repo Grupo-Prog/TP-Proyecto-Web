@@ -1,0 +1,128 @@
+/* Posición del formulario de login */
+.custom-position-login {
+    margin-top: -170px;
+}
+
+/* Estilos generales del cuerpo */
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Imagen de fondo desenfocada */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../images/farmacia_inicio.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(5px);
+    z-index: -1;
+}
+
+/* Título en la página de login */
+.mb-4-login {
+    text-align: center;
+    font-size: 2.6rem;
+    font-family: "DM Serif Text", serif;
+    color: rgba(41, 114, 37, 0.9);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border: 5px solid rgba(41, 114, 37, 0.7);
+    border-radius: 20px;
+    width: 100%;
+}
+
+/* Estilos de los labels en el formulario de login */
+.pagina-login .form-label {
+    color: rgba(52, 53, 52, 0.7);
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilos de los campos de entrada en el formulario de login */
+.pagina-login .form-control {
+    color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Botón de ingresar a la página */
+.pagina-login .custom-btn-login {
+    background-color: rgba(41, 114, 37, 0.7);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: "DM Serif Text", serif;
+    font-size: 1.6rem;
+    margin: 20px 0;
+    padding: 25px 10px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transition: background-color 0.5s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+/* Efecto hover en el botón de ingresar */
+.pagina-login .custom-btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: rgba(41, 114, 37, 0.8);
+    border: 2px solid rgba(41, 114, 37, 0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón de reset en el formulario de login */
+.pagina-login .custom-btn-login-reset {
+    background-color: rgba(52, 53, 52, 0.7);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: "DM Serif Text", serif;
+    font-size: 1.2rem;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transition: background-color 0.5s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+/* Efecto hover en el botón de reset */
+.pagina-login .custom-btn-login-reset:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: rgba(52, 53, 52, 0.8);
+    border: 2px solid rgba(52, 53, 52, 0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Contenedor principal del formulario de login */
+.login-container {
+    max-width: 1000px;
+    max-height: 700px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+}
+
+/* Pie de página del login */
+.mt-4 {
+    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: rgba(41, 114, 37, 0.8);
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    left: 0;
+}

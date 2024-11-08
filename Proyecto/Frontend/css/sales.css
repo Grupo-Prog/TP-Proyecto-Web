@@ -1,0 +1,166 @@
+    body {
+        position: relative;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('../images/farmacia-venta.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: blur(2.5px); 
+        z-index: -1; 
+    }
+
+
+    .pagina-principal .navbar .container-fluid {
+        display: flex;
+        justify-content: center; 
+    }
+
+    .pagina-principal .navbar button {
+        margin: 0 5px; 
+    }
+
+    .pagina-principal .bg-body-tertiary {
+        background-color: rgba(255, 255, 255, 0.7) !important; 
+        color: rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .pagina-principal .content {
+        margin-top: 80px; 
+        text-align: center;
+
+    }
+
+    .custom-footer-index {
+        width: 100vw; 
+        background-color: rgba(255, 255, 255, 0.5); 
+        color: rgba(41, 114, 37, 0.8);
+        text-align: center;
+        padding: 5px 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        box-sizing: border-box;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        margin: 0;
+    }
+
+    .me-2 {
+        background-color: rgba(41, 114, 37, 0.7) !important; 
+        color: rgba(255, 255, 255, 0.7) !important; 
+        padding: 4px; 
+        font-size: 1.5rem !important;
+        border-radius: 20px !important; 
+        font-family: "DM Serif Text", serif !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+        border: 5px solid rgba(255, 255, 255, 0.7);
+        letter-spacing: 1px; 
+    }
+
+    .me-2:hover {
+        background-color: rgba(255, 255, 255, 0.8) !important; 
+        color: rgba(41, 114, 37, 0.8) !important; 
+        border: 2px solid rgba(41, 114, 37, 0.7);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    }
+
+    .btn-outline-secondary {
+        background-color: rgba(255, 255, 255, 0.7); 
+        color: rgba(41, 114, 37, 0.7) !important; 
+        padding: 1px; 
+        font-size: 1.2rem !important;
+        border-radius: 20px !important; 
+        font-family: "DM Serif Text", serif !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+        border: 2px solid rgba(41, 114, 37, 0.7) !important;
+        letter-spacing: 1px;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: rgba(41, 114, 37, 0.8) !important; 
+        color: rgba(255, 255, 255, 0.8) !important; 
+        font-size: 1.5rem !important;
+        border: 2px solid rgba(255, 255, 255, 0.7) !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    }
+
+    .btn-exit {
+        background-color: rgba(227, 62, 62, 0.8) !important; 
+        color: rgba(255, 255, 255, 0.8) !important; 
+        padding: 1px; 
+        font-size: 1rem !important;
+        border-radius: 20px !important; 
+        font-family: "DM Serif Text", serif !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+        border: 2px solid rgba(255, 255, 255, 0.7) !important;
+        letter-spacing: 1px; 
+    }
+
+    .btn-exit:hover {
+        background-color: rgba(227, 62, 62, 0.8) !important; 
+        color: rgba(255, 255, 255, 0.8) !important; 
+        font-size: 1.2rem !important;
+        border: 2px solid rgba(255, 255, 255, 0.7)!important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    }
+
+
+    .btn-primary {
+        background-color: rgba(41, 114, 37, 0.7) !important; 
+        color: rgba(255, 255, 255, 0.7) !important; 
+        padding: 4px; 
+        font-size: 1.5rem !important;
+        border-radius: 20px !important;
+        font-family: "DM Serif Text", serif !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+        border: 2px solid rgba(255, 255, 255, 0.7)!important;
+        letter-spacing: 1px; 
+    }
+
+
+    .btn-primary:hover {
+        background-color: rgba(255, 255, 255, 0.8) !important; 
+        color: rgba(41, 114, 37, 0.8) !important; 
+        border: 2px solid rgba(41, 114, 37, 0.8) !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    }
+
+    .btn-primary-eliminate {
+        background-color: rgba(52, 53, 52, 0.7) !important; 
+        color: rgba(255, 255, 255, 0.8) !important;
+        padding: 4px;
+        font-size: 1.5rem !important;
+        border-radius: 20px !important;
+        font-family: "DM Serif Text", serif !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.8)!important;
+        letter-spacing: 1px;
+    }
+
+    .btn-primary-eliminate:hover {
+        background-color: rgba(227, 62, 62, 0.9) !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.8)!important;
+    }
+
+    .pagina-principal .bg-body-tertiary {
+        background-color: rgba(255, 255, 255, 0.5) !important; 
+        color: rgba(0, 0, 0, 0.8) !important;
+        padding: 4px; 
+    }
+
+
+

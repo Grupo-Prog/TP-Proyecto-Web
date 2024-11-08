@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INICIO</title>
+    <link rel="stylesheet" href="../css/start.css">  <!-- referencia al css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- referencia a Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet"> <!-- referencia a Google Fonts -->
+</head>
+<body class="pagina-inicio d-flex justify-content-center align-items-start vh-100"> <!-- variante Bootstrap en el body -->
+    <div class="text-center custom-position"> <!-- contenedor con las clases -->
+        <div class="start-container">
+        <h1 class="mb-4">TRABAJO PRÁCTICO INTEGRADOR</h1>
+        <p class="d-inline-flex gap-2"> <!-- párrafo de Bootstrap -->
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Enunciado y objetivos</button> <!-- botón para mostrar contenido -->
+        </p>
+        <div class="row mt-11"> <!-- siguientes 4 líneas de referencias a Bootstrap -->
+            <div class="col d-flex justify-content-center">
+                <div class="collapse custom-collapse" id="multiCollapseExample1">
+                    <div class="card card-body">
+                        <h5>Enunciado:</h5>
+                        <ul class="list-unstyled"> <!-- lista del enunciado -->
+                            <li>Un proyecto de tipo librería de código donde se modele la lógica de la aplicación solicitada.</li>
+                            <li>Un proyecto Web que permita implementar el modelo de objetos diseñado.</li>
+                            <li>Un proyecto Web API que permita exponer todos los servicios necesarios para que el proyecto Web funcione correctamente.</li>
+                            <li>Generar un Modelo E-R que permita crear la base de datos.</li>
+                            <li>Generar las dependencias necesarias dentro de la solución entre los proyectos mencionados.</li>
+                        </ul>
+                        <h5>Objetivos:</h5>
+                        <ul class="list-unstyled"> <!-- lista de los objetivos -->
+                            <li>Integrar los conocimientos y habilidades prácticas adquiridas en las unidades de la asignatura.</li>
+                            <li>Reforzar las destrezas necesarias para resolver una situación problemática utilizando la programación orientada a objetos con C#.</li>
+                            <li>Modelar una abstracción de datos sobre el dominio propuesto aplicando patrones de diseño.</li>
+                            <li>Diseñar e integrar una interfaz Web utilizando HTML, CSS y Javascript que consuma una capa de servicios publicada como WebAPI.</li>
+                        </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="login.html">
+            <button type="button" class="btn custom-btn mt-4">INGRESAR AL SITIO</button> <!-- botón para ingresar al sitio -->
+        </a>
+    </div>
+    <footer class="custom-footer"> <!-- pié de página -->
+        <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> <!-- código de js para poder probar los botones responsivos, agregar al archivo de JavaScrip creado -->
+</html>
