@@ -1,5 +1,6 @@
 ﻿using DataAccess.Interfaces;
 using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,30 +11,49 @@ namespace DataAccess.Repositories
 {
     public class ClientRepository : IRepository<ModeloCliente>
     {
-        
-        public Task<bool> Delete(int id)
+        private readonly DbContext _context;
+        public ClientRepository(DbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<List<ModeloCliente>> GetAll()
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            //TO DO
+            //remplazar por entity framework
+            var deleted = _context.Set<ModeloCliente>().Where(p => p.Id == id).FirstOrDefault();
+            if (deleted != null) { return false; }
+            _context.Set<ModeloCliente>().Remove(deleted);
+            return 1 == await _context.SaveChangesAsync();
         }
 
-        public Task<ModeloCliente> GetById(int id)
+        public async Task<List<ModeloCliente>?> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Set<ModeloCliente>().ToListAsync();
         }
 
-        public Task<bool> Save(ModeloCliente entity)
+        public async Task<ModeloCliente?> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<ModeloCliente>().FindAsync(id);
         }
 
-        public Task<bool> Update(ModeloCliente entity)
+        public async Task<bool> Save(ModeloCliente entity)
         {
-            throw new NotImplementedException();
+            _context.Set<ModeloCliente>().Add(entity);
+            return 1 == await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> Update(ModeloCliente entity)
+        {
+            var current = _context.Set<ModeloCliente>().Find(entity.Id);
+            if(current == null) { return false; }
+            
+            current.Nombre = entity.Nombre;
+            current.Apellido = entity.Apellido;
+            current.Direccion = entity.Direccion;
+            current.Telefono = entity.Telefono;
+
+            return 1 == await _context.SaveChangesAsync();
         }
     }
 }

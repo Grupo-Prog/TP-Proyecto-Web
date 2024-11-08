@@ -8,8 +8,8 @@ namespace DataAccess.Interfaces
 {
     public interface IRepository<T>
     {
-        Task<List<T>> GetAll();
-        Task<T> GetById(int id);
+        Task<List<T>?> GetAll();
+        Task<T?> GetById(int id);
         Task<bool> Update(T entity);
         Task<bool> Delete(int id);
         Task<bool> Save(T entity);

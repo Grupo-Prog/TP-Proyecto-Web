@@ -6,35 +6,35 @@ using FarmaciaWebAPI.Interfaces;
 using FarmaciaWebAPI.Models.Request;
 using FarmaciaWebAPI.Models.Response;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FarmaciaWebAPI.Controllers
 {
     [ApiController]
     [Authorize]
-    
-    [Route("api/[controller]")]
-    public class UserController : ControllerBase
-    {
-        private IUserService _userService;
 
-        public UserController(IUserService userService)
-        {
-            _userService = userService;
-        }
+    [Route("api/[controller]")]
+    public class UserController(IUserService userService) : ControllerBase
+    {
+        // public UserController(IUserService userService)
+        // {
+        //     _userService = userService;
+        // }
 
         [AllowAnonymous]
         [Route("Login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] AuthenticationRequest request)
         {
-            //creamos la respuesta que devolverá el controlador
-            RequestResponse response = new RequestResponse();
+            //creamos la respuesta que devolverï¿½ el controlador
+            var response = new RequestResponse();
+
             try
             {
                 //le pedimos al servicio que intente autentificar al usuario
-                var userResponse = _userService.Auth(request);
-                //si devuelve null es porque el usuario no está en la base de datos
+                var userResponse = userService.Auth(request);
+                //si devuelve null es porque el usuario no estï¿½ en la base de datos
                 if (userResponse == null)
                 {
                     //entonces armamos la respuesta con el contenido que le corresponda
@@ -49,12 +49,17 @@ namespace FarmaciaWebAPI.Controllers
                 response.Message = "Login Successful";
                 // el cuerpo de la respuesta tiene los datos del usuario o el token de acceso
                 response.Data = userResponse;
+
+
             }
             catch (Exception ex)
             {
-                response.Success = 0;
-                response.Message = ex.Message;
-                return StatusCode(500,"Internal error: " + response);
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
+
             }
 
             //devolvemos la respuesta junto con el codigo http

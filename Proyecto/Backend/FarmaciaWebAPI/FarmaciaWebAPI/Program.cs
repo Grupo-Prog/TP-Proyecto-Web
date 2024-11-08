@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//configuracion cors para navegadores
+//configuración cors para navegadores
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
@@ -24,16 +24,16 @@ builder.Services.AddCors(options =>
 
 //obtenemos la parte del settings.json donde se guarda la clave
 var appSettingsSection = builder.Configuration.GetSection("Jwt");
-//le indicamos al builder que la clase APPSETTINGS se corresponde con la sección del json de arriba
+//le indicamos al builder que la clase jwt se corresponde con la sección del json de arriba
 builder.Services.Configure<Jwt>(appSettingsSection);
 
 
 
-//necesitamos éste objeto para acceder a la propiedad que contiene la clave
-var Jwt = appSettingsSection.Get<Jwt>();
-//utilizando la clave secreta creamos la llave para el token mediante una codificacion de bytes
+//necesitamos este objeto para acceder a la propiedad que contiene la clave
+var jwt = appSettingsSection.Get<Jwt>();
+//utilizando la clave secreta creamos la llave para el token mediante una codificación de bytes
 //convierte la clave en un arreglo de bytes
-var key = Encoding.ASCII.GetBytes(Jwt.Secret);
+var key = Encoding.ASCII.GetBytes(jwt!.Secret);
 
 //configuracion del JWT
 builder.Services.AddAuthentication(p =>
@@ -74,7 +74,7 @@ builder.Services.AddSwaggerGen(swagger =>
     //titulo
     swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "Farmacia Web API", Version = "v1" });
 
-    //boton authorice
+    //boton authorize
     swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization",
@@ -114,7 +114,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//usa la configuracion de cors a�adida
+//usa la configuracion de cors añadida
 app.UseCors("CorsPolicy");
 
 app.UseAuthentication();

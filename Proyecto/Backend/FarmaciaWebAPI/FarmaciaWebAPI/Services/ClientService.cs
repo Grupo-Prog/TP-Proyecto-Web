@@ -18,6 +18,7 @@ namespace FarmaciaWebAPI.Services
             _repo = clientRepository;
             _mapper = clientMapper;
         }
+        //TO DO
         public Task<bool> Delete(int id)
         {
             throw new NotImplementedException();

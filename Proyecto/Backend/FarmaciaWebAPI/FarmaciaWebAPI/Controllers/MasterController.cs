@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -17,10 +18,13 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Ok("To do");
             }
-            catch
+            catch (Exception ex)
             {
-
-                throw new NotImplementedException();
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
             }
         }
 
@@ -32,10 +36,13 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Ok("To do");
             }
-            catch
+            catch (Exception ex)
             {
-
-                throw new NotImplementedException();
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
             }
         }
 
@@ -47,10 +54,13 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Ok("To do");
             }
-            catch
+            catch (Exception ex)
             {
-
-                throw new NotImplementedException();
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
             }
         }
 
@@ -62,10 +72,13 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Ok("To do");
             }
-            catch
+            catch (Exception ex)
             {
-
-                throw new NotImplementedException();
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
             }
         }
 
@@ -77,10 +90,13 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Ok("To do");
             }
-            catch
+            catch (Exception ex)
             {
-
-                throw new NotImplementedException();
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
             }
         }
     }

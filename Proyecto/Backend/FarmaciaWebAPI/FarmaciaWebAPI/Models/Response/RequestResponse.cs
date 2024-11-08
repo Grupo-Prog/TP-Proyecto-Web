@@ -14,5 +14,10 @@
             Message = string.Empty;
             Data = null;
         }
+
+        public override string ToString()
+        {
+            return $"Success: {Success}, Message: {Message}, Data: {Data}";
+        }
     }
 }

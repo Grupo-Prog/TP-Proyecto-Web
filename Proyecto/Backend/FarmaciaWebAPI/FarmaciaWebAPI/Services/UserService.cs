@@ -34,6 +34,7 @@ namespace FarmaciaWebAPI.Services
             string encriptedPassword = Encrypt.GetSHA256(request.Password);
             try
             {
+                //TO DO
                 //buscar los datos a traves de entity framework o repositorio
                 //var usuario = Context.usuarios.where(p =>
                 //p.username == request.Username && p.password == encriptedPassword).FirstOrDefault();
