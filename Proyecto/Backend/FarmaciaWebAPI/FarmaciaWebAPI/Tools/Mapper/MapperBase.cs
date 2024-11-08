@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using System.Reflection;
 
-namespace FarmaciaWebAPI.Tools
+namespace FarmaciaWebAPI.Tools.Mapper
 {
     public class MapperBase<Input, Output> : IMapperBase<Input, Output>
         where Input : new()
@@ -25,42 +25,42 @@ namespace FarmaciaWebAPI.Tools
                 throw ex;
             }
         }
-        public Output Set(Input entity)
-        {
-            if (entity == null) { return default; }
-            Output dto = new Output();
-            PropertyInfo[] properties = typeof(Input).GetProperties();
-            foreach (PropertyInfo property in properties)
-            {
-                TransferProperty(property, entity, dto);
-            }
-            return dto;
-        }
-        public Input Get(Output dto)
+        public Output Set(Input dto)
         {
             if (dto == null) { return default; }
-            Input entity = new Input();
-            PropertyInfo[] properties = typeof(Output).GetProperties();
+            Output entity = new Output();
+            PropertyInfo[] properties = typeof(Input).GetProperties();
             foreach (PropertyInfo property in properties)
             {
                 TransferProperty(property, dto, entity);
             }
             return entity;
         }
-        public List<Output> Set(List<Input> entitylist)
+        public Input Get(Output entity)
         {
-            if (entitylist == null || entitylist.Count == 0) { return default; }
+            if (entity == null) { return default; }
+            Input dto = new Input();
+            PropertyInfo[] properties = typeof(Output).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                TransferProperty(property, entity, dto);
+            }
+            return dto;
+        }
+        public List<Output> Set(List<Input> dtoList)
+        {
+            if (dtoList == null || dtoList.Count == 0) { return default; }
             List<Output> lst = new List<Output>();
-            foreach (Input entity in entitylist)
+            foreach (Input entity in dtoList)
             {
                 lst.Add(Set(entity));
             }
             return lst;
         }
-        public List<Input> Get(List<Output> dtoList)
+        public List<Input> Get(List<Output> entityList)
         {
             List<Input> lst = new List<Input>();
-            foreach (Output dto in dtoList)
+            foreach (Output dto in entityList)
             {
                 lst.Add(Get(dto));
             }
