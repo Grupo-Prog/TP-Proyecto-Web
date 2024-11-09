@@ -33,7 +33,7 @@ namespace FarmaciaWebAPI.Controllers
             try
             {
                 //le pedimos al servicio que intente autentificar al usuario
-                var userResponse = userService.Auth(request);
+                var userResponse = await userService.Auth(request);
                 //si devuelve null es porque el usuario no est� en la base de datos
                 if (userResponse == null)
                 {

@@ -1,3 +1,4 @@
+using DataAccess.Repositories;
 using FarmaciaWebAPI.Common;
 using FarmaciaWebAPI.Interfaces;
 using FarmaciaWebAPI.Models.Request;
@@ -20,9 +21,11 @@ namespace FarmaciaWebAPI.Services
     public class UserService : IUserService
     {
         private readonly Jwt _jwt;
-        public UserService(IOptions<Jwt> appSettingsSection)
+        private readonly UserRepository _repo;
+        public UserService(IOptions<Jwt> appSettingsSection, UserRepository repository)
         {
             _jwt = appSettingsSection.Value;
+            _repo = repository;
         }
         public async Task<UserResponse> Auth(AuthenticationRequest request)
         {
@@ -36,25 +39,17 @@ namespace FarmaciaWebAPI.Services
             {
                 //TO DO
                 //buscar los datos a traves de entity framework o repositorio
-                //var usuario = Context.usuarios.where(p =>
-                //p.username == request.Username && p.password == encriptedPassword).FirstOrDefault();
-                //if(usuario == null) return null
-
-                if (request.Username == "mudo" && request.Password == "1234")
-                {
-                    response.Username = request.Username;
-                    response.Token = GetToken(request);
-                }
-                else return null;
+                var usuario = await _repo.GetUser(request.Username, encriptedPassword);
+                if (usuario == null) { return null; } 
+               
+                response.Username = request.Username;
+                response.Token = GetToken(request);
             }
             catch (Exception ex)
             {
                 return null;
                 throw ex;
             }
-
-            //response.Username = "username";
-            //response.Token = "token"; //generar token JWT
             return response;
         }
         private string GetToken(AuthenticationRequest request)
@@ -75,7 +70,7 @@ namespace FarmaciaWebAPI.Services
                         //new Claim (JwtRegisteredClaimNames.Sub, _jwt.Subject),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim(ClaimTypes.NameIdentifier, request.Username),
+                        new Claim(ClaimTypes.NameIdentifier, request.Username.Trim()),
                         new Claim("Password", request.Password),
                         new Claim(ClaimTypes.Role,"user")
                     }),

@@ -11,8 +11,8 @@ namespace DataAccess.Repositories
 {
     public class ClientRepository : IRepository<ModeloCliente>
     {
-        private readonly DbContext _context;
-        public ClientRepository(DbContext context)
+        private readonly FakeContext _context;
+        public ClientRepository(FakeContext context)
         {
             _context = context;
         }

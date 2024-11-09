@@ -43,7 +43,7 @@ namespace FarmaciaWebAPI.Controllers
                 
                 return Problem(
                     detail: ex.Message,
-                    instance: $"api/",
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
                     statusCode: 500, title: "Internal error"
                     );
             }
@@ -72,7 +72,7 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Problem(
                     detail: ex.Message,
-                    instance: $"api/Login",
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
                     statusCode: 500, title: "Internal error"
                     );
             }
@@ -90,7 +90,7 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Problem(
                     detail: ex.Message,
-                    instance: $"api/",
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
                     statusCode: 500, title: "Internal error"
                     );
             }
@@ -108,7 +108,7 @@ namespace FarmaciaWebAPI.Controllers
             {
                 return Problem(
                     detail: ex.Message,
-                    instance: $"api/",
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
                     statusCode: 500, title: "Internal error"
                     );
             }

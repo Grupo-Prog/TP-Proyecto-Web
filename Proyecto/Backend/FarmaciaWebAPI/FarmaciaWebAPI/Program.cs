@@ -1,6 +1,11 @@
+using DataAccess.Interfaces;
+using DataAccess.Models;
+using DataAccess.Repositories;
 using FarmaciaWebAPI.Common;
 using FarmaciaWebAPI.Interfaces;
+using FarmaciaWebAPI.Models.DTOs;
 using FarmaciaWebAPI.Services;
+using FarmaciaWebAPI.Tools.Mapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -59,8 +64,7 @@ builder.Services.AddAuthentication(p =>
     }
 );
 
-//inyeccion de la clase que maneja las peticiones del usuario
-builder.Services.AddScoped<IUserService, UserService>();
+
 
 builder.Services.AddControllers();
 
@@ -102,6 +106,20 @@ builder.Services.AddSwaggerGen(swagger =>
     });
 
 });
+
+//inyeccion de context
+builder.Services.AddScoped<FakeContext>();
+//Inyección de Servicios
+builder.Services.AddScoped<IManager<ClientDTO>, ClientService>();
+//clase que maneja las peticiones del usuario
+builder.Services.AddScoped<IUserService, UserService>();
+
+//Inyección de Repositorios
+builder.Services.AddScoped<IRepository<ModeloCliente>, ClientRepository>();
+builder.Services.AddScoped<UserRepository>();
+
+//Inyección de mapper
+builder.Services.AddScoped<IMapperBase<ClientDTO, ModeloCliente>, ClientMapper>();
 
 var app = builder.Build();
 
