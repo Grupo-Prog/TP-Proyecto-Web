@@ -11,76 +11,76 @@
 <body class="pagina-principal">
     <nav class="navbar bg-body-tertiary">
         <form class="container-fluid justify-content-center">
-          <a href="index.html">
-            <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button>  <!-- boton para ir al DASHBOARD -->
-          </a>
-          <a href="sales.html">
-          <button class="btn btn-sm btn-outline-secondary" type="button">VENTAS</button> <!-- boton para ir a VENTAS -->
-        </a>
-          <a href="clients.html">
-          <button class="btn btn-outline-success me-2" type="button">CLIENTES</button> <!-- boton para ir a CLIENTES -->
-        </a>
-          <a href="login.html">
-            <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- boton para SALIR -->
-          </a>
+            <a href="index.html">
+                <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button>  <!-- boton para ir al DASHBOARD -->
+            </a>
+            <a href="sales.html">
+                <button class="btn btn-sm btn-outline-secondary" type="button">VENTAS</button> <!-- boton para ir a VENTAS -->
+            </a>
+            <a href="clients.html">
+                <button class="btn btn-outline-success me-2" type="button">CLIENTES</button> <!-- boton para ir a CLIENTES -->
+            </a>
+            <a href="login.html">
+                <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion" type="button">SALIR</button> <!-- boton para SALIR -->
+            </a>
         </form>
     </nav>
 
     <div class="d-flex justify-content-center mt-4">
         <p class="d-inline-flex gap-1 text-center">
-          <a class="btn btn-primary-active active" href="clients-load.html">CARGAR CLIENTE</a> <!-- boton para cargar cliente -->
-          <a class="btn btn-primary" href="clients-edit.html">MODIFICAR CLIENTE</a> <!-- boton para modificar cliente -->
-          <a class="btn btn-primary" href="clients-consult.html">CONSULTAR CLIENTE</a> <!-- boton para consultar cliente -->
-          <a class="btn btn-primary-eliminate" href="clients-eliminate.html">ELIMINAR CLIENTE</a> <!-- boton para eliminar cliente -->
+            <a class="btn btn-primary-active active" href="clients-load.html">CARGAR CLIENTE</a> <!-- boton para cargar cliente -->
+            <a class="btn btn-primary" href="clients-edit.html">MODIFICAR CLIENTE</a> <!-- boton para modificar cliente -->
+            <a class="btn btn-primary" href="clients-consult.html">CONSULTAR CLIENTE</a> <!-- boton para consultar cliente -->
+            <a class="btn btn-primary-eliminate" href="clients-eliminate.html">ELIMINAR CLIENTE</a> <!-- boton para eliminar cliente -->
         </p>
     </div>
 
     <div class="container mt-5">
-        <form> 
+        <form id="form_cargar_cliente"> 
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-2">
-                    <input type="text" class="form-control" id="producto" placeholder="Nombre"> <!-- input para nombre -->
+                <div class="col-md-2" id="input_nombre">
+                    <input type="text" class="form-control" id="nombre"  placeholder="Nombre"> <!-- input para nombre -->
                 </div>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" id="cantidad" placeholder="Apellido">  <!-- input para apellido -->
+                <div class="col-md-2" id="input_apellido">
+                    <input type="text" class="form-control" id="apellido"  placeholder="Apellido">  <!-- input para apellido -->
                 </div>
             </div>
 
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-3"> 
-                    <input type="number" class="form-control" id="id" placeholder="Número de documento">  <!-- input para documento -->
+                <div class="col-md-3" id="input_documento"> 
+                    <input type="number" class="form-control" min="1" id="documento"  placeholder="Número de documento">  <!-- input para documento -->
                 </div>
             </div>
             
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-3">
-                    <input type="text" class="form-control" id="producto" placeholder="E-mail">  <!-- input para email -->
+                <div class="col-md-3" id="input_email">
+                    <input type="text" class="form-control" id="email"  placeholder="E-mail">  <!-- input para email -->
                 </div>  
             </div>
 
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-3">
-                    <input type="number" class="form-control" id="producto" placeholder="Número teléfonico">  <!-- input para telefono -->
+                <div class="col-md-3" id="input_telefono">
+                    <input type="number" class="form-control" min="1" id="telefono"  placeholder="Número teléfonico">  <!-- input para telefono -->
                 </div>  
             </div>
         
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-4"> 
+                <div class="col-md-4" id="input_fecha"> 
                     <label for="fecha" class="form-label custom-label">Fecha de nacimiento</label>
-                    <input type="date" class="form-control" id="fecha" placeholder="Selecciona una fecha">  <!-- input para fecha -->
+                    <input type="date" class="form-control" id="fecha" min="1970-12-31" max="2025-11-9" placeholder="Selecciona una fecha">  <!-- input para fecha -->
                 </div>
             </div>
 
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-3"> 
-                    <input type="text" class="form-control" id="producto" placeholder="Obra social">  <!-- input para obra social -->
+                <div class="col-md-3 " id="input_obra_social"> 
+                    <input type="text" class="form-control" id="obraSocial" placeholder="Obra social">  <!-- input para obra social -->
                 </div>  
             </div>
         </div> 
 
             <div class="mb-3 row justify-content-center mt-4">
                 <div class="col-md-4 d-flex justify-content-center gap-3">
-                    <button type="button" class="btn btn-primary">CARGAR CLIENTE</button>  <!-- boton para cargar clientes-->
+                    <button type="submit" class="btn btn-primary">CARGAR CLIENTE</button>  <!-- boton para cargar clientes-->
                     <button type="reset" class="btn btn-secondary">CANCELAR</button> <!-- boton para borrar campos-->
                 </div>
             </div>
@@ -89,6 +89,14 @@
     <footer class="custom-footer-index text-center mt-4">
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
-    
+    <script src="/js/clientesJs/clientePost.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"></script>
+    <script>
+        // Existe un usuario logeado?
+        if ("token" in sessionStorage === false ) {
+            alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+            window.location = "/pages/login.html";
+        }
+    </script>
 </body>
 </html>

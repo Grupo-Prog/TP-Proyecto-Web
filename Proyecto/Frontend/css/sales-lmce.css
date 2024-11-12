@@ -238,3 +238,51 @@ a.btn.btn-primary-active.eliminate:hover {
     font-size: 1rem !important;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
+
+/*Cargar cliente */
+.inputError input{
+    border: 3px solid #bb2929;
+    opacity: 1;
+}
+
+.inputError select{
+    border: 3px solid #bb2929;
+    opacity: 1;
+}
+
+#cargarTabla td{
+    color: white;
+}
+
+/* card visualizar antes de eliminar */
+.card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 16px auto;
+    text-align: left;
+}
+
+.card h3 {
+    margin: 0 0 8px;
+    color: #333;
+}
+
+.card p {
+    margin: 4px 0;
+    color: #555;
+}
+
+.card .detalle {
+    margin-top: 8px;
+}
+
+.card .detalle-item {
+    padding-left: 16px;
+    color: #333;
+}
+
+/* */

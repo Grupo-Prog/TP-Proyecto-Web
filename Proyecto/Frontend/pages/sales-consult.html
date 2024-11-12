@@ -11,48 +11,48 @@
 <body class="pagina-principal">
     <nav class="navbar bg-body-tertiary">
         <form class="container-fluid justify-content-center">
-          <a href="index.html">
-            <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button>  <!-- boton para ir al DASHBOARD -->
-          </a>
-          <button class="btn btn-outline-success me-2" type="button">VENTAS</button> <!-- boton para ir a VENTAS-->
-          <a href="clients.html">
-          <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- boton para ir a CLIENTES -->
-        </a>
-          <a href="login.html">
-            <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- boton para SALIR -->
-          </a>
+            <a href="index.html">
+                <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button>  <!-- boton para ir al DASHBOARD -->
+            </a>
+            <button class="btn btn-outline-success me-2" type="button">VENTAS</button> <!-- boton para ir a VENTAS-->
+            <a href="clients.html">
+            <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- boton para ir a CLIENTES -->
+            </a>
+            <a href="login.html">
+                <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion" type="button">SALIR</button> <!-- boton para SALIR -->
+            </a>
         </form>
     </nav>
 
     <div class="d-flex justify-content-center mt-4">
         <p class="d-inline-flex gap-1 text-center">
-          <a class="btn btn-primary" href="sales-load.html">CARGAR VENTA</a> <!-- boton para cargar venta -->
-          <a class="btn btn-primary" href="sales-edit.html">MODIFICAR VENTA</a> <!-- boton para modificar venta -->
-          <a class="btn btn-primary-active active" href="sales-consult.html">CONSULTAR VENTA</a> <!-- boton para consultar venta -->
-          <a class="btn btn-primary-eliminate" href="sales-eliminate.html">ELIMINAR VENTA</a> <!-- boton para eliminar venta -->
+            <a class="btn btn-primary" href="sales-load.html">CARGAR VENTA</a> <!-- boton para cargar venta -->
+            <a class="btn btn-primary" href="sales-edit.html">MODIFICAR VENTA</a> <!-- boton para modificar venta -->
+            <a class="btn btn-primary-active active" href="sales-consult.html">CONSULTAR VENTA</a> <!-- boton para consultar venta -->
+            <a class="btn btn-primary-eliminate" href="sales-eliminate.html">ELIMINAR VENTA</a> <!-- boton para eliminar venta -->
         </p>
     </div>
 
     <div class="container mt-5">
-        <form> 
+        <form id="form_mostrar_venta"> 
             <div class="d-flex justify-content-center mb-4"> 
-                <div class="col-md-4">
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Consultar por el código de la venta"> <!-- input para codigo -->
-                    <datalist id="datalistOptions">
-                    </datalist>
+                <div class="col-md-4" id="v_input_cod_venta_get">
+                    <input type="number" class="form-control" list="datalistOptions"  min="1" id="cod_venta" placeholder="Consultar por el código de la venta"> <!-- input para codigo -->
                 </div>
             </div>
             
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-4 d-flex justify-content-center"> 
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Consultar por el cliente"> <!-- input para cliente -->
-                    <datalist id="datalistOptions">
-                    </datalist>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="col-md-12" id="v_input_cliente_get"> 
+                        <select class="form-select" id="v_cliente_get">
+                            <option selected>Seleccione un cliente</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-4">
+                <div class="col-md-4" id="v_input_fecha_get">
                     <label for="fecha" class="form-label custom-label">Consultar por fecha</label> <!-- input para fecha -->
                     <input type="date" class="form-control" id="fecha">
                 </div>
@@ -62,17 +62,38 @@
 
             <div class="mb-3 row justify-content-center mt-4">
                 <div class="col-md-4 d-flex justify-content-center gap-3"> 
-                    <button type="button" class="btn btn-primary">CONSULTAR VENTA</button> <!-- boton para consultar venta-->
+                    <button type="submit" class="btn btn-primary">CONSULTAR VENTA</button> <!-- boton para consultar venta-->
                     <button type="reset" class="btn btn-secondary">CANCELAR</button> <!-- input para borrar campos -->
                 </div>
             </div>
         </form> 
 
  
-    
+    <!-- begin -->
+    <table class="table table-striped table-hover" id="cargarTabla">
+        <thead class="table-success">
+            <tr>
+                <th>Id </th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Total </th>
+            </tr>
+        </thead>
+        <tbody id="ventas_body">
+        </tbody>
+    </table>
+    <!-- end tabla -->
 
     <footer class="custom-footer-index text-center mt-4">
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
+    <script src="/js/ventasJs/ventaGet.js"></script>
+    <script>
+        // Existe un usuario logeado?
+        if ("token" in sessionStorage === false ) {
+            alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+            window.location = "/pages/login.html";
+        }
+    </script>
 </body>
 </html>

@@ -11,59 +11,61 @@
 <body class="pagina-principal">
     <nav class="navbar bg-body-tertiary">
         <form class="container-fluid justify-content-center">
-          <a href="index.html">
-            <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button>  <!-- boton para ir al DASHBOARD -->
-          </a>
-          <button class="btn btn-outline-success me-2" type="button">VENTAS</button> <!-- boton para ir a VENTAS -->
-          <a href="clients.html">
-          <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- boton para ir a CLIENTES -->
-        </a>
-          <a href="login.html">
-            <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- boton para SALIR -->
-          </a>
+            <a href="index.html">
+                <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button>  <!-- boton para ir al DASHBOARD -->
+            </a>
+            <button class="btn btn-outline-success me-2" type="button">VENTAS</button> <!-- boton para ir a VENTAS -->
+            <a href="clients.html">
+            <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- boton para ir a CLIENTES -->
+            </a>
+            <a href="login.html">
+                <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion" type="button">SALIR</button> <!-- boton para SALIR -->
+            </a>
         </form>
     </nav>
 
     <div class="d-flex justify-content-center mt-4">
         <p class="d-inline-flex gap-1 text-center">
-          <a class="btn btn-primary" href="sales-load.html">CARGAR VENTA</a> <!-- boton para cargar venta -->
-          <a class="btn btn-primary-active active" href="sales-edit.html">MODIFICAR VENTA</a> <!-- boton para modificar venta -->
-          <a class="btn btn-primary" href="sales-consult.html">CONSULTAR VENTA</a> <!-- boton para consultar venta -->
-          <a class="btn btn-primary-eliminate" href="sales-eliminate.html">ELIMINAR VENTA</a> <!-- boton para eliminar venta -->
+            <a class="btn btn-primary" href="sales-load.html">CARGAR VENTA</a> <!-- boton para cargar venta -->
+            <a class="btn btn-primary-active active" href="sales-edit.html">MODIFICAR VENTA</a> <!-- boton para modificar venta -->
+            <a class="btn btn-primary" href="sales-consult.html">CONSULTAR VENTA</a> <!-- boton para consultar venta -->
+            <a class="btn btn-primary-eliminate" href="sales-eliminate.html">ELIMINAR VENTA</a> <!-- boton para eliminar venta -->
         </p>
     </div>
     <div class="container mt-5">
-        <form> 
+        <form id="form_cargar_venta_put"> 
             <div class="d-flex justify-content-center mb-4"> 
-                <div class="col-md-4"> 
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Escribir o seleccionar el código de la venta a modificar"> <!-- input del codigo -->
+                <div class="col-md-4" id="v_input_cod_venta_put"> 
+                    <input class="form-control" list="datalistOptions"  min="1" id="cod_venta" placeholder="Escribir o seleccionar el código de la venta a modificar"> <!-- input del codigo -->
                     <datalist id="datalistOptions">
                     </datalist>
                 </div>
             </div>
     
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-4"> 
-                    <input type="text" class="form-control" id="producto" placeholder="Modificar el nombre del producto"> <!-- input del nombre -->
+                <div class="col-md-4" id="v_input_producto_put"> 
+                    <input type="text" class="form-control" id="v_producto_put" placeholder="Modificar el nombre del producto"> <!-- input del nombre -->
                 </div>
-                <div class="col-md-2"> 
-                    <input type="number" class="form-control" id="cantidad" placeholder="Ó su cantidad"> <!-- input de cantidad -->
+                <div class="col-md-2" id="v_input_cantidad_put"> 
+                    <input type="number" class="form-control"  min="1" id="v_cantidad_put" placeholder="Ó su cantidad"> <!-- input de cantidad -->
                 </div>
-                <div class="col-md-2"> 
-                    <input type="number" class="form-control" id="precio" placeholder="Ó su precio"> <!-- input del precio -->
-                </div>
-            </div>
-    
-            <div class="mb-3 row justify-content-center">
-                <div class="col-md-4 d-flex justify-content-center"> 
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Modificar el cliente"> <!-- input del cliente -->
-                    <datalist id="datalistOptions">
-                    </datalist>
+                <div class="col-md-2" id="v_input_precio_put"> 
+                    <input type="number" class="form-control"  min="1" id="v_precio_put" placeholder="Ó su precio"> <!-- input del precio -->
                 </div>
             </div>
     
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-4"> 
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="col-md-12" id="v_input_cliente_put"> 
+                        <select class="form-select" id="v_cliente_put">
+                            <option selected>Seleccione un cliente</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="mb-3 row justify-content-center">
+                <div class="col-md-4" id="v_input_fecha_put"> 
                     <label for="fecha" class="form-label custom-label">Modificar fecha de venta</label>
                     <input type="date" class="form-control" id="fecha" placeholder="Selecciona una fecha"> <!-- input de la fecha  -->
                 </div>
@@ -73,7 +75,7 @@
 
 <div class="mb-3 row justify-content-center mt-4">
     <div class="col-md-4 d-flex justify-content-center gap-3"> 
-        <button type="button" class="btn btn-primary">MODIFICAR VENTA</button> <!-- boton para cargar venta -->
+        <button type="submit" class="btn btn-primary">MODIFICAR VENTA</button> <!-- boton para cargar venta -->
         <button type="reset" class="btn btn-secondary">CANCELAR</button> <!-- boton para borrar campos -->
         </form> 
     
@@ -82,6 +84,13 @@
     <footer class="custom-footer-index text-center mt-4">
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
-    
+    <script src="/js/ventasJs/ventaPut.js"></script>
+    <script>
+        // Existe un usuario logeado?
+        if ("token" in sessionStorage === false ) {
+            alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+            window.location = "/pages/login.html";
+        }
+    </script>
 </body>
 </html>

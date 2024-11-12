@@ -12,16 +12,17 @@
     <div class="text-center custom-position-login"> <!-- contenedor con las clases -->
         <div class="login-container">
             <h1 class="mb-4-login">INICIO DE SESIÓN</h1>
-            <form>
-                <div class="mb-3">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
+
+            <form id="form_login_post">
+                <div class="mb-3" id="input_email">
+                    <input type="text" class="form-control" id="email"  placeholder="E-mail">
                 </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
+                <div class="mb-3" id="input_contrasenia">
+                    <input type="password" class="form-control" id="contrasenia" placeholder="Contraseña">
                 </div>
             </div>
-                <a href="index.html">
-                    <button type="button" class="btn custom-btn-login">INGRESAR</button> <!-- botón para ingresar -->
+                <a href="">
+                    <button type="submit" class="btn custom-btn-login">INGRESAR</button> <!-- botón para ingresar -->
                 </a>
                 <button type="reset" class="btn custom-btn-login-reset">CANCELAR</button> <!-- botón para borrar contenido -->
             </form>
@@ -30,5 +31,6 @@
     <footer class="custom-footer text-center mt-4"> <!-- pie de página -->
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
+    <script src="/js/index.js"></script>
 </body>
 </html>

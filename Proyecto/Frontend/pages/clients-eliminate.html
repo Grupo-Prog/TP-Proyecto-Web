@@ -20,8 +20,8 @@
           <a href="clients.html">
           <button class="btn btn-outline-success me-2" type="button">CLIENTES</button> <!-- boton para ir a  CLIENTES-->
         </a>
-          <a href="login.html">
-            <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- boton para salir-->
+          <a href="">
+            <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion" type="button">SALIR</button> <!-- boton para salir-->
           </a>
         </form>
     </nav>
@@ -36,30 +36,40 @@
     </div>
 
     <div class="container mt-5">
-        <form> 
+        <form id="form_eliminar_cliente"> 
             <div class="d-flex justify-content-center mb-4"> 
-                <div class="col-md-4"> 
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Escribir o seleccionar el nombre del cliente a eliminar"> <!-- input para codigo-->
-                    <datalist id="datalistOptions">
-                    </datalist>
-                </div>
+                    <div class="col-md-4" id="c_input_cod_cliente_del"> 
+                      <select class="form-select" id="c_cod_cliente_del">
+                          <option selected>Seleccione un cliente</option>
+                      </select>
+                  </div>
+                
+
+                
             </div>
             
         </div>
             <div class="mb-3 row justify-content-center mt-4">
                 <div class="col-md-4 d-flex justify-content-center gap-3"> 
-                    <button type="button" class="btn btn-primary-eliminate">ELIMINAR CLIENTE</button> <!-- boton para eliminar clientes-->
+                    <button type="submit" class="btn btn-primary-eliminate">ELIMINAR CLIENTE</button> <!-- boton para eliminar clientes-->
                     <button type="reset" class="btn btn-secondary">CANCELAR</button> <!-- boton para borrar campos-->
                 </div>
             </div>
         </form> 
 
- 
-    
+
+      <div id="card-container"></div>
 
     <footer class="custom-footer-index text-center mt-4">
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
-    
+    <script src="/js/clientesJs/clienteDelete.js"></script>
+    <script>
+      // Existe un usuario logeado?
+      if ("token" in sessionStorage === false ) {
+          alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+          window.location = "/pages/login.html";
+      }
+    </script>
 </body>
 </html>

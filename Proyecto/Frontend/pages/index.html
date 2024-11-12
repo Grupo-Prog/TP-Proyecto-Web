@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRINCIPAL</title>
     <link rel="stylesheet" href="../css/index.css"> <!-- referencia a css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- referencia a Bootstrap -->
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet"> <!-- referencia a Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- referencia a Bootstrap -->
+    
 </head>
 <body class="pagina-principal">
     <nav class="navbar bg-body-tertiary">
@@ -44,7 +45,7 @@
     </div>
   </div>
           <a href="login.html">
-          <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- botón para salir de la página -->
+          <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion"  type="button">SALIR</button> <!-- botón para salir de la página -->
         </a>
 
         </form>
@@ -118,5 +119,13 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzE1LJ2NK5lZeA6yjGgYI/iJJ3z9lFVRV92B8xZq0UGp" crossorigin="anonymous"></script> <!-- ambas líneas son para que el botón de "acerca de: funcione, agregar a Javascrip" -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
+<script>
+  
+  
+  // Existe un usuario logeado?
+  if ("token" in sessionStorage === false ) {
+      alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+      window.location = "/pages/login.html";
+  }
+</script>
 </html>

@@ -19,7 +19,7 @@
           <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- botón para ir a CLIENTES -->
         </a>
           <a href="login.html">
-            <button class="btn btn-sm btn-outline-secondary btn-exit" type="button">SALIR</button> <!-- botón para SALIR -->
+            <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion"  type="button">SALIR</button> <!-- botón para SALIR -->
           </a>
         </form>
     </nav>
@@ -36,6 +36,12 @@
     <footer class="custom-footer-index text-center mt-4"> <!-- PIE DE PÁGINA -->
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
-    
+    <script>
+      // Existe un usuario logeado?
+      if ("token" in sessionStorage === false ) {
+          alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+          window.location = "/pages/login.html";
+      }
+  </script>
 </body>
 </html>

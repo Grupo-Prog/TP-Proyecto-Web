@@ -126,3 +126,10 @@ body::before {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     left: 0;
 }
+
+/*Cargar login */
+.inputError input{
+    border: 3px solid #bb2929;
+    opacity: 1;
+}
+
