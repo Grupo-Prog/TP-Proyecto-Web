@@ -18,30 +18,39 @@ namespace FarmaciaWebAPI.Services
             _repo = clientRepository;
             _mapper = clientMapper;
         }
-        //TO DO
-        public Task<bool> Delete(int id)
+        //TO DO cambiar el context
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            return await _repo.Delete(id);
         }
 
-        public Task<List<ClientDTO>> GetAll()
+        public async Task<List<ClientDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            var lst = await _repo.GetAll();
+            if(lst == null || lst.Count == 0) return null;
+            return _mapper.Get(lst);
         }
 
-        public Task<ClientDTO> GetById(int id)
+        public async Task<ClientDTO> GetById(int id)
         {
-            throw new NotImplementedException();
+            var value = await _repo.GetById(id);
+            if (value == null) return null;
+            return _mapper.Get(value);
         }
 
-        public Task<bool> Save(ClientDTO dto)
+        public async Task<bool> Save(ClientDTO dto)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Set(dto);
+            if(entity == null) return false;
+            return await _repo.Save(entity);
         }
 
-        public Task<bool> Update(int id, ClientDTO dto)
+        public async Task<bool> Update(int id, ClientDTO dto)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Set(dto);
+            if(entity == null) return false;
+            entity.Id = id;
+            return await _repo.Update(entity);
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
+using Newtonsoft.Json.Linq;
 
 
 namespace FarmaciaWebAPI.Controllers
@@ -40,7 +41,7 @@ namespace FarmaciaWebAPI.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 return Problem(
                     detail: ex.Message,
                     instance: $"{HttpContext.Request.GetEncodedUrl()}",
@@ -53,15 +54,15 @@ namespace FarmaciaWebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-                var response = new RequestResponse();
+            var response = new RequestResponse();
             try
             {
                 var value = await _manager.GetById(id);
-                if(value == null) 
+                if (value == null)
                 {
                     response.Success = 0;
                     response.Message = "Data not found or there was an error fetching it";
-                    return NotFound(response); 
+                    return NotFound(response);
                 }
                 response.Success = 1;
                 response.Message = "Data fetched";
@@ -80,11 +81,24 @@ namespace FarmaciaWebAPI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] ClientDTO value)
         {
+            var response = new RequestResponse();
             try
             {
-                return Ok("To do");
+                var result = await _manager.Save(value);
+                if (result == false)
+                {
+                    response.Success = 0;
+                    response.Message = "Error saving data, check body parameters";
+                    response.Data = value;
+                    return BadRequest(response);
+                }
+                response.Success = 1;
+                response.Message = "Object saved correctly";
+                response.Data = value.ToString();
+                //to do corregir el valor que se muestra
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -98,11 +112,24 @@ namespace FarmaciaWebAPI.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] ClientDTO value)
         {
+            var response = new RequestResponse();
             try
             {
-                return Ok("To do");
+                var result = await _manager.Update(id, value);
+                if (result == false)
+                {
+                    response.Success = 0;
+                    response.Message = "Error updating data, check body parameters";
+                    response.Data = value;
+                    return BadRequest(response);
+                }
+                response.Success = 1;
+                response.Message = "Object updated correctly";
+                response.Data = value.ToString();
+                //to do corregir el valor que se muestra
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -118,9 +145,21 @@ namespace FarmaciaWebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var response = new RequestResponse();
             try
             {
-                return Ok("To do");
+                var result = await _manager.Delete(id);
+                if (result == false)
+                {
+                    response.Success = 0;
+                    response.Message = "Error deleting data, the id does not exist or was not found";
+                    return BadRequest(response);
+                }
+                response.Success = 1;
+                response.Message = "Object deleted correctly";
+                
+                //to do corregir el valor que se muestra
+                return Ok(response);
             }
             catch (Exception ex)
             {

@@ -49,7 +49,8 @@ namespace FarmaciaWebAPI.Controllers
                 response.Message = "Login Successful";
                 // el cuerpo de la respuesta tiene los datos del usuario o el token de acceso
                 response.Data = userResponse;
-
+                return Ok(response);
+                //devolvemos la respuesta junto con el codigo http
 
             }
             catch (Exception ex)
@@ -61,10 +62,6 @@ namespace FarmaciaWebAPI.Controllers
                     );
 
             }
-
-            //devolvemos la respuesta junto con el codigo http
-            return Ok(response);
         }
-
     }
 }
