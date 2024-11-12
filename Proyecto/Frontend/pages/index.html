@@ -121,11 +121,21 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 <script>
   
-  
   // Existe un usuario logeado?
   if ("token" in sessionStorage === false ) {
       alert("Necesitas una sesion para acceder a este sitio, Logeate!");
       window.location = "/pages/login.html";
   }
+  
+  // Cerrar sesion evento on click
+  function eliminarClaveSessionStorage() {
+      const key = 'token'; 
+      sessionStorage.removeItem(key);
+      console.log(`La clave '${key}' ha sido eliminada del sessionStorage.`);
+  }
+  document.getElementById("btn-cerrar-sesion").onclick = eliminarClaveSessionStorage;
+  //
+
+  
 </script>
 </html>

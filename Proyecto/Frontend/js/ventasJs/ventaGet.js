@@ -35,7 +35,7 @@ $form_mostrar_venta.addEventListener('submit', async(e)=>{
 
     if (!validarCampos()) {
         alert("Por favor, completa los campos correctamente!");
-        return;
+        return false;
     }else{
         //Fetch get
         fetch((`${API_URL}Master/${venta.cod_venta}/${venta.fecha}/${venta.cliente}`), {
@@ -133,10 +133,28 @@ function formateoFecha(fechaISO){
     return fechaParseada;
 }
 
+// function que devuelve la fecha de hoy para comparar
+function fechaActual(){
+    let fecha = new Date();
+    let mes = (fecha.getMonth()+ 1).toString();
+    if (mes.length <=1){
+        mes = "0" + mes;
+    }
+    let dia = fecha.getDate().toString();
+    
+    if(dia.length <=1 ){
+        dia = "0" + dia;
+    }
+    fecha_hoy = fecha.getFullYear() + "-" + mes + "-" + dia;
+    
+    return fecha_hoy;
+}
+
+
 function validarCampos(){
 
     //Cod venta
-    if ( $cod_venta.value === '' | $cod_venta.value === null) {
+    if ( $cod_venta.value === "Seleccione una venta"  | $cod_venta.value === '' | $cod_venta.value === null) {
         document.getElementById('v_input_cod_venta_get').classList.add('inputError');
         return false;
     } else{
@@ -152,7 +170,7 @@ function validarCampos(){
     }
 
     // Fecha invalida
-    if($fecha.value > formateoFecha() | $fecha.value === '' | $fecha.value === null ){
+    if($fecha.value > fechaActual() | $fecha.value === '' | $fecha.value === null ){
         document.getElementById('v_input_fecha_get').classList.add('inputError'); 
         return false;
     } else{
@@ -204,6 +222,51 @@ async function cargarComponentes() {
             alert('Ocurrió un error al cargar el combo clientes');
     }
 }
+
+
+// cargar select ventas
+cargarComponentesVenta()
+
+async function cargarComponentesVenta() {
+    const cod_venta = $cod_venta.value;
+    try {
+        fetch((`${API_URL}Master/`), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `${token}`
+            }
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("respuesta 200, todo bien", res);
+            } else {
+                console.log("error");
+                console.log("res", res);
+            }
+
+            // const clientes = res.json();
+
+            ventasArray.forEach(v => {
+            const opciones = document.createElement('option');
+            opciones.value = v.cod_venta; 
+            opciones.textContent = v.cod_venta; 
+            $cod_venta.appendChild(opciones);
+        });
+    })
+    .then(msg => {
+        console.log('Respuesta del servidor: ', msg); 
+    })
+    .catch(error => {
+        console.error('Error:', error); 
+    });
+} catch (error) {
+        console.error('Error al cargar combo ventas:', error);
+        alert('Ocurrió un error al cargar el combo ventas!');
+}
+};
+
+
 
 
 // Array ventas, luego eliminar

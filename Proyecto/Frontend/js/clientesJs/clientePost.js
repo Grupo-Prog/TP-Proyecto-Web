@@ -37,8 +37,6 @@ $form_cargar_cliente.addEventListener('submit', async(e)=>{
     let cliente = {};
     cliente = cargarCampos(cliente);
 
-    // console.log("cliente", cliente);
-
     // Validar campos
     if (!validarCampos()) {
             alert("Por favor, completa los campos correctamente!")

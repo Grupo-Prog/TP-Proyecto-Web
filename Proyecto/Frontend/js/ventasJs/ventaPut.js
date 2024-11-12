@@ -98,11 +98,98 @@ function cargarCampos(){
     return venta;
 }
 
+// cargar select ventas
+cargarComponentesVentas()
+
+async function cargarComponentesVentas() {
+    const cod_venta = $cod_venta.value;
+    try {
+        fetch((`${API_URL}Master/}`), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `${token}`
+            }
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("respuesta 200, todo bien", res);
+            } else {
+                console.log("error");
+                console.log("res", res);
+            }
+
+            // const clientes = res.json();
+
+            ventasArray.forEach(v => {
+            const opciones = document.createElement('option');
+            opciones.value = v.cod_venta; 
+            opciones.textContent = v.cod_venta; 
+            $cod_venta.appendChild(opciones);
+        });
+    })
+    .then(msg => {
+        console.log('Respuesta del servidor: ', msg); 
+    })
+    .catch(error => {
+        console.error('Error:', error); 
+    });
+} catch (error) {
+        console.error('Error al cargar combo ventas:', error);
+        alert('Ocurrió un error al cargar el combo ventas!');
+}
+};
+
+
+// Cargar select de clientes
+cargarComponentes();
+
+async function cargarComponentes() {
+    try {
+        fetch((`${API_URL}Client`), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `${token}`
+            }
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("respuesta 200, todo bien", res);
+            } else {
+                console.log("error");
+                console.log("res", res);
+            }
+
+           //// convertir text a json
+            // const clientes = res.json();
+
+            // usando el array casero, luego poner la respuesta de la api
+            clientesArray.forEach(c => {
+            const opciones = document.createElement('option');
+            opciones.value = c.id; 
+            opciones.textContent = c.nombre; 
+            $cliente.appendChild(opciones);
+        });
+        })
+        .then(msg => {
+            console.log('Respuesta del servidor: ', msg); 
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+    } catch (error) {
+            console.error('Error al cargar combo clientes:', error);
+            alert('Ocurrió un error al cargar el combo clientes');
+    }
+}
+
+
 
 function validarCampos(){
 
     //Cod venta
-    if ( $cod_venta.value === '' | $cod_venta.value === null) {
+    if ( $cod_venta.value === "Seleccione una venta"  | $cod_venta.value === '' | $cod_venta.value === null) {
         document.getElementById('v_input_cod_venta_put').classList.add('inputError');
         return false;
     } else{
@@ -134,7 +221,7 @@ function validarCampos(){
     }
 
     //Cliente vacio
-    if($cliente.value === "Seleccione una venta"  | $cliente.value === '' | $cliente.value === null){
+    if($cliente.value === "Seleccione un cliente"  | $cliente.value === '' | $cliente.value === null){
         document.getElementById('v_input_cliente_put').classList.add('inputError');
         console.log($cliente.value);
         return false;
@@ -153,6 +240,8 @@ function validarCampos(){
 
     return true;
 }
+
+
 
 
 function fechaActual(){
@@ -218,46 +307,42 @@ const clientesArray = [
 ];
 
 
-// Cargar select de clientes
-cargarComponentes();
 
-async function cargarComponentes() {
-    try {
-        fetch((`${API_URL}Client`), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : `${token}`
-            }
-        })
-        .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-            } else {
-                console.log("error");
-                console.log("res", res);
-            }
 
-           //// convertir text a json
-            // const clientes = res.json();
-
-            // usando el array casero, luego poner la respuesta de la api
-            clientesArray.forEach(c => {
-            const opciones = document.createElement('option');
-            opciones.value = c.id; 
-            opciones.textContent = c.nombre; 
-            $cliente.appendChild(opciones);
-        });
-        })
-        .then(msg => {
-            console.log('Respuesta del servidor: ', msg); 
-        })
-        .catch(error => {
-            console.error('Error:', error); 
-        });
-    } catch (error) {
-            console.error('Error al cargar combo clientes:', error);
-            alert('Ocurrió un error al cargar el combo clientes');
+// Array ventas, luego eliminar
+const ventasArray = [
+    {
+        cod_venta: 1,
+        cliente: "Juan Pérez",
+        fecha: "2024-11-11",
+        total: 120,
+        detalle: [
+            { producto: { nombre: "Camiseta", precio: 15.5 }, cantidad: 2 },
+            { producto: { nombre: "Pantalones", precio: 50.0 }, cantidad: 1 },
+            { producto: { nombre: "Zapatos", precio: 39.5 }, cantidad: 1 }
+        ]
+    },
+    {
+        cod_venta: 2,
+        cliente: "María Gómez",
+        fecha: "2024-11-10",
+        total: 85.0,
+        detalle: [
+            { producto: { nombre: "Falda", precio: 25.0 }, cantidad: 1 },
+            { producto: { nombre: "Blusa", precio: 20.0 }, cantidad: 2 },
+            { producto: { nombre: "Cinturón", precio: 20.0 }, cantidad: 1 }
+        ]
+    },
+    {
+        cod_venta: 3,
+        cliente: "Carlos Ruiz",
+        fecha: "2024-11-09",
+        total: 150.0,
+        detalle: [
+            { producto: { nombre: "Chaqueta", valor: 75.0 }, cantidad: 1 },
+            { producto: { nombre: "Bufanda", valor: 15.0 }, cantidad: 1 },
+            { producto: { nombre: "Guantes", valor: 30.0 }, cantidad: 2 }
+        ]
     }
-}
-
+];
+// fin array 

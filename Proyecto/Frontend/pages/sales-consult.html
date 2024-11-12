@@ -35,12 +35,13 @@
 
     <div class="container mt-5">
         <form id="form_mostrar_venta"> 
-            <div class="d-flex justify-content-center mb-4"> 
-                <div class="col-md-4" id="v_input_cod_venta_get">
-                    <input type="number" class="form-control" list="datalistOptions"  min="1" id="cod_venta" placeholder="Consultar por el código de la venta"> <!-- input para codigo -->
+            <div class="d-flex justify-content-center mb-4">
+                <div class="col-md-4" id="v_input_cod_venta_get"> 
+                    <select class="form-select" id="cod_venta">
+                        <option selected>Seleccione una venta</option>
+                    </select>
                 </div>
             </div>
-            
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-4 d-flex justify-content-center">
                     <div class="col-md-12" id="v_input_cliente_get"> 
@@ -68,7 +69,7 @@
             </div>
         </form> 
 
- 
+
     <!-- begin -->
     <table class="table table-striped table-hover" id="cargarTabla">
         <thead class="table-success">
