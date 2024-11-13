@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccess.Context;
 using FarmaciaWebAPI.Interfaces;
 using FarmaciaWebAPI.Models.Request;
 using FarmaciaWebAPI.Models.Response;
@@ -13,14 +14,44 @@ namespace FarmaciaWebAPI.Controllers
 {
     [ApiController]
     [Authorize]
-
     [Route("api/[controller]")]
-    public class UserController(IUserService userService) : ControllerBase
+    public class UserController : ControllerBase
     {
-        // public UserController(IUserService userService)
-        // {
-        //     _userService = userService;
-        // }
+        private readonly IUserService<T_User> _userService;
+        public UserController(IUserService<T_User> userService)
+        {
+            _userService = userService;
+        }
+
+        //to do solo admin
+        [HttpGet]
+        
+        public async Task<IActionResult> Get()
+        {
+            var response = new RequestResponse();
+            try
+            {
+                var value = await _userService.GetAll();
+                if(value == null || value.Count == 0)
+                {
+                    response.Success = 0;
+                    response.Message = "Data not found or there was an error fetching it";
+                    return NotFound(response);
+                }
+                response.Success = 1;
+                response.Message = "Data fetched";
+                response.Data = value;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
+            }
+        }
 
         [AllowAnonymous]
         [Route("Login")]
@@ -33,7 +64,7 @@ namespace FarmaciaWebAPI.Controllers
             try
             {
                 //le pedimos al servicio que intente autentificar al usuario
-                var userResponse = await userService.Auth(request);
+                var userResponse = await _userService.Auth(request);
                 //si devuelve null es porque el usuario no est� en la base de datos
                 if (userResponse == null)
                 {
@@ -62,6 +93,15 @@ namespace FarmaciaWebAPI.Controllers
                     );
 
             }
+        }
+
+        [AllowAnonymous]
+        [Route("Register")]
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody]string value)
+        {
+            //to do
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,9 +10,9 @@ namespace FarmaciaWebAPI.Models.Request
     {
         // peticiones necesarias para la autenticacion del login
         [Required]
-        public string Username { get; set; }
+        public required string Email { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public required string Password { get; set; }
     }
 }

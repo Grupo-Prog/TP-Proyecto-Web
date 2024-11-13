@@ -1,5 +1,5 @@
-﻿using DataAccess.Interfaces;
-using DataAccess.Models;
+﻿using DataAccess.Context;
+using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using FarmaciaWebAPI.Interfaces;
 using FarmaciaWebAPI.Models.DTOs;
@@ -9,11 +9,11 @@ namespace FarmaciaWebAPI.Services
 {
     public class ClientService : IManager<ClientDTO>
     {
-        private readonly IRepository<ModeloCliente> _repo;
-        private readonly IMapperBase<ClientDTO,ModeloCliente> _mapper;
+        private readonly IRepository<T_Cliente> _repo;
+        private readonly IMapperBase<ClientDTO,T_Cliente> _mapper;
 
-        public ClientService(IRepository<ModeloCliente> clientRepository, 
-            IMapperBase<ClientDTO,ModeloCliente> clientMapper)
+        public ClientService(IRepository<T_Cliente> clientRepository, 
+            IMapperBase<ClientDTO,T_Cliente> clientMapper)
         {
             _repo = clientRepository;
             _mapper = clientMapper;

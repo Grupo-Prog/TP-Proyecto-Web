@@ -3,9 +3,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace DataAccess.Models;
+namespace DataAccess.Context;
 
-public partial class TCliente
+public partial class T_Cliente
 {
     public int Id { get; set; }
 
@@ -13,13 +13,13 @@ public partial class TCliente
 
     public string Apellido { get; set; }
 
-    public int Dni { get; set; }
+    public int? Dni { get; set; }
 
-    public string Email { get; set; }
+    public int? Telefono { get; set; }
 
-    public int? Tel { get; set; }
-
-    public DateOnly? FechaNac { get; set; }
+    public DateOnly? Fecha_nac { get; set; }
 
     public string ObraSocial { get; set; }
+
+    public virtual ICollection<T_Venta> Ventas { get; set; } = new List<T_Venta>();
 }

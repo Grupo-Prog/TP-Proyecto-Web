@@ -1,5 +1,5 @@
+using DataAccess.Context;
 using DataAccess.Interfaces;
-using DataAccess.Models;
 using DataAccess.Repositories;
 using FarmaciaWebAPI.Common;
 using FarmaciaWebAPI.Interfaces;
@@ -7,6 +7,7 @@ using FarmaciaWebAPI.Models.DTOs;
 using FarmaciaWebAPI.Services;
 using FarmaciaWebAPI.Tools.Mapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -77,7 +78,7 @@ builder.Services.AddSwaggerGen(swagger =>
 {
     //titulo
     swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "Farmacia Web API", Version = "v1" });
-
+    
     //boton authorize
     swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -99,7 +100,7 @@ builder.Services.AddSwaggerGen(swagger =>
                     Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
                     }
-                
+
             },
             new string[]{}
         }
@@ -107,19 +108,27 @@ builder.Services.AddSwaggerGen(swagger =>
 
 });
 
-//inyeccion de context
-builder.Services.AddScoped<FakeContext>();
+//Inyección del dbcontext
+var cnnString = builder.Configuration.GetConnectionString("FarmaciaWebAPI");
+
+builder.Services.AddDbContext<ApiDbContext>
+(options =>
+    options.UseSqlServer(cnnString)
+);
+
+
 //Inyección de Servicios
 builder.Services.AddScoped<IManager<ClientDTO>, ClientService>();
 //clase que maneja las peticiones del usuario
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService<T_User>, UserService>();
 
 //Inyección de Repositorios
-builder.Services.AddScoped<IRepository<ModeloCliente>, ClientRepository>();
+builder.Services.AddScoped<IRepository<T_Cliente>, ClientRepository>();
 builder.Services.AddScoped<UserRepository>();
 
 //Inyección de mapper
-builder.Services.AddScoped<IMapperBase<ClientDTO, ModeloCliente>, ClientMapper>();
+builder.Services.AddScoped<IMapperBase<ClientDTO, T_Cliente>, ClientMapper>();
+
 
 var app = builder.Build();
 

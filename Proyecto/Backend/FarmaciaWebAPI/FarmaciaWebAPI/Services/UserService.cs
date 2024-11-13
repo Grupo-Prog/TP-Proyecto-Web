@@ -1,6 +1,8 @@
+using DataAccess.Context;
 using DataAccess.Repositories;
 using FarmaciaWebAPI.Common;
 using FarmaciaWebAPI.Interfaces;
+using FarmaciaWebAPI.Interfaces.CRUD;
 using FarmaciaWebAPI.Models.Request;
 using FarmaciaWebAPI.Models.Response;
 using FarmaciaWebAPI.Tools;
@@ -18,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace FarmaciaWebAPI.Services
 {
-    public class UserService : IUserService
+    public class UserService : IUserService<T_User>, IGetAll<T_User>
     {
         private readonly Jwt _jwt;
         private readonly UserRepository _repo;
@@ -27,7 +29,23 @@ namespace FarmaciaWebAPI.Services
             _jwt = appSettingsSection.Value;
             _repo = repository;
         }
-        public async Task<UserResponse> Auth(AuthenticationRequest request)
+
+        //to do only admins
+        public async Task<List<T_User>?> GetAll()
+        {
+            return await _repo.GetAll(); 
+        }
+        //to do only admins
+        public Task<bool> Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<bool?> Register(/*RegisterRequest*/)
+        {
+            //to do
+            throw new NotImplementedException();
+        }
+        public async Task<UserResponse?> Auth(AuthenticationRequest request)
         {
             UserResponse response = new UserResponse();
             // buscar las credenciales en la base de datos
@@ -39,10 +57,10 @@ namespace FarmaciaWebAPI.Services
             {
                 //TO DO
                 //buscar los datos a traves de entity framework o repositorio
-                var usuario = await _repo.GetUser(request.Username, encriptedPassword);
+                var usuario = await _repo.GetUser(request.Email, encriptedPassword);
                 if (usuario == null) { return null; } 
                
-                response.Username = request.Username;
+                response.Email = request.Email;
                 response.Token = GetToken(request);
             }
             catch (Exception ex)
@@ -70,7 +88,7 @@ namespace FarmaciaWebAPI.Services
                         //new Claim (JwtRegisteredClaimNames.Sub, _jwt.Subject),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim(ClaimTypes.NameIdentifier, request.Username.Trim()),
+                        new Claim(ClaimTypes.NameIdentifier, request.Email.Trim()),
                         new Claim("Password", request.Password),
                         new Claim(ClaimTypes.Role,"user")
                     }),

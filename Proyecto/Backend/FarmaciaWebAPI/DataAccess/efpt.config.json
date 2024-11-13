@@ -1,12 +1,12 @@
 ﻿{
    "CodeGenerationMode": 4,
-   "ContextClassName": "FarmaciaPruebaContext",
+   "ContextClassName": "ApiDbContext",
    "ContextNamespace": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Models",
+   "OutputPath": "Context",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "DataAccess",
    "Schemas": null,
@@ -19,7 +19,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[T_Detalles_Ventas]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[T_Users]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[T_Ventas]",
          "ObjectType": 0
       }
    ],
@@ -27,7 +35,7 @@
    "UncountableWords": null,
    "UseAsyncStoredProcedureCalls": true,
    "UseBoolPropertiesWithoutDefaultSql": false,
-   "UseDatabaseNames": false,
+   "UseDatabaseNames": true,
    "UseDateOnlyTimeOnly": true,
    "UseDbContextSplitting": false,
    "UseDecimalDataAnnotationForSprocResult": true,

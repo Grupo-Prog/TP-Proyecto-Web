@@ -3,13 +3,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace DataAccess.Models;
+namespace DataAccess.Context;
 
-public partial class TUser
+public partial class T_User
 {
     public int Id { get; set; }
 
     public string Email { get; set; }
 
-    public string Password { get; set; }
+    public string Contraseña { get; set; }
 }

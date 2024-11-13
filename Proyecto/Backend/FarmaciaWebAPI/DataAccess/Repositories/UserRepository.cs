@@ -1,44 +1,50 @@
-﻿using DataAccess.Interfaces;
-using DataAccess.Models;
+﻿using DataAccess.Context;
+using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DataAccess.Models.FakeContext;
+
 
 namespace DataAccess.Repositories
 {
-    public class UserRepository 
+    public class UserRepository
     {
-        private readonly FakeContext _context;
-        public UserRepository(FakeContext context) 
+        private readonly ApiDbContext _context;
+
+        public UserRepository(ApiDbContext context)
         {
             _context = context;
         }
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            //TO DO
-            throw new NotImplementedException();
+            var deleted = _context.T_Users.Find(id);
+            if(deleted == null) { return false; }
+            _context.T_Users.Remove(deleted);
+            return 1 == await _context.SaveChangesAsync();
         }
 
-        public async Task<User?> GetUser(string username, string password)
+        public async Task<List<T_User>?> GetAll()
         {
-            var user = _context.Users.FirstOrDefault(p => p.Username == username && p.Password == password);
-            //var user =  await _context.Set<User>().Where(p => p.Username == username && p.Password == password).FirstOrDefaultAsync();
-            if(user == null) { return null; }
+            var lst = await _context.T_Users.ToListAsync();
+            if (lst.Count == 0 || lst == null) { return null; }
+            return lst;
+        }
+        public async Task<T_User?> GetUser(string email, string password)
+        {
+            var user = await _context.T_Users.Where(p => 
+            p.Email == email && p.Contraseña == password).FirstOrDefaultAsync();
+            if (user == null) { return null; }
             return user;
         }
 
-        public Task<bool> Save(User entity)
+        public async Task<bool> Save(T_User entity)
         {
-            throw new NotImplementedException();
+            _context.T_Users.Add(entity);
+            return 1 == await _context.SaveChangesAsync();
         }
 
-        public Task<bool> Update(User entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

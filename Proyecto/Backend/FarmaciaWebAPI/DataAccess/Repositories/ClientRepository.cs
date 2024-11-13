@@ -1,5 +1,5 @@
-﻿using DataAccess.Interfaces;
-using DataAccess.Models;
+﻿using DataAccess.Context;
+using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public class ClientRepository : IRepository<ModeloCliente>
+    public class ClientRepository : IRepository<T_Cliente>
     {
-        private readonly FakeContext _context;
-        public ClientRepository(FakeContext context)
+        private readonly ApiDbContext _context;
+        public ClientRepository(ApiDbContext context)
         {
             _context = context;
         }
@@ -21,37 +21,39 @@ namespace DataAccess.Repositories
         {
             //TO DO
             //remplazar por entity framework
-            var deleted = _context.Set<ModeloCliente>().Where(p => p.Id == id).FirstOrDefault();
+            var deleted = _context.Set<T_Cliente>().Where(p => p.Id == id).FirstOrDefault();
             if (deleted != null) { return false; }
-            _context.Set<ModeloCliente>().Remove(deleted);
+            _context.Set<T_Cliente>().Remove(deleted);
             return 1 == await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ModeloCliente>?> GetAll()
+        public async Task<List<T_Cliente>?> GetAll()
         {
-            return await _context.Set<ModeloCliente>().ToListAsync();
+            return await _context.Set<T_Cliente>().ToListAsync();
         }
 
-        public async Task<ModeloCliente?> GetById(int id)
+        public async Task<T_Cliente?> GetById(int id)
         {
-            return await _context.Set<ModeloCliente>().FindAsync(id);
+            return await _context.Set<T_Cliente>().FindAsync(id);
         }
 
-        public async Task<bool> Save(ModeloCliente entity)
+        public async Task<bool> Save(T_Cliente entity)
         {
-            _context.Set<ModeloCliente>().Add(entity);
+            _context.Set<T_Cliente>().Add(entity);
             return 1 == await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> Update(ModeloCliente entity)
+        public async Task<bool> Update(T_Cliente entity)
         {
-            var current = _context.Set<ModeloCliente>().Find(entity.Id);
+            var current = _context.Set<T_Cliente>().Find(entity.Id);
             if(current == null) { return false; }
             
             current.Nombre = entity.Nombre;
             current.Apellido = entity.Apellido;
-            current.Direccion = entity.Direccion;
+            current.Dni = entity.Dni;
             current.Telefono = entity.Telefono;
+            current.Fecha_nac = entity.Fecha_nac;
+            current.ObraSocial = entity.ObraSocial;
 
             return 1 == await _context.SaveChangesAsync();
         }
