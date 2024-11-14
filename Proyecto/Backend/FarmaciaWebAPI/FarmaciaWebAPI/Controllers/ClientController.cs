@@ -41,12 +41,14 @@ namespace FarmaciaWebAPI.Controllers
             }
             catch (Exception ex)
             {
-
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
 
@@ -71,11 +73,14 @@ namespace FarmaciaWebAPI.Controllers
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
 
@@ -95,18 +100,21 @@ namespace FarmaciaWebAPI.Controllers
                     return BadRequest(response);
                 }
                 response.Success = 1;
-                response.Message = "Object saved correctly";
+                response.Message = "Data saved correctly";
                 response.Data = value.ToString();
                 //to do corregir el valor que se muestra
                 return Ok(response);
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
 
@@ -126,18 +134,21 @@ namespace FarmaciaWebAPI.Controllers
                     return BadRequest(response);
                 }
                 response.Success = 1;
-                response.Message = "Object updated correctly";
+                response.Message = "Data updated correctly";
                 response.Data = value.ToString();
                 //to do corregir el valor que se muestra
                 return Ok(response);
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
 
@@ -156,18 +167,21 @@ namespace FarmaciaWebAPI.Controllers
                     return BadRequest(response);
                 }
                 response.Success = 1;
-                response.Message = "Object deleted correctly";
+                response.Message = "Data deleted correctly";
                 
                 //to do corregir el valor que se muestra
                 return Ok(response);
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"api/",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
     }

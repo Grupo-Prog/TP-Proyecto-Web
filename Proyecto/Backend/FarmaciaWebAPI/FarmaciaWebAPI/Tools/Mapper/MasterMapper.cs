@@ -50,9 +50,9 @@ namespace FarmaciaWebAPI.Tools.Mapper
             {
                 Id = dto.Id,
                 Fecha = dto.Fecha,
-                TotalVenta = dto.TotalVenta,
-                cod_cliente = dto.Cliente.Id,
-                
+                Detalles = _mapperDetail.Set(dto.Detalle),
+                TotalVenta = dto.CalculateTotal(),
+                cod_cliente = dto.Cliente.Id
             };
             return entity;
         }

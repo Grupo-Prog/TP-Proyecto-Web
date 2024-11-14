@@ -93,6 +93,7 @@ namespace FarmaciaWebAPI.Services
                         new Claim("Password", request.Password),
                         new Claim(ClaimTypes.Role,"user")
                     }),
+                //to do poner 5 minutos
                 Expires = DateTime.UtcNow.AddMinutes(55),
                 SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

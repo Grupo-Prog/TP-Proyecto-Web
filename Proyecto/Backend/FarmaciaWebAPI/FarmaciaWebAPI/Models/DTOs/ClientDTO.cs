@@ -21,7 +21,16 @@ namespace FarmaciaWebAPI.Models.DTOs
 
         public string ObraSocial { get; set; }
 
-
+        public ClientDTO()
+        {
+            Id = 0;
+            Nombre = string.Empty;
+            Apellido = string.Empty;
+            Dni = 0;
+            Telefono = 0;
+            Fecha_nac = null;
+            ObraSocial = string.Empty;
+        }
 
     }
 }

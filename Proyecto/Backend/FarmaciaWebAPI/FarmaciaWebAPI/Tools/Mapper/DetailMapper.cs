@@ -15,7 +15,7 @@ namespace FarmaciaWebAPI.Tools.Mapper
                 Producto = dto.Producto,
                 Precio = dto.Precio,
                 Cantidad = dto.Cantidad,
-                TotalDetalle = dto.TotalDetalle
+                TotalDetalle = dto.CalcualteTotal()
             };
             return entity;
 

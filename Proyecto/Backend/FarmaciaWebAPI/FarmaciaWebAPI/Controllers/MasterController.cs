@@ -1,11 +1,13 @@
 ﻿using Azure;
 using FarmaciaWebAPI.Interfaces;
 using FarmaciaWebAPI.Models.DTOs;
+using FarmaciaWebAPI.Models.Request;
 using FarmaciaWebAPI.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 
 namespace FarmaciaWebAPI.Controllers
@@ -40,11 +42,14 @@ namespace FarmaciaWebAPI.Controllers
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
 
@@ -56,7 +61,7 @@ namespace FarmaciaWebAPI.Controllers
             try
             {
                 var value = await _manager.GetByIdAsync(id);
-                if(value == null)
+                if (value == null)
                 {
                     response.Success = 0;
                     response.Message = "Data is null. Was not found or there was an error fetching it";
@@ -80,19 +85,33 @@ namespace FarmaciaWebAPI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] MasterSaveRequest value)
         {
+            var response = new RequestResponse();
             try
             {
-                return Ok("To do");
+
+                var result = await _manager.SaveAsync(value.Convert(value.Venta));
+                if (result == false)
+                {
+                    response.Success = 0;
+                    response.Message = "Error saving data, check body parameters";
+                    return BadRequest(response);
+                }
+                response.Success = 1;
+                response.Message = "Data saved correctly";
+                return Ok(response);
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
 
@@ -100,17 +119,31 @@ namespace FarmaciaWebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] string value)
         {
+            var response = new RequestResponse();
             try
             {
-                return Ok("To do");
+                //to do corregir el metodo
+                var result = await _manager.DeleteAsync(id);
+                if (!result)
+                {
+                    response.Success = 0;
+                    response.Message = "Error deleting data, the ID was not found or it does not exist";
+                    return BadRequest(response);
+                }
+                response.Success = 1;
+                response.Message = "Data deleted correctly";
+                return Ok(response);
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
 
@@ -118,17 +151,30 @@ namespace FarmaciaWebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var response = new RequestResponse();
             try
             {
-                return Ok("To do");
+                var result = await _manager.DeleteAsync(id);
+                if (!result)
+                {
+                    response.Success = 0;
+                    response.Message = "Error deleting data, the ID was not found or it does not exist";
+                    return BadRequest(response);
+                }
+                response.Success = 1;
+                response.Message = "Data deleted correctly";
+                return Ok(response);
             }
             catch (Exception ex)
             {
+                string innerEx = "";
+                if (ex.InnerException != null) { innerEx = ex.InnerException.Message; }
                 return Problem(
-                    detail: ex.Message,
-                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
-                    statusCode: 500, title: "Internal error"
-                    );
+                title: $"Internal error: {ex.Message}",
+                detail: innerEx,
+                instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                statusCode: 500
+                );
             }
         }
     }
