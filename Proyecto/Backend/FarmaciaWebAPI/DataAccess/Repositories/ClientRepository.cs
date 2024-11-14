@@ -17,35 +17,33 @@ namespace DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            //TO DO
-            //remplazar por entity framework
-            var deleted = _context.Set<T_Cliente>().Where(p => p.Id == id).FirstOrDefault();
-            if (deleted != null) { return false; }
-            _context.Set<T_Cliente>().Remove(deleted);
+            var deleted = _context.T_Clientes.Where(p => p.Id == id).FirstOrDefault();
+            if (deleted == null) { return false; }
+            _context.T_Clientes.Remove(deleted);
             return 1 == await _context.SaveChangesAsync();
         }
 
-        public async Task<List<T_Cliente>?> GetAll()
+        public async Task<List<T_Cliente>?> GetAllAsync()
         {
-            return await _context.Set<T_Cliente>().ToListAsync();
+            return await _context.T_Clientes.ToListAsync();
         }
 
-        public async Task<T_Cliente?> GetById(int id)
+        public async Task<T_Cliente?> GetByIdAsync(int id)
         {
-            return await _context.Set<T_Cliente>().FindAsync(id);
+            return await _context.T_Clientes.FindAsync(id);
         }
 
-        public async Task<bool> Save(T_Cliente entity)
+        public async Task<bool> SaveAsync(T_Cliente entity)
         {
-            _context.Set<T_Cliente>().Add(entity);
+            _context.T_Clientes.Add(entity);
             return 1 == await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> Update(T_Cliente entity)
+        public async Task<bool> UpdateAsync(int id, T_Cliente entity)
         {
-            var current = _context.Set<T_Cliente>().Find(entity.Id);
+            var current = _context.T_Clientes.Find(id);
             if(current == null) { return false; }
             
             current.Nombre = entity.Nombre;

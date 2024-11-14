@@ -2,6 +2,6 @@
 {
     public interface ICreateable<T>
     {
-        Task<bool> Save(T entity);
+        Task<bool> SaveAsync(T entity);
     }
 }

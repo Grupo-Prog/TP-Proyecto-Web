@@ -18,39 +18,37 @@ namespace FarmaciaWebAPI.Services
             _repo = clientRepository;
             _mapper = clientMapper;
         }
-        //TO DO cambiar el context
-        public async Task<bool> Delete(int id)
+       
+        public async Task<bool> DeleteAsync(int id)
         {
-            return await _repo.Delete(id);
+            return await _repo.DeleteAsync(id);
         }
 
-        public async Task<List<ClientDTO>> GetAll()
+        public async Task<List<ClientDTO>?> GetAllAsync()
         {
-            var lst = await _repo.GetAll();
-            if(lst == null || lst.Count == 0) return null;
+            var lst = await _repo.GetAllAsync();
+            if (lst == null || lst.Count == 0) return null;
             return _mapper.Get(lst);
         }
 
-        public async Task<ClientDTO> GetById(int id)
+        public async Task<ClientDTO?> GetByIdAsync(int id)
         {
-            var value = await _repo.GetById(id);
-            if (value == null) return null;
-            return _mapper.Get(value);
+            var entity = await _repo.GetByIdAsync(id);
+            return _mapper.Get(entity);
         }
 
-        public async Task<bool> Save(ClientDTO dto)
+        public async Task<bool> SaveAsync(ClientDTO dto)
         {
             var entity = _mapper.Set(dto);
             if(entity == null) return false;
-            return await _repo.Save(entity);
+            return await _repo.SaveAsync(entity);
         }
 
-        public async Task<bool> Update(int id, ClientDTO dto)
+        public async Task<bool> UpdateAsync(int id, ClientDTO dto)
         {
             var entity = _mapper.Set(dto);
             if(entity == null) return false;
-            entity.Id = id;
-            return await _repo.Update(entity);
+            return await _repo.UpdateAsync(id, entity);
         }
     }
 }

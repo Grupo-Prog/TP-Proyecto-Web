@@ -28,12 +28,15 @@ public partial class ApiDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("pk_cliente");
 
             entity.Property(e => e.Apellido)
+                .HasColumnName("apellido")
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Nombre)
+                .HasColumnName("nombre")
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.ObraSocial)
+                .HasColumnName("obra_social")
                 .HasMaxLength(50)
                 .IsUnicode(false);
         });

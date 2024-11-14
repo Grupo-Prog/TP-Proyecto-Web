@@ -27,11 +27,11 @@ namespace FarmaciaWebAPI.Controllers
             var response = new RequestResponse();
             try
             {
-                var value = await _manager.GetAll();
-                if (value == null || value.Count == 0)
+                var value = await _manager.GetAllAsync();
+                if (value == null)
                 {
                     response.Success = 0;
-                    response.Message = "Data not found or there was an error fetching it";
+                    response.Message = "Data is null. Was not found or there was an error fetching it";
                     return NotFound(response);
                 };
                 response.Success = 1;
@@ -57,7 +57,7 @@ namespace FarmaciaWebAPI.Controllers
             var response = new RequestResponse();
             try
             {
-                var value = await _manager.GetById(id);
+                var value = await _manager.GetByIdAsync(id);
                 if (value == null)
                 {
                     response.Success = 0;
@@ -86,7 +86,7 @@ namespace FarmaciaWebAPI.Controllers
             var response = new RequestResponse();
             try
             {
-                var result = await _manager.Save(value);
+                var result = await _manager.SaveAsync(value);
                 if (result == false)
                 {
                     response.Success = 0;
@@ -117,7 +117,7 @@ namespace FarmaciaWebAPI.Controllers
             var response = new RequestResponse();
             try
             {
-                var result = await _manager.Update(id, value);
+                var result = await _manager.UpdateAsync(id, value);
                 if (result == false)
                 {
                     response.Success = 0;
@@ -148,11 +148,11 @@ namespace FarmaciaWebAPI.Controllers
             var response = new RequestResponse();
             try
             {
-                var result = await _manager.Delete(id);
+                var result = await _manager.DeleteAsync(id);
                 if (result == false)
                 {
                     response.Success = 0;
-                    response.Message = "Error deleting data, the id does not exist or was not found";
+                    response.Message = "Error deleting data, the ID was not found or it does not exist";
                     return BadRequest(response);
                 }
                 response.Success = 1;

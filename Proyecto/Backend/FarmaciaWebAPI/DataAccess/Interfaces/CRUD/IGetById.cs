@@ -2,6 +2,6 @@
 {
     public interface IGetById<T>
     {
-        Task<T> GetById(int id);
+        Task<T?> GetByIdAsync(int id);
     }
 }

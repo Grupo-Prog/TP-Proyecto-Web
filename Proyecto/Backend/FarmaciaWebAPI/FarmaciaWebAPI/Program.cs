@@ -106,6 +106,8 @@ builder.Services.AddSwaggerGen(swagger =>
         }
     });
 
+    //permite usar anotaciones para que swagger filtre propiedades
+    swagger.EnableAnnotations();
 });
 
 //Inyección del dbcontext
@@ -124,10 +126,10 @@ builder.Services.AddScoped<IUserService<T_User>, UserService>();
 
 //Inyección de Repositorios
 builder.Services.AddScoped<IRepository<T_Cliente>, ClientRepository>();
-builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<IUserRepository<T_User>, UserRepository>();
 
 //Inyección de mapper
-builder.Services.AddScoped<IMapperBase<ClientDTO, T_Cliente>, ClientMapper>();
+builder.Services.AddScoped<IMapperBase<ClientDTO, T_Cliente>, MapperBase<ClientDTO, T_Cliente>>();
 
 
 var app = builder.Build();

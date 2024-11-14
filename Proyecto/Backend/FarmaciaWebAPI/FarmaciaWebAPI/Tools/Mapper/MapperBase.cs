@@ -18,14 +18,17 @@ namespace FarmaciaWebAPI.Tools.Mapper
                 var propValue = property.GetValue(fromValue);
                 //las propiedades de ambas clases deben tener el mismo nombre
                 // y mismo tipo
-                whereToValue.GetType().GetProperty(propName).SetValue(whereToValue, propValue);
+                var type = whereToValue.GetType();
+                var prop = type.GetProperty(propName);
+                if (prop == null) { throw new InvalidOperationException($"Could not transfer property {propName}"); }
+                prop.SetValue(whereToValue, propValue);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
-        public Output Set(Input dto)
+        public Output? Set(Input? dto)
         {
             if (dto == null) { return default; }
             Output entity = new Output();
@@ -36,7 +39,7 @@ namespace FarmaciaWebAPI.Tools.Mapper
             }
             return entity;
         }
-        public Input Get(Output entity)
+        public Input? Get(Output? entity)
         {
             if (entity == null) { return default; }
             Input dto = new Input();
@@ -47,24 +50,29 @@ namespace FarmaciaWebAPI.Tools.Mapper
             }
             return dto;
         }
-        public List<Output> Set(List<Input> dtoList)
+        public List<Output>? Set(List<Input>? dtoList)
         {
             if (dtoList == null || dtoList.Count == 0) { return default; }
             List<Output> lst = new List<Output>();
-            foreach (Input entity in dtoList)
+            foreach (Input dto in dtoList)
             {
-                lst.Add(Set(entity));
+                var item = Set(dto);
+                if (item == null) { continue; }
+                lst.Add(item);
             }
             return lst;
         }
-        public List<Input> Get(List<Output> entityList)
+        public List<Input>? Get(List<Output>? entityList)
         {
-            List<Input> lst = new List<Input>();
-            foreach (Output dto in entityList)
+            if (entityList == null || entityList.Count == 0) { return default; }
+            List<Input> dtoList = new List<Input>();
+            foreach (Output entity in entityList)
             {
-                lst.Add(Get(dto));
+                var item = Get(entity);
+                if (item == null) { continue; }
+                dtoList.Add(item);
             }
-            return lst;
+            return dtoList;
         }
     }
 }

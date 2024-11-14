@@ -2,9 +2,9 @@
 {
     public interface IMapperBase <Input,Output>
     {
-        Output Set(Input dto);
-        Input Get(Output entity);
-        List<Output> Set(List<Input> dtoList);
-        List<Input> Get(List<Output> entityList);
+        Output? Set(Input? entity);
+        Input? Get(Output? entity);
+        List<Output>? Set(List<Input>? entityList);
+        List<Input>? Get(List<Output>? entityList);
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IGetAll<T>
     {
-        Task<List<T>> GetAll();
+        Task<List<T>?> GetAllAsync();
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IDeleteable<T>
     {
-        Task<bool> Delete(int id);
+        Task<bool> DeleteAsync(int id);
     }
 }

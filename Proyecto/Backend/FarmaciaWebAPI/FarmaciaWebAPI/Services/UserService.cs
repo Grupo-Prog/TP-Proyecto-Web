@@ -1,4 +1,5 @@
 using DataAccess.Context;
+using DataAccess.Interfaces;
 using DataAccess.Repositories;
 using FarmaciaWebAPI.Common;
 using FarmaciaWebAPI.Interfaces;
@@ -20,27 +21,28 @@ using System.Threading.Tasks;
 
 namespace FarmaciaWebAPI.Services
 {
-    public class UserService : IUserService<T_User>, IGetAll<T_User>
+    public class UserService : IUserService<T_User>
     {
         private readonly Jwt _jwt;
-        private readonly UserRepository _repo;
-        public UserService(IOptions<Jwt> appSettingsSection, UserRepository repository)
+        private readonly IUserRepository<T_User> _repo;
+        public UserService(IOptions<Jwt> appSettingsSection, IUserRepository<T_User> repository)
         {
             _jwt = appSettingsSection.Value;
             _repo = repository;
         }
 
         //to do only admins
-        public async Task<List<T_User>?> GetAll()
+        public async Task<List<T_User>?> GetAllAsync()
         {
-            return await _repo.GetAll(); 
+            //to do desencriptar pw
+            return await _repo.GetAllAsync(); 
         }
         //to do only admins
-        public Task<bool> Delete(int id)
+        public Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
-        public async Task<bool?> Register(/*RegisterRequest*/)
+        public async Task<bool> Register(/*RegisterRequest*/)
         {
             //to do
             throw new NotImplementedException();
@@ -57,23 +59,22 @@ namespace FarmaciaWebAPI.Services
             {
                 //TO DO
                 //buscar los datos a traves de entity framework o repositorio
-                var usuario = await _repo.GetUser(request.Email, encriptedPassword);
+                var usuario = await _repo.GetUserAsync(request.Email, encriptedPassword);
                 if (usuario == null) { return null; } 
                
                 response.Email = request.Email;
+                response.Password = request.Password;
                 response.Token = GetToken(request);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
-                throw ex;
+                throw;
             }
             return response;
         }
         private string GetToken(AuthenticationRequest request)
         {
-            //_jwt.Issuer,_jwt.Audience, claims: null, expires: DateTime.UtcNow.AddMinutes(5), signingCredentials: 
-
             var tokenHandler = new JwtSecurityTokenHandler();
             //accedemos a la clave secreta y creamos la llave
             //codificandola en un arreglo de bytes
@@ -92,7 +93,7 @@ namespace FarmaciaWebAPI.Services
                         new Claim("Password", request.Password),
                         new Claim(ClaimTypes.Role,"user")
                     }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddMinutes(55),
                 SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

@@ -25,14 +25,14 @@ namespace FarmaciaWebAPI.Controllers
 
         //to do solo admin
         [HttpGet]
-        
+
         public async Task<IActionResult> Get()
         {
             var response = new RequestResponse();
             try
             {
-                var value = await _userService.GetAll();
-                if(value == null || value.Count == 0)
+                var value = await _userService.GetAllAsync();
+                if (value == null)
                 {
                     response.Success = 0;
                     response.Message = "Data not found or there was an error fetching it";
@@ -98,10 +98,48 @@ namespace FarmaciaWebAPI.Controllers
         [AllowAnonymous]
         [Route("Register")]
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody]string value)
+        public async Task<IActionResult> Register([FromBody] string value)
         {
-            //to do
-            throw new NotImplementedException();
+            var response = new RequestResponse();
+            try
+            {
+                if(!await _userService.Register())
+                {
+                    response.Success = 0;
+                    response.Message = "Could not register, verify body parameters";
+                    return BadRequest(response);
+                }
+                response.Success = 1;
+                response.Message = "User registered correctly";
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
+
+            }
+        }
+
+        //to do solo admin
+        [HttpDelete("User/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                return Ok("to do");
+            }
+            catch (Exception ex)
+            {
+                return Problem(
+                    detail: ex.Message,
+                    instance: $"{HttpContext.Request.GetEncodedUrl()}",
+                    statusCode: 500, title: "Internal error"
+                    );
+            }
         }
     }
 }

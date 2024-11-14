@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FarmaciaWebAPI.Interfaces
 {
-    public interface IUserService<UserType> : IDeleteable<UserType>,IGetAll<UserType>
+    public interface IUserService<UserType> : IDeleteable<UserType>, IGetAll<UserType>
     {
         //devuelve una Respuesta
         //se le ingresa una peticion de autenticación
         Task<UserResponse?> Auth(AuthenticationRequest request);
-        Task<bool?> Register(); 
+        Task<bool> Register(); 
     }
 }
