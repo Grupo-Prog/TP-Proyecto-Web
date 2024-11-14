@@ -28,7 +28,7 @@ namespace FarmaciaWebAPI.Tools.Mapper
                 throw;
             }
         }
-        public Output? Set(Input? dto)
+        public virtual Output? Set(Input? dto)
         {
             if (dto == null) { return default; }
             Output entity = new Output();
@@ -39,7 +39,7 @@ namespace FarmaciaWebAPI.Tools.Mapper
             }
             return entity;
         }
-        public Input? Get(Output? entity)
+        public virtual Input? Get(Output? entity)
         {
             if (entity == null) { return default; }
             Input dto = new Input();
@@ -50,7 +50,7 @@ namespace FarmaciaWebAPI.Tools.Mapper
             }
             return dto;
         }
-        public List<Output>? Set(List<Input>? dtoList)
+        public virtual List<Output>? Set(List<Input>? dtoList)
         {
             if (dtoList == null || dtoList.Count == 0) { return default; }
             List<Output> lst = new List<Output>();
@@ -62,7 +62,7 @@ namespace FarmaciaWebAPI.Tools.Mapper
             }
             return lst;
         }
-        public List<Input>? Get(List<Output>? entityList)
+        public virtual List<Input>? Get(List<Output>? entityList)
         {
             if (entityList == null || entityList.Count == 0) { return default; }
             List<Input> dtoList = new List<Input>();

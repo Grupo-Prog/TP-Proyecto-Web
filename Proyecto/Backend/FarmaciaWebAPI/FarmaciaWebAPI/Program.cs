@@ -78,7 +78,7 @@ builder.Services.AddSwaggerGen(swagger =>
 {
     //titulo
     swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "Farmacia Web API", Version = "v1" });
-    
+
     //boton authorize
     swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -120,17 +120,20 @@ builder.Services.AddDbContext<ApiDbContext>
 
 
 //Inyección de Servicios
+builder.Services.AddScoped<IManager<MasterDTO>, MasterService>();
 builder.Services.AddScoped<IManager<ClientDTO>, ClientService>();
 //clase que maneja las peticiones del usuario
 builder.Services.AddScoped<IUserService<T_User>, UserService>();
 
 //Inyección de Repositorios
+builder.Services.AddScoped<IRepository<T_Venta>, MasterRepository>();
 builder.Services.AddScoped<IRepository<T_Cliente>, ClientRepository>();
 builder.Services.AddScoped<IUserRepository<T_User>, UserRepository>();
 
 //Inyección de mapper
 builder.Services.AddScoped<IMapperBase<ClientDTO, T_Cliente>, MapperBase<ClientDTO, T_Cliente>>();
-
+builder.Services.AddScoped<IMapperBase<MasterDTO, T_Venta>, MasterMapper>();
+builder.Services.AddScoped <DetailMapper>();
 
 var app = builder.Build();
 

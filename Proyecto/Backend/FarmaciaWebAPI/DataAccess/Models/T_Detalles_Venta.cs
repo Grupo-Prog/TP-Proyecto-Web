@@ -2,6 +2,8 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Context;
 
@@ -9,6 +11,7 @@ public partial class T_Detalles_Venta
 {
     public int Id { get; set; }
 
+    [Column("nro_detalle")]
     public int? NroDetalle { get; set; }
 
     public string Producto { get; set; }

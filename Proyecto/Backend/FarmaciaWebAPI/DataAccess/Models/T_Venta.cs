@@ -15,6 +15,7 @@ public partial class T_Venta
 
     public decimal? TotalVenta { get; set; }
 
+    
     public virtual ICollection<T_Detalles_Venta> Detalles { get; set; } = new List<T_Detalles_Venta>();
 
     public virtual T_Cliente cod_clienteNavigation { get; set; }

@@ -46,10 +46,13 @@ public partial class ApiDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("pk_detalle");
 
             entity.Property(e => e.Producto)
+                .HasColumnName("nombre_producto")
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Precio).HasColumnType("money");
-            entity.Property(e => e.TotalDetalle).HasColumnType("money");
+            entity.Property(e => e.TotalDetalle)
+                .HasColumnName("total_detalle")
+                .HasColumnType("money");
 
             entity.HasOne(d => d.cod_ventaNavigation).WithMany(p => p.Detalles)
                 .HasForeignKey(d => d.cod_venta)
@@ -72,7 +75,7 @@ public partial class ApiDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("pk_venta");
 
-            entity.Property(e => e.TotalVenta).HasColumnType("money");
+            entity.Property(e => e.TotalVenta).HasColumnName("total_venta").HasColumnType("money");
 
             entity.HasOne(d => d.cod_clienteNavigation).WithMany(p => p.Ventas)
                 .HasForeignKey(d => d.cod_cliente)
