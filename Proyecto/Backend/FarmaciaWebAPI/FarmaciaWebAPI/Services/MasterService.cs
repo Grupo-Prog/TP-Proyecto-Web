@@ -1,16 +1,17 @@
 ﻿using DataAccess.Context;
 using DataAccess.Interfaces;
+using DataAccess.Repositories;
 using FarmaciaWebAPI.Interfaces;
 using FarmaciaWebAPI.Models.DTOs;
 
 namespace FarmaciaWebAPI.Services
 {
-    public class MasterService : IManager<MasterDTO>
+    public class MasterService : IMasterService
     {
-        private readonly IRepository<T_Venta> _repo;
+        private readonly IMasterRepository _repo;
         private readonly IMapperBase<MasterDTO, T_Venta> _mapper;
         private readonly IManager<ClientDTO> _managerClient;
-        public MasterService(IRepository<T_Venta> repository, IMapperBase<MasterDTO, T_Venta> mapper,
+        public MasterService(IMasterRepository repository, IMapperBase<MasterDTO, T_Venta> mapper,
             IManager<ClientDTO> manager)
         {
             _repo = repository;
@@ -21,7 +22,14 @@ namespace FarmaciaWebAPI.Services
         {
             return await _repo.DeleteAsync(id);
         }
-
+        public async Task<List<MasterDTO>?> IsOrdered(bool order)
+        {
+            if (order == true)
+            {
+                return _mapper.Get(await _repo.GetOrderedAsync());
+            }
+            return await GetAllAsync();
+        }
         public async Task<List<MasterDTO>?> GetAllAsync()
         {
             return _mapper.Get(await _repo.GetAllAsync());

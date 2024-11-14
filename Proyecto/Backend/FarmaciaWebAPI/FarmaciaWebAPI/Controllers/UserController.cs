@@ -26,7 +26,7 @@ namespace FarmaciaWebAPI.Controllers
         //to do solo admin
         [HttpGet]
 
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromBody]bool order = false)
         {
             var response = new RequestResponse();
             try

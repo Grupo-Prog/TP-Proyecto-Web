@@ -120,13 +120,13 @@ builder.Services.AddDbContext<ApiDbContext>
 
 
 //Inyección de Servicios
-builder.Services.AddScoped<IManager<MasterDTO>, MasterService>();
+builder.Services.AddScoped<IMasterService, MasterService>();
 builder.Services.AddScoped<IManager<ClientDTO>, ClientService>();
 //clase que maneja las peticiones del usuario
 builder.Services.AddScoped<IUserService<T_User>, UserService>();
 
 //Inyección de Repositorios
-builder.Services.AddScoped<IRepository<T_Venta>, MasterRepository>();
+builder.Services.AddScoped<IMasterRepository, MasterRepository>();
 builder.Services.AddScoped<IRepository<T_Cliente>, ClientRepository>();
 builder.Services.AddScoped<IUserRepository<T_User>, UserRepository>();
 

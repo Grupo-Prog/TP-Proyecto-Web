@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories
 {
-    public class MasterRepository : IRepository<T_Venta>
+    public class MasterRepository : IMasterRepository
     {
         private readonly ApiDbContext _context;
         public MasterRepository(ApiDbContext context)
@@ -34,12 +34,20 @@ namespace DataAccess.Repositories
             }
             return deletedRegs == detailCount + 1; //+1 por el registro de la venta
         }
-
+        public async Task<List<T_Venta>?> GetOrderedAsync()
+        {
+            return await _context.T_Ventas
+                .Include(e => e.cod_clienteNavigation)
+                .Include(e => e.Detalles)
+                .OrderByDescending(e => e.TotalVenta)
+                .ToListAsync();
+        }
         public async Task<List<T_Venta>?> GetAllAsync()
         {
             return await _context.T_Ventas
                 .Include(e => e.cod_clienteNavigation)
                 .Include(e => e.Detalles)
+                
                 .ToListAsync();
         }
 

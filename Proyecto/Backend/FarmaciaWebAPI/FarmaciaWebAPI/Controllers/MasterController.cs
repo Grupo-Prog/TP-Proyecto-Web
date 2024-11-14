@@ -17,18 +17,18 @@ namespace FarmaciaWebAPI.Controllers
     [Authorize]
     public class MasterController : ControllerBase
     {
-        private readonly IManager<MasterDTO> _manager;
-        public MasterController(IManager<MasterDTO> masterManager)
+        private readonly IMasterService _manager;
+        public MasterController(IMasterService masterManager)
         {
             _manager = masterManager;
         }
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("Order/{order}")]
+        public async Task<IActionResult> Get(bool order)
         {
             var response = new RequestResponse();
             try
             {
-                var value = await _manager.GetAllAsync();
+                var value = await _manager.IsOrdered(order);
                 if (value == null)
                 {
                     response.Success = 0;
