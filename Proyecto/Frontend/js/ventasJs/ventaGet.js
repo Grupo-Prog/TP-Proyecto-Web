@@ -94,9 +94,9 @@ function rellenarTVentas(vta) {
     const fila = document.createElement("tr");
 
     // cod cliente
-    // const codClienteTd = document.createElement("td");
-    // codClienteTd.textContent = venta.cliente;
-    // fila.appendChild(codClienteTd);
+     const codClienteTd = document.createElement("td");
+     codClienteTd.textContent = venta.cliente.nombre + ", "+ venta.cliente.apellido;
+     fila.appendChild(codClienteTd);
 
     // fecha
     const fechaTd = document.createElement("td");
@@ -108,10 +108,13 @@ function rellenarTVentas(vta) {
     totalTd.textContent = `$ ${venta.totalVenta}`;
     fila.appendChild(totalTd);
 
+
     // Agregar la fila a la tabla
     tbody.appendChild(fila);
   });
 }
+
+
 
 //  funcion para formatear la fecha
 function formateoFecha(fechaISO) {
