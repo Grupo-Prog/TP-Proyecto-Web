@@ -121,19 +121,18 @@
         <button
           type="submit"
           form="form_cargar_venta_post"
-          class="btn btn-primary"
-        >
+          class="btn btn-primary">
           CARGAR VENTA
         </button>
-        <!-- botón para cargar venta -->
+
+        <a href="sales-load.html">
         <button
-          type="reset"
+          type="button"
           form="form_cargar_venta_post"
-          class="btn btn-secondary"
-        >
+          class="btn btn-secondary">
           CANCELAR
         </button>
-        <!-- boton para borrar campos -->
+      </a>
       </div>
     </div>
 
@@ -143,47 +142,7 @@
 
     <script src="/js/ventasJs/ventaPost.js"></script>
     <script>
-      // let contadorProductos = 0;
 
-      // document
-      //   .getElementById("btn-agregar-campo")
-      //   .addEventListener("click", AñadirDetalle());
-      // .addEventListener("click", function () {
-      //   contadorProductos++;
-
-      //   CrearVenta();
-      //   const contenedorProducto = document.createElement("div");
-      //   contenedorProducto.classList.add(
-      //     "mb-3",
-      //     "row",
-      //     "justify-content-center"
-      //   );
-
-      //   contenedorProducto.innerHTML = `
-      //         <div class="col-md-4">
-      //             <label for="v_nroDetalle_pos${contadorProductos}" class="form-label custom-label">Número de detalle</label>
-      //             <input type="number" class="form-control" id="v_nroDetalle_pos${contadorProductos}" min="1" placeholder="Ingrese el número">
-      //         </div>
-      //                       <div class="col-md-4">
-      //             <label for="v_producto_pos${contadorProductos}" class="form-label custom-label">Nombre del producto</label>
-      //             <input type="text" class="form-control" id="v_producto_pos${contadorProductos}" min="1" placeholder="Ingrese el nombre">
-      //         </div>
-      //         <div class="col-md-4">
-      //             <label for="v_cantidad_pos${contadorProductos}" class="form-label custom-label">Cantidad</label>
-      //             <input type="number" class="form-control" id="v_cantidad_pos${contadorProductos}" min="1" placeholder="Cantidad">
-      //         </div>
-      //         <div class="col-md-4">
-      //             <label for="v_precio_pos${contadorProductos}" class="form-label custom-label">Precio</label>
-      //             <input type="number" class="form-control" id="v_precio_pos${contadorProductos}" min="0" step="0.01" placeholder="Precio">
-      //         </div>
-      //     `;
-
-      //   document
-      //     .getElementById("productos-container")
-      //     .appendChild(contenedorProducto);
-      // }); //Lo saqué de otro lado al código pero lo hice para moder modificar visualmente cómo se vería añadir más detalles
-      // Fijarse si sirve para reescribirlo en JavaScript o usen el que quieran y luego lo adapto. No hay drama
-      // También le agregaré un separador entre cada cantidad, etc.
 
       // Existe un usuario logeado?
       if ("token" in sessionStorage === false) {
