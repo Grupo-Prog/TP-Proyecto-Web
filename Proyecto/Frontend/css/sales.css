@@ -185,7 +185,7 @@
       }
     
       .table td {
-        color: rgb(52, 53, 52, 0.9);
+        color: rgb(52, 53, 52, 0.2);
         font-family: "DM Serif Text", serif;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       }

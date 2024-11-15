@@ -23,7 +23,7 @@ document.getElementById("btn-cerrar-sesion").onclick =
 //
 
 async function CargarVentas() {
-  const order = false;
+  const order = false; // Esto probablemente será un parámetro que podrías modificar según necesites
   try {
     const response = await fetch(`${API_URL}Master/Order/${order}`, {
       method: "GET",
@@ -34,24 +34,22 @@ async function CargarVentas() {
     });
 
     if (!response.ok) {
-      throw new Error(`"Response status: ", ${response.status}`);
+      throw new Error(`Error: Response status: ${response.status}`);
     }
 
     const json = await response.json();
-
-    console.log(json);
-    console.log("Respuesta: ", json.message);
     let ventas = json.data;
-    // ventas.forEach((element) => {
-    //   console.log(element);
-    // });
 
-    MostrarVentas(ventas);
+    ventas.sort((a, b) => b.id - a.id);
+
+    MostrarVentas(ventas.slice(0, 5));
+
   } catch (error) {
     console.error("Error:", error);
     alert("Ocurrió un error al cargar las ventas");
   }
 }
+
 
 function MostrarVentas(ventas) {
   const $table = document.querySelector("#tabla-Ventas tbody");

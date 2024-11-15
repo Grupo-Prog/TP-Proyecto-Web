@@ -15,8 +15,8 @@
             <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button>   <!-- boton para ir al DASHBOARD -->
           </a>
           <a href="sales.html">
-          <button class="btn btn-sm btn-outline-secondary" type="button">VENTAS</button> <!-- boton para ir a VENTAS -->
-        </a>
+            <button class="btn btn-sm btn-outline-secondary" type="button">VENTAS</button> <!-- boton para ir a VENTAS -->
+          </a>
           <button class="btn btn-outline-success me-2" type="button">CLIENTES</button> <!-- boton para ir a CLIENTES -->
           <a href="login.html">
             <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion" type="button">SALIR</button> <!-- boton para SALIR -->
@@ -35,41 +35,27 @@
 
     <div class="card-container-consult d-flex flex-column align-items-center">
       <h3 class="titulo">ÚLTIMOS CLIENTES AÑADIDOS</h3>
-      <table class="table mb-0">
+      <table class="table mb-0" id="tabla-Ventas">
         <thead>
           <tr>
             <th scope="col"></th>
             <th scope="col">NOMBRE</th>
-            <th scope="col">APELLIDO</th>
             <th scope="col">DOCUMENTO</th>
-            <th scope="col">OBRA SOCIAL</th>
+            <th scope="col">FECHA DE NACIMIENTO</th> 
+            <th scope="col">TELÉFONO</th> 
+            <th scope="col">FECHA DE NACIMIENTO</th> 
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-          </tr>
+        <tbody id="clientes_body">
+
         </tbody>
       </table>
     </div>
   
-  </div>  
-
     <footer class="custom-footer-index text-center mt-4">
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
-    <script>
-      // Existe un usuario logeado?
-      if ("token" in sessionStorage === false ) {
-          alert("Necesitas una sesion para acceder a este sitio, Logeate!");
-          window.location = "/pages/login.html";
-      }
-    </script>
+    
+    <script src="../js/clientesJs/clienteGetAll.js"></script> <!-- Link al archivo JS -->
 </body>
 </html>
