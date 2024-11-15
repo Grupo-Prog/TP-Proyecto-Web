@@ -292,7 +292,7 @@ ul {
 }
 
 .btn-terciary {
-    background-color: rgba(255, 255, 255, 0.7) !important; 
+    background-color: rgba(255, 255, 255, 0.1) !important; 
     color: rgba(52, 53, 52, 0.7) !important; 
     padding: 1px; 
     font-size: 1rem !important;
@@ -431,6 +431,45 @@ color: rgb(255, 255, 255);
   table th, table td {
     border: 2px solid rgb(52, 53, 52, 0.9);
   }
+
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.6) !important; 
+    color: rgb(0, 0, 0, 0.8) !important; 
+    font-family: "DM Serif Text", serif;
+}
+
+
+.modal-body {
+    background-color: rgb(52, 53, 52, 0.6); 
+    color: #ffffff; 
+}
+
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+.modal-body, .modal-header, .modal-footer {
+    text-align: center;
+}
+
+
+.modal-backdrop {
+    background-color: rgb(0, 0, 0) !important;
+}
+
+.desarrollado-por {
+    font-family: "DM Serif Text", serif !important;
+}
+
+
+
+
   
 
 

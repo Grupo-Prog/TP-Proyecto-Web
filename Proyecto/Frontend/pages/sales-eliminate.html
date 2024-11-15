@@ -39,12 +39,31 @@
                 <div class="col-md-4" id="v_input_cod_venta_del"> 
                     <label for="fecha" class="form-label custom-label">Venta</label>
                     <select class="form-select" id="v_cod_venta_del">
-                        <option selected> Seleccione una venta para eliminar </option>
+                        <option selected>Seleccione una venta</option>
                     </select>
                 </div>
+                
+                <template id="venta-card-template">
+                    <div class="card-container">
+                        <div class="custom-card-background-ventas">
+                            <div class="venta-info">
+                                <h4><span class="venta-cliente"></span></h4>  <!-- Nombre del cliente -->
+                                <p><strong>Código de Venta:</strong> <span class="venta-id"></span></p> <!-- Código de la venta -->
+                                <p><strong>Fecha:</strong> <span class="venta-fecha"></span></p> <!-- Fecha de la venta -->
+                                <p><strong>Total Venta:</strong> $ <span class="venta-total"></span></p> <!-- Total de la venta -->
+                
+                                <div class="venta-detalles">
+                                    <h5>Detalle de Venta:</h5>
+                                    <div class="venta-detalle-items"></div> <!-- Contenedor para los productos -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
-            
-        </div> 
+        </div>
+                
+                
 
 
             <div class="mb-3 row justify-content-center mt-4">
@@ -54,11 +73,8 @@
                 </div>
             </div>
         </form> 
-        
+
         <div id="card-container"></div>
-        <div class="container">
-            <div id="mensajeSuccesCliente"></div>
-        </div>
 
     <footer class="custom-footer-index text-center mt-4">
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>

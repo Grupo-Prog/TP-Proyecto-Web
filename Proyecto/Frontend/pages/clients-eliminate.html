@@ -45,15 +45,30 @@
                       </select>
                   </div>
                 
-
+                  <template id="cliente-card-template">
+                    <div class="card-container">
+                        <div class="custom-card-background-clientes">
+                            <div class="cliente-info">
+                                <h4> <span class="cliente-nombre"></span></h4>
+                                <p><strong>Código de cliente:</strong> <span class="cliente-id"></span></p>
+                                <p><strong>Teléfono:</strong> <span class="cliente-telefono"></span></p>
+                                <p><strong>Fecha:</strong> <span class="cliente-fecha"></span></p>
+                                <p><strong>Documento:</strong> <span class="cliente-dni"></span></p>
+                                <p><strong>Obra Social:</strong> <span class="cliente-obra-social"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                
                 
             </div>
             
         </div>
             <div class="mb-3 row justify-content-center mt-4">
                 <div class="col-md-4 d-flex justify-content-center gap-3"> 
-                    <button type="submit" class="btn btn-primary-eliminate">ELIMINAR CLIENTE</button> <!-- boton para eliminar clientes-->
-                    <button type="reset" class="btn btn-secondary">CANCELAR</button> <!-- boton para borrar campos-->
+                    <button type="submit" class="btn btn-primary-eliminate">ELIMINAR CLIENTE</button> 
+                    <button type="reset" class="btn btn-secondary">CANCELAR</button> 
                 </div>
             </div>
         </form> 

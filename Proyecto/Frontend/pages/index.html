@@ -21,25 +21,29 @@
         <a href="clients.html">
           <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- botón para ir a clientes -->
         </a>
-          <button class="btn btn-sm btn-outline-secondary btn-terciary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> <!-- botón para el "acerca de:" -->
+        <button class="btn btn-sm btn-outline-secondary btn-terciary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> <!-- botón para el "acerca de:" -->
           ACERCA DE: 
-        </button>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body"> <!-- contenido del "acerca de:" -->
-            CREADORES:<br>
-            Santiago Cotaimich - 412285<br>
-            Franco Chachagua - 412139<br>
-            Santiago Cotaimich - 412285<br>
-            Santiago Cotaimich - 412285<br>
-            Santiago Cotaimich - 412285
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <!-- botón para cerrar el cuadro de "acerca de:" -->
+      </button>
+      
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center"> <!-- Centrado con la clase text-center -->
+              <h5 class="modal-title desarrollado-por" id="exampleModalLabel">DESARROLLADO POR:</h5>
+              <!-- Eliminar el botón de cerrar (btn-close) -->
+            </div>
+            <div class="modal-body">
+              Franco Chachaua - 412139<br>
+              Mateo Del Lungo - 412337<br>
+              Santiago Cotaimich - 412285<br>
+              Tobias Zair Usandivara - 412309<br>
+            </div>
+      
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="button" class="btn btn-sm btn-outline-secondary btn-terciary" data-bs-dismiss="modal">CERRAR</button> <!-- botón para cerrar el cuadro de "acerca de:" -->
+          </div>
+          
+          
         </div>
       </div>
     </div>

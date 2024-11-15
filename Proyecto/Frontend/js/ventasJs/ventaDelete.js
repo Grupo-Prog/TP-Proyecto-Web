@@ -183,49 +183,46 @@ async function cargarVistaPrevia(cod_venta) {
 }
 
 function imprimirVenta(arregloVentas) {
+  const template = document.getElementById('venta-card-template'); 
+  const cardContainer = document.getElementById('card-container'); 
+
   arregloVentas.forEach((venta) => {
-    // venta
-    let cardHTML = `
-            <div class="card ">
-                <h3>Cliente: </h3>
-                <p><strong>Código de Venta:</strong> ${venta.id}</p>
-                <p><strong>Fecha:</strong> ${venta.fecha} </p>
-                <p><strong>Total:</strong> $ ${venta.totalVenta.toFixed(2)} </p>
-                <div class="detalle">
-                    <h4>Detalle de Ventas:</h4>
-        `;
+      const clone = template.content.cloneNode(true);  
 
-    // detalle
-    if(venta.detalle === null){
-      cardHTML += `
-                </div>
-            </div>
-        `;
-        cardContainer.innerHTML += cardHTML;
-        return;
-    }else{
-    venta.detalle.forEach((item) => {
-      cardHTML += `
-                <div class="detalle-item">
-                    <p><strong>Producto:</strong> ${item.producto}</p>
-                    <p><strong>Precio:</strong> $${item.precio.toFixed(
-                      2
-                    )}</p>
-                    <p><strong>Cantidad:</strong> ${item.cantidad}</p>
-                </div>
-                <hr>
-                `;
-        });
-    }
-    cardHTML += `
-                </div>
-            </div>
-        `;
+      if (venta.cliente && typeof venta.cliente === 'object') {
+          const nombreCompleto = `${venta.cliente.nombre || ''} ${venta.cliente.apellido || ''}`;
+          clone.querySelector('.venta-cliente').textContent = nombreCompleto.trim() || 'Nombre del cliente no disponible';
+      } else {
+          clone.querySelector('.venta-cliente').textContent = venta.cliente || 'Nombre del cliente no disponible';
+      }
 
-    // Añadimos la card
-    cardContainer.innerHTML += cardHTML;
+      clone.querySelector('.venta-id').textContent = venta.id || 'No disponible';
+      clone.querySelector('.venta-fecha').textContent = venta.fecha || 'Fecha no disponible';
+      clone.querySelector('.venta-total').textContent = venta.totalVenta ? venta.totalVenta.toFixed(2) : '0.00';
+
+      const detalleContainer = clone.querySelector('.venta-detalle-items');
+      if (venta.detalle && venta.detalle.length > 0) {
+          venta.detalle.forEach((item) => {
+              const itemHTML = `
+                  <div class="detalle-item">
+                      <p><strong>Producto:</strong> ${item.producto}</p>
+                      <p><strong>Precio:</strong> $${item.precio.toFixed(2)}</p>
+                      <p><strong>Cantidad:</strong> ${item.cantidad}</p>
+                  </div>
+                  <hr>
+              `;
+              detalleContainer.innerHTML += itemHTML;
+          });
+      } else {
+          detalleContainer.innerHTML = '<p>No hay detalles disponibles.</p>';
+      }
+
+      cardContainer.appendChild(clone);
   });
 }
+
+
+
 
 cargarComponentesVenta();
 

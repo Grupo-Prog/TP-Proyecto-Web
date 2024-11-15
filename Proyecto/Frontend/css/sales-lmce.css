@@ -285,4 +285,40 @@ a.btn.btn-primary-active.eliminate:hover {
     color: #333;
 }
 
-/* */
+.card-container {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    background-color: rgb(255, 255, 255, 0.2);
+}
+
+.custom-card-background-ventas .venta-info {
+    background-color: rgba(255, 255, 255, 0.6); 
+    border: 2px solid rgba(41, 114, 37, 0.8);   
+    border-radius: 20px;                        
+    padding: 20px;                              
+    color: rgba(41, 114, 37, 0.8);                   
+    width: 100%;                                 
+    max-width: 600px;                            
+    margin: 0 auto;                             
+    text-align: center;                      
+}
+
+.custom-card-background-ventas h4 {
+    color: rgb(41, 114, 37, 0.8); 
+    margin-bottom: 10px;
+}
+
+.custom-card-background-ventas strong {
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8); 
+}
+
+.custom-card-background-ventas .venta-cliente,
+.custom-card-background-ventas .venta-id,
+.custom-card-background-ventas .venta-fecha,
+.custom-card-background-ventas .venta-total {
+    font-weight: bold; 
+    margin-bottom: 10px;
+}

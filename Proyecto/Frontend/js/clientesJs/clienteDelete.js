@@ -1,8 +1,6 @@
 //Inputs cargar cliente 
 const $cod_clienteD = document.getElementById("c_cod_cliente_del");
 const cardContainer = document.getElementById('card-container');
-
-const $divSuccess = document.getElementById("mensajeSuccesCliente");
 //API_URL
 const API_URL = 'https://localhost:7022/api/';
 
@@ -178,24 +176,24 @@ async function cargarVistaPrevia(cod_cliente) {
 
 
 
-function imprimirCliente(arregloClientes){
+function imprimirCliente(arregloClientes) {
+    const template = document.getElementById('cliente-card-template'); 
     arregloClientes.forEach((cliente) => {
-                
-        // cliente
-        let cardHTML = `
-            <div class="card ">
-                <h3>Cliente: ${cliente.nombre} ${cliente.apellido} </h3>
-                <p><strong>Código de cliente:</strong> ${cliente.id}</p>
-                <p><strong>Telefono:</strong> ${cliente.telefono} </p>
-                <p><strong>Fecha:</strong> ${formateoFecha(cliente.fecha_nac)} </p>
-                <p><strong>Documento:</strong> ${cliente.dni} </p>
-                <p><strong> ObraSocial:</strong> ${cliente.obraSocial} </p> 
-            </div>
-            `;
-        // Añadimos la card
-        cardContainer.innerHTML += cardHTML;
+        const clone = template.content.cloneNode(true); 
+        
+
+        clone.querySelector('.cliente-nombre').textContent = `${cliente.nombre} ${cliente.apellido}`;
+        clone.querySelector('.cliente-id').textContent = cliente.id;
+        clone.querySelector('.cliente-telefono').textContent = cliente.telefono;
+        clone.querySelector('.cliente-fecha').textContent = formateoFecha(cliente.fecha_nac);
+        clone.querySelector('.cliente-dni').textContent = cliente.dni;
+        clone.querySelector('.cliente-obra-social').textContent = cliente.obraSocial;
+        
+
+        cardContainer.appendChild(clone);
     });
 }
+
 
 //  funcion para formatear la fecha
 function formateoFecha(fechaISO){
