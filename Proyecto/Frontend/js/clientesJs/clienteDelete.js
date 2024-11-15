@@ -89,12 +89,12 @@ $form_eliminar_cliente.addEventListener('submit', async(e)=>{
 function validarCampo(){
 
     // Codigo 
-    if ($cod_clienteD.value === "Seleccione un cliente"  | $cod_clienteD.value === '' | $cod_clienteD.value === null) {
-        document.getElementById('c_input_cod_cliente_del').classList.add('inputError');
-        return false;
-    } else {
-        document.getElementById('c_input_cod_cliente_del').classList.remove('inputError');
-    } 
+    // if ($cod_clienteD.value === "Seleccione un cliente"  | $cod_clienteD.value === '' | $cod_clienteD.value === null) {
+    //     document.getElementById('c_input_cod_cliente_del').classList.add('inputError');
+    //     return false;
+    // } else {
+    //     document.getElementById('c_input_cod_cliente_del').classList.remove('inputError');
+    // } 
     return true;
 }
 
@@ -103,9 +103,8 @@ function validarCampo(){
 cargarComponentes();
 
 async function cargarComponentes() {
-    const cod_cliente = $cod_clienteD.value;
     try {
-        fetch((`${API_URL}Client/${cod_cliente}`), {
+        fetch((`${API_URL}Client/`), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,23 +112,27 @@ async function cargarComponentes() {
             }
         })
         .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-            } else {
-                console.log("error");
-                console.log("res", res);
-            }
-            // const clientes = res.json();
-
-            clientesArray.forEach(c => {
-            const opciones = document.createElement('option');
-            opciones.value = c.id; 
-            opciones.textContent = c.nombre; 
-            $cod_clienteD.appendChild(opciones);
-        });
+            return data = res.json();
         })
         .then(msg => {
             console.log('Respuesta del servidor: ', msg); 
+
+            if (msg.success === 1) {
+                // console.log("respuesta 200, todo bien", res);
+                console.log("msg data", msg.data);
+                
+                msg.data.forEach(c => {
+                    const opciones = document.createElement('option');
+                    opciones.value = c.id; 
+                    opciones.textContent = c.nombre +' ' + c.apellido; 
+                    $cod_clienteD.appendChild(opciones);
+                });
+            } else {
+                console.log("error");
+                console.log("res", msg);
+            }
+
+            
         })
         .catch(error => {
             console.error('Error:', error); 
@@ -152,20 +155,14 @@ async function cargarVistaPrevia(cod_cliente) {
             }
         })
         .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-            } else {
-                console.log("error");
-                console.log("res", res);
-            }
-
-            /////////
-            // imprimir el cliente selecionado, usando arreglo de un solo objeto, luego cambiar por la respuesta de la api
-            imprimirCliente(clienteArray);
-            ////////
+            return data = res.json();
         })
         .then(msg => {
             console.log('Respuesta del servidor: ', msg); 
+            console.log("msg.data vista prev", msg.data);
+            let clientes = [];
+                clientes.push(msg.data)
+            imprimirCliente(clientes);
         })
         .catch(error => {
             console.error('Error:', error); 
@@ -179,8 +176,6 @@ async function cargarVistaPrevia(cod_cliente) {
 
 
 function imprimirCliente(arregloClientes){
-
-    // Recorremos el array de clientes que debe devolver un array con solo un objeto, no con varios
     arregloClientes.forEach((cliente) => {
                 
         // cliente
@@ -189,7 +184,7 @@ function imprimirCliente(arregloClientes){
                 <h3>Cliente: ${cliente.nombre} </h3>
                 <p><strong>Código de Venta:</strong> ${cliente.apellido}</p>
                 <p><strong>Telefono:</strong> ${cliente.telefono} </p>
-                <p><strong>Fecha:</strong> ${formateoFecha(cliente.fechaNacimiento)} </p>
+                <p><strong>Fecha:</strong> ${formateoFecha(cliente.fechaNac)} </p>
                 <p><strong>Documento:</strong> ${cliente.documento} </p>
                 <p><strong>Email:</strong> ${cliente.email} </p>
                 <p><strong> ObraSocial:</strong> ${cliente.obraSocial} </p> 
@@ -218,63 +213,3 @@ function formateoFecha(fechaISO){
     return fechaParseada;
 }
 
-//Array con un solo obj, eliminar luego
-const clienteArray = [
-    {
-        id:2,
-        nombre: "María",
-        apellido: "García",
-        telefono: "3513467891",
-        documento: "29346789",
-        email: "maria.garcia@delcarmen.com",
-        fechaNacimiento: new Date(1990, 10, 20), 
-        obraSocial: "Swiss Medical"
-    }
-]
-// 
-
-
-// Array de muchos clientes, luego eliminar
-const clientesArray = [
-    {
-        id:1,
-        nombre: "Juan",
-        apellido: "Pérez",
-        telefono: "3523467891",
-        documento: "42346789",
-        email: "juanito@juanito.com",
-        fechaNacimiento:  new Date(1985, 5, 15),
-        obraSocial: "OSDE"
-    },
-    {
-        id:2,
-        nombre: "María",
-        apellido: "García",
-        telefono: "3513467891",
-        documento: "29346789",
-        email: "maria.garcia@delcarmen.com",
-        fechaNacimiento: new Date(1990, 10, 20), 
-        obraSocial: "Swiss Medical"
-    },
-    {
-        id:3,
-        nombre: "Carlos",
-        apellido: "López",
-        telefono: "3567891023",
-        documento: "42346789",
-        email: "carlos@lopez.com",
-        fechaNacimiento: new Date(1978, 3, 10), 
-        obraSocial: "Galeno"
-    },
-    {
-        id:4,
-        nombre: "Ana",
-        apellido: "Martínez",
-        telefono: "3516549187",
-        documento: "41346789",
-        email: "ana@martinez.com",
-        fechaNacimiento: new Date(1995/1/28), 
-        obraSocial: "Medicus"
-    }
-];
-// fin array 
