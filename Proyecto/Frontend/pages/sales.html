@@ -35,18 +35,22 @@
 
     <div class="card-container-consult d-flex flex-column align-items-center">
       <h3 class="titulo">ÚLTIMAS VENTAS AÑADIDAS</h3>
-      <table class="table mb-0">
+      <table class="table mb-0" id="tabla-Ventas">
         <thead>
           <tr>
             <th scope="col"></th>
             <th scope="col">FECHA</th>
             <th scope="col">CLIENTE</th>
-            <th scope="col">CANTIDAD</th>
+            <!-- <th scope="col">CANTIDAD</th> -->
+             <!-- Saco cantidad porque estaba dentro de detalles y era un re bardo mostrarlo xdd -->
+            <th scope="col">TOTAL</th> 
+            <!-- me pareció optimo agregar el total  (Mateo) -->
           </tr>
         </thead>
-        <tbody>
+        <tbody id="">
           <tr>
             <th scope="row">1</th>
+            
           </tr>
           <tr>
             <th scope="row">2</th>
@@ -71,5 +75,6 @@
           window.location = "/pages/login.html";
       }
   </script>
+  <script src="/js/ventasJs/ventaGetAll.js"></script>
 </body>
 </html>

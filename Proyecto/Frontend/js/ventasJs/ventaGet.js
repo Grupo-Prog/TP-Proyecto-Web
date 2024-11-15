@@ -36,7 +36,7 @@ $form_mostrar_venta.addEventListener("submit", async (e) => {
   } else {
     //Fetch get
     fetch(
-      `${API_URL}Master/${venta.cod_venta}/${venta.fecha}/${venta.cliente}`,
+      `${API_URL}Master/${venta.cod_venta}`,
       {
         method: "GET",
         headers: {
