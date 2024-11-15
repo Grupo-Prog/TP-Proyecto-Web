@@ -1,6 +1,8 @@
 //Inputs cargar cliente 
 const $cod_clienteD = document.getElementById("c_cod_cliente_del");
 const cardContainer = document.getElementById('card-container');
+
+const $divSuccess = document.getElementById("mensajeSuccesCliente");
 //API_URL
 const API_URL = 'https://localhost:7022/api/';
 
