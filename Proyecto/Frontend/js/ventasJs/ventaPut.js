@@ -217,3 +217,47 @@ async function cargarComponentes() {
             alert('Ocurrió un error al cargar el combo clientes');
     }
 }
+
+
+
+
+
+//código de Franco
+cargarComponentesVenta();
+
+async function cargarComponentesVenta() {
+  
+  const verdad = true;
+  try {
+    fetch(`${API_URL}Master/Order/${verdad}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+    })
+      .then((res) => {
+        return data = res.json();
+      })
+      .then((msg) => {
+        console.log("Respuesta del servidor: ", msg);
+        if(msg.success === 1){
+          msg.data.forEach((v) => {
+            console.log("venta id", v.id);
+            
+            const opciones = document.createElement("option");
+            opciones.value = v.id;
+            opciones.textContent = 'Venta nro: ' + v.id;
+            $cod_venta.appendChild(opciones);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  } catch (error) {
+    console.error("Error al cargar combo ventas:", error);
+    alert("Ocurrió un error al cargar el combo ventas!");
+  }
+}
+
