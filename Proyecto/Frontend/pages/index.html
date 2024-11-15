@@ -61,18 +61,22 @@
 
       <div class="card-container-consult d-flex flex-column align-items-center">
         <h3 class="titulo">VENTAS MÁS IMPORTANTES</h3>
-        <table class="table mb-0">
+        <table class="table mb-0" id="tabla-Ventas">
           <thead>
             <tr>
               <th scope="col"></th>
               <th scope="col">FECHA</th>
               <th scope="col">CLIENTE</th>
-              <th scope="col">MONTO</th>
+              <!-- <th scope="col">CANTIDAD</th> -->
+               <!-- Saco cantidad porque estaba dentro de detalles y era un re bardo mostrarlo xdd -->
+              <th scope="col">TOTAL</th> 
+              <!-- me pareció optimo agregar el total  (Mateo) -->
             </tr>
           </thead>
-          <tbody>
+          <tbody id="">
             <tr>
               <th scope="row">1</th>
+              
             </tr>
             <tr>
               <th scope="row">2</th>
@@ -84,32 +88,7 @@
         </table>
       </div>
     
-      <div class="card-container-consult d-flex flex-column align-items-center">
-        <h3 class="titulo">CLIENTES MÁS IMPORTANTES</h3>
-        <table class="table mb-0">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">NOMBRE</th>
-              <th scope="col">APELLIDO</th>
-              <th scope="col">MONTO</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    
-    </div>
+    </div>  
     
     
     
@@ -188,7 +167,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzE1LJ2NK5lZeA6yjGgYI/iJJ3z9lFVRV92B8xZq0UGp" crossorigin="anonymous"></script> <!-- ambas líneas son para que el botón de "acerca de: funcione, agregar a Javascrip" -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<script>
+<script src="../js/ventasJs/ventasGetHigh.js">
   
   // Existe un usuario logeado?
    if ("token" in sessionStorage === false ) {
@@ -204,6 +183,7 @@
   }
   document.getElementById("btn-cerrar-sesion").onclick = eliminarClaveSessionStorage;
   //
+
 
   
 </script>
