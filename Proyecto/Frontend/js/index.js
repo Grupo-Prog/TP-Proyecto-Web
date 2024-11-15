@@ -132,3 +132,54 @@ function emailValido(){
     } return false;
     
 }
+
+
+//crear usuario nuevo
+$form_create_account = document.getElementById("form_create_account");
+
+$emailRegister = document.getElementById("email-create");
+$contraseniaRegister = document.getElementById("contrasenia-create");
+
+
+$form_create_account.addEventListener('submit', async(e)=>{
+    e.preventDefault();
+    
+    // Obtener datos del formularios
+    let user = {};
+    user = cargarCampos(user);
+
+    // Validar campos
+    if (!validarCampos()) {
+            alert("Por favor, completa los campos correctamente!")
+            return
+    }else{
+        
+            fetch((`${API_URL}User/Register`), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            .then(response => {
+                return data = response.json();
+            })
+            .then(msg => {
+                if(msg.success === 1 ){
+                    console.log("Usuario creado correctamente",token);
+                    alert("Se pudo crear el usuario");
+                    setTimeout(() => {
+                            window.location = 'login.html'
+                        }, 1000);
+                    }
+                
+            })
+            .catch(error => {
+                console.error('Error:', error); 
+                console.log("msg error pero msg", msg);
+                
+            });
+
+        
+    }
+})

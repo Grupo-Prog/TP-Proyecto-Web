@@ -395,21 +395,18 @@ color: rgb(255, 255, 255);
   
 
   .table th {
-    color: rgba(0, 0, 0, 0.8); 
+    color: rgba(0, 0, 0, 0.559); 
     font-family: "DM Serif Text", serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  .table td {
-    color: rgb(52, 53, 52, 0.9);
-    font-family: "DM Serif Text", serif;
+    border: 2px solid rgb(52, 53, 52, 0.9);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
 
-  .table tbody tr:hover td {
+
+  table tbody tr:hover th {
     background-color: rgb(41, 114, 37, 0.7); 
-  }
+}
+
   
   .card-container-consult {
     display: flex;
@@ -428,9 +425,6 @@ color: rgb(255, 255, 255);
 }
 
   
-  table th, table td {
-    border: 2px solid rgb(52, 53, 52, 0.9);
-  }
 
 
 .modal-content {
