@@ -67,7 +67,8 @@ $form_eliminar_cliente.addEventListener('submit', async(e)=>{
             if (res.ok) {
                 console.log("respuesta 200, todo bien");
                 alert("El cliente se eliminó con éxito!");
-                
+                cardContainer.innerHTML = ' ';
+                cargarComponentes();
                 $form_eliminar_cliente.reset();
             } else {
                 console.log("error");
@@ -89,12 +90,12 @@ $form_eliminar_cliente.addEventListener('submit', async(e)=>{
 function validarCampo(){
 
     // Codigo 
-    // if ($cod_clienteD.value === "Seleccione un cliente"  | $cod_clienteD.value === '' | $cod_clienteD.value === null) {
-    //     document.getElementById('c_input_cod_cliente_del').classList.add('inputError');
-    //     return false;
-    // } else {
-    //     document.getElementById('c_input_cod_cliente_del').classList.remove('inputError');
-    // } 
+    if ($cod_clienteD.value === "Seleccione un cliente a eliminar"  | $cod_clienteD.value === '' | $cod_clienteD.value === null) {
+        document.getElementById('c_input_cod_cliente_del').classList.add('inputError');
+        return false;
+    } else {
+        document.getElementById('c_input_cod_cliente_del').classList.remove('inputError');
+    } 
     return true;
 }
 
@@ -118,13 +119,13 @@ async function cargarComponentes() {
             console.log('Respuesta del servidor: ', msg); 
 
             if (msg.success === 1) {
-                // console.log("respuesta 200, todo bien", res);
                 console.log("msg data", msg.data);
-                
+                $cod_clienteD.innerText= " ";
+                $cod_clienteD.innerHTML = `<option selected> Seleccione un cliente a eliminar</option>`;
                 msg.data.forEach(c => {
                     const opciones = document.createElement('option');
                     opciones.value = c.id; 
-                    opciones.textContent = c.nombre +' ' + c.apellido; 
+                    opciones.textContent = c.nombre + ' ' + c.apellido; 
                     $cod_clienteD.appendChild(opciones);
                 });
             } else {
@@ -181,14 +182,12 @@ function imprimirCliente(arregloClientes){
         // cliente
         let cardHTML = `
             <div class="card ">
-                <h3>Cliente: ${cliente.nombre} </h3>
-                <p><strong>Código de Venta:</strong> ${cliente.apellido}</p>
+                <h3>Cliente: ${cliente.nombre} ${cliente.apellido} </h3>
+                <p><strong>Código de cliente:</strong> ${cliente.id}</p>
                 <p><strong>Telefono:</strong> ${cliente.telefono} </p>
-                <p><strong>Fecha:</strong> ${formateoFecha(cliente.fechaNac)} </p>
-                <p><strong>Documento:</strong> ${cliente.documento} </p>
-                <p><strong>Email:</strong> ${cliente.email} </p>
+                <p><strong>Fecha:</strong> ${formateoFecha(cliente.fecha_nac)} </p>
+                <p><strong>Documento:</strong> ${cliente.dni} </p>
                 <p><strong> ObraSocial:</strong> ${cliente.obraSocial} </p> 
-
             </div>
             `;
         // Añadimos la card
