@@ -25,166 +25,85 @@ document.getElementById("btn-cerrar-sesion").onclick = eliminarClaveSessionStora
 //
 
 // Form ventas PUT
-const $form_modificar_venta = document.getElementById("form_cargar_venta_put");
+const $form_cargar_venta_put = document.getElementById("form_cargar_venta_put");
 
-
-$form_modificar_venta.addEventListener('submit', async(e)=>{
+$form_cargar_venta_put.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
+  
     // Obtener datos del formulario
     let venta = {};
-    venta = cargarCampos(venta);
-
+    console.log("cantidad: ", contadorProductos)
+    venta = cargarDatos(contadorProductos);
+    console.log("lista para enviar: ", venta)
+  
+    let request = {
+      venta: venta
+    }
+    
+    
+  
     // Validar campos
     if (!validarCampos()) {
-            alert("Por favor, completa los campos correctamente!")
-            return
-    }else{
-        // Fetch post
-        fetch((`${API_URL}Master/${venta.cod_venta}`), {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : `${token}`
-            },
-            body: JSON.stringify(venta)
-            
+      alert("Por favor, completa los campos correctamente!");
+      return;
+    } else {
+      // Fetch post
+      fetch(`${API_URL}Master`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify(request),
+      })
+        .then((res) => {
+          if (res.ok) {
+            console.log("respuesta 200, todo bien");
+            console.log("venta", venta);
+            alert("El cliente se cargó con éxito!");
+  
+            $form_cargar_venta.reset();
+          } else {
+            console.log("error");
+            console.log("venta", venta);
+          }
+          return res.text();
         })
-        .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien");
-                console.log("venta", venta);
-                alert("La venta se cargó con éxito!");
-                
-                $form_modificar_venta.reset();
-            } else {
-                console.log("error");
-                console.log("venta", venta);
-            }
-            // const ventas = res.json();
-            
-            
+        .then((msg) => {
+          console.log("Respuesta del servidor: ", msg);
         })
-        .then(msg => {
-            console.log('Respuesta del servidor: ', msg); 
-        })
-        .catch(error => {
-            console.error('Error:', error); 
+        .catch((error) => {
+          console.error("Error:", error);
         });
     }
-})
+  });
+  
 
-
-function cargarCampos(){
-
+  function cargarDatos(cantidad) {
     // Contruir detalles
-    const detalles = [];
-    detalles.push({
-        producto: {
-            cod_producto: $producto.value,
-            precio: $precio.value
-        },
-        cantidad: $cantidad.value
-    });
+  
+  
+    let detalles = [];
+    let det = { };
     
+    det.producto = $producto.value;
+    det.precio = $precio.value;
+    det.cantidad = $cantidad.value;
+    detalles.push(det)
+        
+    
+  
     // Construir ventas
     let venta = {
-        cod_venta:$cod_venta.value,
-        fecha: $fecha.value,
-        detalle_ventas: detalles,
-        cliente: $cliente.value
+      
+      fecha: $fecha.value,
+      clienteId: $cliente.value,
+      detalle: detalles,
     };
-
+    console.log("venta", venta);
     return venta;
-}
-
-// cargar select ventas
-cargarComponentesVentas()
-
-async function cargarComponentesVentas() {
-    const cod_venta = $cod_venta.value;
-    try {
-        fetch((`${API_URL}Master/}`), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : `${token}`
-            }
-        })
-        .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-            } else {
-                console.log("error");
-                console.log("res", res);
-            }
-
-            // const clientes = res.json();
-
-            ventasArray.forEach(v => {
-            const opciones = document.createElement('option');
-            opciones.value = v.cod_venta; 
-            opciones.textContent = v.cod_venta; 
-            $cod_venta.appendChild(opciones);
-        });
-    })
-    .then(msg => {
-        console.log('Respuesta del servidor: ', msg); 
-    })
-    .catch(error => {
-        console.error('Error:', error); 
-    });
-} catch (error) {
-        console.error('Error al cargar combo ventas:', error);
-        alert('Ocurrió un error al cargar el combo ventas!');
-}
-};
-
-
-// Cargar select de clientes
-cargarComponentes();
-
-async function cargarComponentes() {
-    try {
-        fetch((`${API_URL}Client`), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : `${token}`
-            }
-        })
-        .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-            } else {
-                console.log("error");
-                console.log("res", res);
-            }
-
-           //// convertir text a json
-            // const clientes = res.json();
-
-            // usando el array casero, luego poner la respuesta de la api
-            clientesArray.forEach(c => {
-            const opciones = document.createElement('option');
-            opciones.value = c.id; 
-            opciones.textContent = c.nombre; 
-            $cliente.appendChild(opciones);
-        });
-        })
-        .then(msg => {
-            console.log('Respuesta del servidor: ', msg); 
-        })
-        .catch(error => {
-            console.error('Error:', error); 
-        });
-    } catch (error) {
-            console.error('Error al cargar combo clientes:', error);
-            alert('Ocurrió un error al cargar el combo clientes');
-    }
-}
-
-
+  }
+  
 
 function validarCampos(){
 
@@ -242,8 +161,6 @@ function validarCampos(){
 }
 
 
-
-
 function fechaActual(){
     let fecha = new Date();
     let mes = (fecha.getMonth()+ 1).toString();
@@ -260,89 +177,43 @@ function fechaActual(){
     return fecha_hoy;
 }
 
+async function cargarComponentes() {
+    try {
+        fetch((`${API_URL}Client/`), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `${token}`
+            }
+        })
+        .then(res => {
+            return data = res.json();
+        })
+        .then(msg => {
+            console.log('Respuesta del servidor: ', msg); 
 
+            if (msg.success === 1) {
+                console.log("msg data", msg.data);
+                $cliente.innerText= " ";
+                $cliente.innerHTML = `<option selected> Seleccione un cliente a eliminar</option>`;
+                msg.data.forEach(c => {
+                    const opciones = document.createElement('option');
+                    opciones.value = c.id; 
+                    opciones.textContent = c.nombre + ' ' + c.apellido; 
+                    $cliente.appendChild(opciones);
+                });
+            } else {
+                console.log("error");
+                console.log("res", msg);
+            }
 
-// Array inventado, eliminar
-const clientesArray = [
-    {
-        id:1,
-        nombre: "Juan",
-        apellido: "Pérez",
-        telefono: "3523467891",
-        documento: "42346789",
-        email: "juanito@juanito.com",
-        fechaNacimiento:  new Date(1985, 5, 15),
-        obraSocial: "OSDE"
-    },
-    {
-        id:2,
-        nombre: "María",
-        apellido: "García",
-        telefono: "3513467891",
-        documento: "29346789",
-        email: "maria.garcia@delcarmen.com",
-        fechaNacimiento: new Date(1990, 10, 20), 
-        obraSocial: "Swiss Medical"
-    },
-    {
-        id:3,
-        nombre: "Carlos",
-        apellido: "López",
-        telefono: "3567891023",
-        documento: "42346789",
-        email: "carlos@lopez.com",
-        fechaNacimiento: new Date(1978, 3, 10), 
-        obraSocial: "Galeno"
-    },
-    {
-        id:4,
-        nombre: "Ana",
-        apellido: "Martínez",
-        telefono: "3516549187",
-        documento: "41346789",
-        email: "ana@martinez.com",
-        fechaNacimiento: new Date(1995/1/28), 
-        obraSocial: "Medicus"
+            
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+    } catch (error) {
+            console.error('Error al cargar combo clientes:', error);
+            alert('Ocurrió un error al cargar el combo clientes');
     }
-];
-
-
-
-
-// Array ventas, luego eliminar
-const ventasArray = [
-    {
-        cod_venta: 1,
-        cliente: "Juan Pérez",
-        fecha: "2024-11-11",
-        total: 120,
-        detalle: [
-            { producto: { nombre: "Camiseta", precio: 15.5 }, cantidad: 2 },
-            { producto: { nombre: "Pantalones", precio: 50.0 }, cantidad: 1 },
-            { producto: { nombre: "Zapatos", precio: 39.5 }, cantidad: 1 }
-        ]
-    },
-    {
-        cod_venta: 2,
-        cliente: "María Gómez",
-        fecha: "2024-11-10",
-        total: 85.0,
-        detalle: [
-            { producto: { nombre: "Falda", precio: 25.0 }, cantidad: 1 },
-            { producto: { nombre: "Blusa", precio: 20.0 }, cantidad: 2 },
-            { producto: { nombre: "Cinturón", precio: 20.0 }, cantidad: 1 }
-        ]
-    },
-    {
-        cod_venta: 3,
-        cliente: "Carlos Ruiz",
-        fecha: "2024-11-09",
-        total: 150.0,
-        detalle: [
-            { producto: { nombre: "Chaqueta", valor: 75.0 }, cantidad: 1 },
-            { producto: { nombre: "Bufanda", valor: 15.0 }, cantidad: 1 },
-            { producto: { nombre: "Guantes", valor: 30.0 }, cantidad: 2 }
-        ]
-    }
-];
-// fin array 
+}
