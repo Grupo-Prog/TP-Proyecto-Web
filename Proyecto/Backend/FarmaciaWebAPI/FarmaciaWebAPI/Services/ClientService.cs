@@ -33,7 +33,6 @@ namespace FarmaciaWebAPI.Services
         {
             return _mapper.Get(await _repo.GetByIdAsync(id));
         }
-
         public async Task<bool> SaveAsync(ClientDTO dto)
         {
             var entity = _mapper.Set(dto);

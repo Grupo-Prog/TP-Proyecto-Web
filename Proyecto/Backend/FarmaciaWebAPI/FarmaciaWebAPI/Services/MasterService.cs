@@ -10,13 +10,10 @@ namespace FarmaciaWebAPI.Services
     {
         private readonly IMasterRepository _repo;
         private readonly IMapperBase<MasterDTO, T_Venta> _mapper;
-        private readonly IManager<ClientDTO> _managerClient;
-        public MasterService(IMasterRepository repository, IMapperBase<MasterDTO, T_Venta> mapper,
-            IManager<ClientDTO> manager)
+        public MasterService(IMasterRepository repository, IMapperBase<MasterDTO, T_Venta> mapper)
         {
             _repo = repository;
             _mapper = mapper;
-            _managerClient = manager;
         }
         public async Task<bool> DeleteAsync(int id)
         {
@@ -47,9 +44,11 @@ namespace FarmaciaWebAPI.Services
             return await _repo.SaveAsync(entity);
         }
 
-        public Task<bool> UpdateAsync(int id, MasterDTO dto)
+        public async Task<bool> UpdateAsync(int id, MasterDTO dto)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Set(dto);
+            if (entity == null) return false;
+             return await _repo.UpdateAsync(id, entity);
         }
     }
 }

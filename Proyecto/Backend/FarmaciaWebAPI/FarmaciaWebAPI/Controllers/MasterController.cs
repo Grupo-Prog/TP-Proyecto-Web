@@ -23,7 +23,7 @@ namespace FarmaciaWebAPI.Controllers
             _manager = masterManager;
         }
         [HttpGet("Order/{order}")]
-        public async Task<IActionResult> Get(bool order)
+        public async Task<IActionResult> Get(bool order = false)
         {
             var response = new RequestResponse();
             try
@@ -85,13 +85,13 @@ namespace FarmaciaWebAPI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] MasterSaveRequest value)
+        public async Task<IActionResult> Post([FromBody] MasterSaveRequest request)
         {
             var response = new RequestResponse();
             try
             {
 
-                var result = await _manager.SaveAsync(value.Convert(value.Venta));
+                var result = await _manager.SaveAsync(request.Convert(request.Venta));
                 if (result == false)
                 {
                     response.Success = 0;
@@ -117,21 +117,21 @@ namespace FarmaciaWebAPI.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] MasterSaveRequest request)
         {
             var response = new RequestResponse();
             try
             {
-                //to do corregir el metodo
-                var result = await _manager.DeleteAsync(id);
+                var value = request.Convert(request.Venta);
+                var result = await _manager.UpdateAsync(id, value);
                 if (!result)
                 {
                     response.Success = 0;
-                    response.Message = "Error deleting data, the ID was not found or it does not exist";
+                    response.Message = "Error updating data, the ID was not found or it does not exist";
                     return BadRequest(response);
                 }
                 response.Success = 1;
-                response.Message = "Data deleted correctly";
+                response.Message = "Data updated correctly";
                 return Ok(response);
             }
             catch (Exception ex)

@@ -19,10 +19,19 @@ namespace DataAccess.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
+            var ventas = await _context.T_Ventas
+                .Where(p => p.cod_cliente == id)
+                .ToListAsync();
+            if(ventas == null || ventas.Count == 0) 
+            { foreach (var venta in ventas) { venta.cod_cliente = null; } }
+            _context.T_Ventas.UpdateRange(ventas);
+            var deletedRegs = ventas.Count();
+
             var deleted = _context.T_Clientes.Where(p => p.Id == id).FirstOrDefault();
             if (deleted == null) { return false; }
             _context.T_Clientes.Remove(deleted);
-            return 1 == await _context.SaveChangesAsync();
+            var updatedRegs = await _context.SaveChangesAsync();
+            return updatedRegs == deletedRegs + 1; //+1 por el registro del cliente
         }
 
         public async Task<List<T_Cliente>?> GetAllAsync()
@@ -34,7 +43,6 @@ namespace DataAccess.Repositories
         {
             return await _context.T_Clientes.FindAsync(id);
         }
-
         public async Task<bool> SaveAsync(T_Cliente entity)
         {
             _context.T_Clientes.Add(entity);
@@ -44,8 +52,8 @@ namespace DataAccess.Repositories
         public async Task<bool> UpdateAsync(int id, T_Cliente entity)
         {
             var current = _context.T_Clientes.Find(id);
-            if(current == null) { return false; }
-            
+            if (current == null) { return false; }
+
             current.Nombre = entity.Nombre;
             current.Apellido = entity.Apellido;
             current.Dni = entity.Dni;

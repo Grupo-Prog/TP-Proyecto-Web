@@ -1,5 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccess.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -71,9 +72,26 @@ namespace DataAccess.Repositories
             return savedRegs == detailCount + 1; //+1 por el registro de la venta
         }
 
-        public Task<bool> UpdateAsync(int id, T_Venta entity)
+        public async Task<bool> UpdateAsync(int id, T_Venta entity)
         {
-            throw new NotImplementedException();
+            var current = await _context.T_Ventas
+                .Where(e => e.Id == id)
+                .Include(e => e.Detalles)
+                .FirstOrDefaultAsync();
+            if(current == null) { return false; }
+            var deletedDetail = _context.T_Detalles_Ventas.Where(e => e.cod_venta == id);
+            var deletedRegs = current.Detalles.Count();
+
+            current.Fecha = entity.Fecha;
+            current.cod_cliente = entity.cod_cliente;
+            current.TotalVenta = entity.TotalVenta;
+            current.Detalles = entity.Detalles;
+            
+            _context.Update(current);
+            _context.T_Detalles_Ventas.RemoveRange(deletedDetail);
+            int updatedRegs = await _context.SaveChangesAsync();
+            int newRegs = current.Detalles.Count();
+            return updatedRegs == deletedRegs + newRegs + 1; //+1 por el registro de la venta
         }
     }
 }
