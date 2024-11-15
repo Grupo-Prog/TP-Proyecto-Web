@@ -8,6 +8,9 @@ const $telefono = document.getElementById("telefono");
 const $fecha = document.getElementById("fecha");
 const $documento = document.getElementById("documento");
 
+
+const $divSuccess = document.getElementById("mensajeSuccesCliente");
+
 //Token
 let tokenSesion = sessionStorage.getItem('token');
 let token = `Bearer ${tokenSesion}`;
@@ -42,33 +45,24 @@ $form_cargar_cliente.addEventListener('submit', async(e)=>{
             alert("Por favor, completa los campos correctamente!")
             return
     }else{
-        console.log("cliente", cliente);
-
         // Fetch post
         fetch((`${API_URL}Client`), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : `Bearer ${token}`
+                'Authorization' : `${token}`
             },
             body: JSON.stringify(cliente) 
             
         })
         .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien");
-                console.log("cliente", cliente);
-                alert("El cliente se cargó con éxito!");
-                
-                $form_cargar_cliente.reset();
-            } else {
-                console.log("error");
-                console.log("cliente", cliente);
-            }
-            return res.text();
+            return data = res.json();
         })
         .then(msg => {
             console.log('Respuesta del servidor: ', msg); 
+            divSucces(cliente);
+            $form_cargar_cliente.reset;
+            console.log("cliente", cliente);
         })
         .catch(error => {
             console.error('Error:', error); 
@@ -76,16 +70,35 @@ $form_cargar_cliente.addEventListener('submit', async(e)=>{
     }
 })
 
+// Mensaje en login
+function divSucces(cliente) {
+    
+    $divSuccess.innerHTML = " ";
+    $divSuccess.innerHTML += `
+                        <div class="alert alert-success mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </svg>
+                            <span class="sucessful">   Se ha añadido el cliente ${cliente.nombre} ${cliente.apellido} </span>
+                        </div>
+                    `;
+
+    setTimeout(() => {
+                            console.log("Mensaje luego de 2 seg");
+                            $divSuccess.innerHTML = " ";
+                        }, 2500);
+    return cliente;
+}
+
 
 function cargarCampos(){
 
     let persona = {
         nombre: $nombre.value,
         apellido: $apellido.value,
-        documento: $documento.value,
-        email: $email.value,
+        dni: $documento.value,
         telefono : $telefono.value,
-        fecha: $fecha.value,
+        fecha_nac: $fecha.value,
         obraSocial: $obraSocial.value
     };
 
@@ -118,14 +131,6 @@ function validarCampos(){
         document.getElementById('input_documento').classList.remove('inputError');
     } 
 
-     // El email no tiene @
-    if ( !emailValido() | $email.value === '' | $email.value === null) {
-        document.getElementById('input_email').classList.add('inputError');
-        return false;
-    } else{
-        document.getElementById('input_email').classList.remove('inputError');
-    }
-
     //Telefono 
     if ( $telefono.value === '' | $telefono.value === null) {
         document.getElementById('input_telefono').classList.add('inputError');
@@ -154,14 +159,7 @@ function validarCampos(){
     return true;
 }
 
-function emailValido(){
-    let simbolos = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if($email.value.match(simbolos)){
-        // Contiene arroba       
-        return true;
-    } return false;
-    
-}
+
 
 function fechaActual(){
     let fecha = new Date();
