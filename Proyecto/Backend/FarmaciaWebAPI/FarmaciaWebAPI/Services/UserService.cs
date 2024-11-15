@@ -48,17 +48,17 @@ namespace FarmaciaWebAPI.Services
         }
         public async Task<bool> Register(T_User user)
         {
-            string encripted = Encrypt.GetSHA256(user.Contraseña);
-            user.Contraseña = encripted;
+            string encripted = Encrypt.GetSHA256(user.ContraseÃ±a);
+            user.ContraseÃ±a = encripted;
             return await _repo.SaveAsync(user);
         }
         public async Task<UserResponse?> Auth(AuthenticationRequest request)
         {
             UserResponse response = new UserResponse();
             // buscar las credenciales en la base de datos
-            // usuario y contraseña
+            // usuario y contraseÃ±a
 
-            //encriptamos la contraseña y la utilizamos para buscar el mismo valor en la base de datos
+            //encriptamos la contraseÃ±a y la utilizamos para buscar el mismo valor en la base de datos
             string encriptedPassword = Encrypt.GetSHA256(request.Password);
             try
             {
@@ -139,8 +139,8 @@ namespace FarmaciaWebAPI.Services
                         new Claim(ClaimTypes.Role,"Admin")
                     }),
 
-                //to do poner 5 minutos
-                Expires = DateTime.UtcNow.AddMinutes(55),
+
+                Expires = DateTime.UtcNow.AddMinutes(5),
                 SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
