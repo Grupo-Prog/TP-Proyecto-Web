@@ -38,7 +38,7 @@ $form_mostrar_cliente.addEventListener('submit', async(e)=>{
         return;
     }else{
         //Fetch get
-        fetch((`${API_URL}Client/${id}/${document}/${telefono}/${obraSocial}`), {
+        fetch((`${API_URL}Client/${id}`), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,21 +46,19 @@ $form_mostrar_cliente.addEventListener('submit', async(e)=>{
             }
         })
         .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-                alert("El cliente se mostró con éxito!");
-                // const clientes = res.text();
-                rellenarTClientes(clientesArray);
-            } else {
-                console.log("error");
-                console.log("res", res);
-                
-                // de todas formas se mostrar porque nunca va a dar una respuesta 200 sin db
-                rellenarTClientes(clientesArray);
-            }
+            return data = res.json();
             
         })
         .then(msg => {
+            console.log("Mensaje", msg);
+            if (msg.success === 1) {
+                let clientes = [];
+                clientes.push(msg.data)
+                rellenarTClientes(clientes);
+            } else {
+                console.log("error");
+                console.log("res", msg);
+            }
             console.log('Respuesta del servidor: ', msg); 
         })
         .catch(error => {
@@ -80,11 +78,6 @@ function rellenarTClientes(cli){
     cli.forEach(cliente => {
         const fila = document.createElement('tr')
 
-        // id cliente
-        const codClienteTd = document.createElement('td');
-        codClienteTd.textContent = cliente.id;
-        fila.appendChild(codClienteTd);
-
         // nombre
         const nombreTd = document.createElement('td');
         nombreTd.textContent = cliente.nombre;
@@ -97,17 +90,12 @@ function rellenarTClientes(cli){
 
         // documento
         const documentoTd = document.createElement('td');
-        documentoTd.textContent = cliente.documento;
+        documentoTd.textContent = cliente.dni;
         fila.appendChild(documentoTd);
-
-        // email
-        const emailTd = document.createElement('td');
-        emailTd.textContent = cliente.email;
-        fila.appendChild(emailTd);
 
         // fechaNac
         const fechaNacTd = document.createElement('td');
-        fechaNacTd.textContent = formateoFechaDos(cliente.fechaNacimiento);
+        fechaNacTd.textContent = formateoFechaDos(cliente.fecha_nac);
         fila.appendChild(fechaNacTd);
 
         // telefono
@@ -156,13 +144,14 @@ function formateoFechaDos(fechaISO){
 function validarCampos(){
 
     
-    //Cliente vacio
-    if( $cliente.value === "Seleccione un cliente"  | $cliente.value === '' | $cliente.value === null){
-        document.getElementById('v_input_cliente_get').classList.add('inputError');
-        return false;
-    } else{
-        document.getElementById('v_input_cliente_get').classList.remove('inputError');
-    }
+    // Cliente vacio
+    // if( $cliente.value === "Seleccione un cliente"  | $cliente.value === '' | $cliente.value === null){ 
+    //     console.log($cliente.value);
+    //     document.getElementById('v_input_cliente_get').classList.add('inputError');
+    //     return false;
+    // } else{
+    //     document.getElementById('v_input_cliente_get').classList.remove('inputError');
+    // }
     //Documento
     if ( $documentoG.value === '' | $documentoG.value === null) {
         document.getElementById('input_documento_get').classList.add('inputError');
@@ -205,27 +194,28 @@ async function cargarComponentes() {
             }
         })
         .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-            } else {
-                console.log("error");
-                console.log("res", res);
-            }
-
+            
+            return data = res.json();
            //// convertir text a json
             // const clientes = res.json();
             // console.log("clientes", clientes);
 
             // usando el array "clientesArray", luego poner el de la respuesta de la api
-            clientesArray.forEach(c => {
-            const opciones = document.createElement('option');
-            opciones.value = c.id; 
-            opciones.textContent = c.nombre; 
-            $cliente.appendChild(opciones);
-        });
+            
         })
         .then(msg => {
             console.log('Respuesta del servidor: ', msg); 
+            if(msg.success === 1) {
+                msg.data.forEach(c => {
+                    const opciones = document.createElement('option');
+                    opciones.value = c.id; 
+                    opciones.textContent = c.nombre; 
+                    $cliente.appendChild(opciones);
+                });
+            } else {
+                console.log("error");
+                console.log("res", msg);
+            }
         })
         .catch(error => {
             console.error('Error:', error); 
@@ -236,48 +226,3 @@ async function cargarComponentes() {
     }
 }
 
-
-// Array clientes, luego eliminar
-const clientesArray = [
-    {
-        id:1,
-        nombre: "Juan",
-        apellido: "Pérez",
-        telefono: "3523467891",
-        documento: "42346789",
-        email: "juanito@juanito.com",
-        fechaNacimiento:  new Date(1985, 5, 15),
-        obraSocial: "OSDE"
-    },
-    {
-        id:2,
-        nombre: "María",
-        apellido: "García",
-        telefono: "3513467891",
-        documento: "29346789",
-        email: "maria.garcia@delcarmen.com",
-        fechaNacimiento: new Date(1990, 10, 20), 
-        obraSocial: "Swiss Medical"
-    },
-    {
-        id:3,
-        nombre: "Carlos",
-        apellido: "López",
-        telefono: "3567891023",
-        documento: "42346789",
-        email: "carlos@lopez.com",
-        fechaNacimiento: new Date(1978, 3, 10), 
-        obraSocial: "Galeno"
-    },
-    {
-        id:4,
-        nombre: "Ana",
-        apellido: "Martínez",
-        telefono: "3516549187",
-        documento: "41346789",
-        email: "ana@martinez.com",
-        fechaNacimiento: new Date(1995/1/28), 
-        obraSocial: "Medicus"
-    }
-];
-// fin array 
