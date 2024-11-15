@@ -33,7 +33,7 @@ $form_cargar_venta.addEventListener("submit", async (e) => {
 
   // Obtener datos del formulario
   let venta = {};
-  venta = cargarDatos(detalle);
+  venta = cargarDatos(cantDetalle);
 
   // Validar campos
   if (!validarCampos()) {
@@ -72,7 +72,7 @@ $form_cargar_venta.addEventListener("submit", async (e) => {
 });
 
 let contadorProductos = 0;
-let detalle = [];
+let cantDetalle = [];
 function addDetail() {
   const contenedorProducto = document.createElement("div");
   contenedorProducto.classList.add("mb-3", "row", "justify-content-center");
@@ -105,18 +105,16 @@ function addDetail() {
   $precio = document.getElementById(`v_precio_pos${contadorProductos}`);
   $cantidad = document.getElementById(`v_cantidad_pos${contadorProductos}`);
 
-  detalle.push(
-    CrearDetalle(
-      $nroDetalle.value,
-      $producto.value,
-      $precio.value,
-      $cantidad.value
-    )
-  );
-  console.log(detalle);
+  // detalle.push(
+  //   CrearDetalle(
+  //     $nroDetalle.value,
+  //     $producto.value,
+  //     $precio.value,
+  //     $cantidad.value
+  //   )
+  // );
+  // console.log(detalle);
 
-  // let venta = CrearVenta($fecha.value, $cliente.value, detalle);
-  // console.log("venta: ", venta);
   console.log("vuelta: ", contadorProductos);
   contadorProductos++;
 }
@@ -132,7 +130,7 @@ function CrearDetalle(nroDetalle, producto, precio, cantidad) {
   detalle.push(nroDetalle, producto, precio, cantidad);
   return detalle;
 }
-function cargarDatos(detalles) {
+function cargarDatos(cantDetalles) {
   // Contruir detalles
 
   // detalles.push({
@@ -141,16 +139,19 @@ function cargarDatos(detalles) {
   //   precio: $precio.value,
   //   cantidad: $cantidad.value,
   // });
-  for (let i = 0; i < detalles.length; i++) {
+  let detalles = [];
+  for (let i = 0; i < cantDetalles.length; i++) {
     console.log("hola", i);
+
+    detalles.push((element) => {
+      element.nroDetalle = contadorProductos;
+      element.producto = $producto.value;
+      element.precio = $precio.value;
+      element.cantidad = $cantidad.value;
+    });
   }
 
-  detalles.forEach((element) => {
-    element.nroDetalle = contadorProductos;
-    element.producto = $producto.value;
-    element.precio = $precio.value;
-    element.cantidad = $cantidad.value;
-  });
+  // detalles.forEach();
 
   // Construir ventas
   let venta = {
@@ -159,7 +160,7 @@ function cargarDatos(detalles) {
     clienteId: $cliente.value,
     detalle: detalles,
   };
-
+  console.log("venta", venta);
   return venta;
 }
 
