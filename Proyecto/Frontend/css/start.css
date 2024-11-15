@@ -44,7 +44,7 @@ body::before {
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
 }
 
@@ -83,7 +83,7 @@ body::before {
     background-color: rgba(255, 255, 255, 0.4);
     transition: background-color 0.5s;
     border: 2px solid rgb(41, 114, 37, 0.6);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     width: 100%;
 }
 

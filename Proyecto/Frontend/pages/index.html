@@ -53,65 +53,130 @@
       
     </ul>
 
+    <div class="d-flex justify-content-center gap-3" style="height: 30vh; align-items: center;">
 
-<div class="card-container">
-    <div class="card custom-card-background-ventas" style="width: 18rem;">
-        <h5 class="card-title-ventas">VENTAS</h5>
-        <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item-ventas">
+      <div class="card-container-consult d-flex flex-column align-items-center">
+        <h3 class="titulo">VENTAS MÁS IMPORTANTES</h3>
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">FECHA</th>
+              <th scope="col">CLIENTE</th>
+              <th scope="col">MONTO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      <div class="card-container-consult d-flex flex-column align-items-center">
+        <h3 class="titulo">CLIENTES MÁS IMPORTANTES</h3>
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">NOMBRE</th>
+              <th scope="col">APELLIDO</th>
+              <th scope="col">MONTO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+    </div>
+    
+    
+    
+    
+
+
+    <div class="d-flex justify-content-between"> 
+      <div class="card-container">
+        <div class="card custom-card-background-ventas" style="width: 18rem;">
+          <h5 class="card-title-ventas">VENTAS</h5>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item-ventas">
                 <a href="sales-load.html">
-                <button type="button" class="btn btn-custom-cargar">CARGAR VENTA</button>  <!-- botón para ir directamente a cargar una venta -->
-            </a>
-            </li>
-        </div>
-        <li class="list-group-item-ventas">
-          <a href="sales-edit.html">
-          <button type="button" class="btn btn-custom-ventas">MODIFICAR VENTA</button> <!-- botón para ir directamente a modificar una venta -->
-            </a>
-            </li>  
-            <li class="list-group-item-ventas">
-              <a href="sales-consult.html">
-              <button type="button" class="btn btn-custom-ventas">CONSULTAR VENTA</button>  <!-- botón para ir directamente a consultar una venta -->
-            </a>
-            </li>      
-            <li class="list-group-item-ventas">
+                  <button type="button" class="btn btn-custom-cargar">CARGAR VENTA</button>
+                </a>
+              </li>
+              <li class="list-group-item-ventas">
+                <a href="sales-edit.html">
+                  <button type="button" class="btn btn-custom-ventas">MODIFICAR VENTA</button>
+                </a>
+              </li>
+              <li class="list-group-item-ventas">
+                <a href="sales-consult.html">
+                  <button type="button" class="btn btn-custom-ventas">CONSULTAR VENTA</button>
+                </a>
+              </li>
+              <li class="list-group-item-ventas">
                 <a href="sales-eliminate.html">
-                <button type="button" class="btn btn-custom-eliminar">ELIMINAR VENTA</button> <!-- botón para ir directamente a eliminar una venta -->
-            </a>
-            </li>  
-        </ul>
-    </div>
-
-    <div class="card custom-card-background-clientes" style="width: 18rem;">
-        <h5 class="card-title-clientes">CLIENTES</h5>
-        <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item-clientes">
+                  <button type="button" class="btn btn-custom-eliminar">ELIMINAR VENTA</button>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card-container">
+        <div class="card custom-card-background-clientes" style="width: 18rem;">
+          <h5 class="card-title-clientes">CLIENTES</h5>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item-clientes">
                 <a href="clients-load.html">
-                <button type="button" class="btn btn-custom-carga-cliente">CARGAR CLIENTE</button> <!-- botón para ir directamente a cargar un cliente -->
-            </a>
-            </li>
-                    </div>
-                    <li class="list-group-item-clientes">
-                      <a href="clients-edit.html">
-                      <button type="button" class="btn btn-custom-clientes">MODIFICAR CLIENTE</button>  <!-- botón para ir directamente a modificar un cliente -->
-                  </a>
-            </a>
-            </li>
-            <li class="list-group-item-clientes">
-              <a href="clients-consult.html">
-              <button type="button" class="btn btn-custom-clientes">CONSULTAR CLIENTE</button> <!-- botón para ir directamente a consultar un cliente -->
-            </a>
-            </li>
-            <li class="list-group-item-clientes">
+                  <button type="button" class="btn btn-custom-carga-cliente">CARGAR CLIENTE</button>
+                </a>
+              </li>
+              <li class="list-group-item-clientes">
+                <a href="clients-edit.html">
+                  <button type="button" class="btn btn-custom-clientes">MODIFICAR CLIENTE</button>
+                </a>
+              </li>
+              <li class="list-group-item-clientes">
+                <a href="clients-consult.html">
+                  <button type="button" class="btn btn-custom-clientes">CONSULTAR CLIENTE</button>
+                </a>
+              </li>
+              <li class="list-group-item-clientes">
                 <a href="clients-eliminate.html">
-                <button type="button" class="btn btn-custom-eliminar-cliente">ELIMINAR CLIENTE</button> <!-- botón para ir directamente a eliminar un cliente -->
-                            </a>
-            </li>        
-        </ul>
+                  <button type="button" class="btn btn-custom-eliminar-cliente">ELIMINAR CLIENTE</button>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+    
+
+
+
     
         <footer class="custom-footer-index text-center mt-4">  <!-- pie de página -->
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
@@ -122,9 +187,9 @@
 <script>
   
   // Existe un usuario logeado?
-  if ("token" in sessionStorage === false ) {
+   if ("token" in sessionStorage === false ) {
       alert("Necesitas una sesion para acceder a este sitio, Logeate!");
-      window.location = "/pages/login.html";
+     window.location = "/pages/login.html";
   }
   
   // Cerrar sesion evento on click

@@ -40,6 +40,7 @@
 
             <div class="d-flex justify-content-center mb-4"> 
                 <div class="col-md-4" id="v_input_id_get"> 
+                    <label for="fecha" class="form-label custom-label">Cliente</label>
                     <select class="form-select" id="v_cliente_get">
                         <option selected>Seleccione un cliente</option>
                     </select>
@@ -48,18 +49,21 @@
             
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-3" id="input_documento_get">
+                    <label for="fecha" class="form-label custom-label">Documento</label>
                     <input type="number" class="form-control" id="documentoG" placeholder="Número de documento a consultar"> <!-- input para documento-->
                 </div>
             </div>
         
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-3" id="input_telefono_get"> 
+                    <label for="fecha" class="form-label custom-label">Teléfono</label>
                     <input type="number" class="form-control" id="telefonoG" placeholder="Número teléfonico a consultar"> <!-- input para telefono-->
                 </div>  
             </div>
 
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-3" id="input_obra_social_get"> 
+                    <label for="fecha" class="form-label custom-label">Obra Social</label>
                     <input type="text" class="form-control" id="obraSocialG" placeholder="Obra social a consultar"> <!-- input para obra social-->
                 </div>  
             </div>
@@ -74,25 +78,24 @@
         </form> 
     </div>
 
-    
-        <!-- begin -->
-        <table class="table table-striped table-hover" id="cargarTabla">
-            <thead class="table-success">
-                <tr>
-                    <th>Id </th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Fecha</th>
-                    <th>Documento</th>
-                    <th>Email</th>
-                    <th>Telefono</th>
-                    <th>Obra social</th>
-                </tr>
-            </thead>
-            <tbody id="clientes_body">
-            </tbody>
-        </table>
-        <!-- end tabla -->
+    <button id="consultarClientesBtn">Consultar Clientes</button>
+
+<div id="clientesContainer" style="display: none;">
+    <table class="table" id="clientesTable">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+
 
 
     <footer class="custom-footer-index text-center mt-4">
@@ -104,7 +107,7 @@
         if ("token" in sessionStorage === false ) {
             alert("Necesitas una sesion para acceder a este sitio, Logeate!");
             window.location = "/pages/login.html";
-        }
+         }
     </script>
 </body>
 </html>

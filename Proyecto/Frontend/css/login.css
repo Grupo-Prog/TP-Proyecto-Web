@@ -82,7 +82,7 @@ body::before {
 
 /* Botón de reset en el formulario de login */
 .pagina-login .custom-btn-login-reset {
-    background-color: rgba(52, 53, 52, 0.7);
+    background-color: rgba(227, 62, 62, 0.8);
     color: rgba(255, 255, 255, 0.8);
     font-family: "DM Serif Text", serif;
     font-size: 1.2rem;
@@ -92,14 +92,14 @@ body::before {
     border: 2px solid rgba(255, 255, 255, 0.7);
     transition: background-color 0.5s;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    width: 100%;
+    width: 85%;
 }
 
 /* Efecto hover en el botón de reset */
 .pagina-login .custom-btn-login-reset:hover {
     background-color: rgba(255, 255, 255, 0.7);
-    color: rgba(52, 53, 52, 0.8);
-    border: 2px solid rgba(52, 53, 52, 0.7);
+    color: rgba(227, 62, 62, 0.8);
+    border: 2px solid rgba(227, 62, 62, 0.8);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -127,9 +127,92 @@ body::before {
     left: 0;
 }
 
-/*Cargar login */
-.inputError input{
-    border: 3px solid #bb2929;
-    opacity: 1;
+
+.btn-outline-primary-crear {
+    background-color: rgba(52, 53, 52, 0.7);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: "DM Serif Text", serif;
+    font-size: 1.2rem;
+    margin: 5px 0;
+    margin-top: 10px; 
+    padding: 5px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transition: background-color 0.5s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    width: 60%;
+}
+
+/* Efecto hover en el botón de reset */
+.pagina-login .btn-outline-primary-crear:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: rgba(52, 53, 52, 0.8);
+    border: 2px solid rgba(52, 53, 52, 0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+.fade .modal-content {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Sombra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+
+  .custom-label {
+    display: block; 
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    border: 2px solid rgba(41, 114, 37, 0.8) !important;
+    color: rgba(41, 114, 37) !important; /* Cambia #333333 por el color que desees */
+    text-align: center; 
+    width: 100%; 
+    margin: 0 auto; 
+    font-size: 1rem !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.pagina-login .custom-btn-usuario {
+    background-color: rgba(41, 114, 37, 0.7);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: "DM Serif Text", serif;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transition: background-color 0.5s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+/* Efecto hover en el botón de ingresar */
+.pagina-login .custom-btn-usuario:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: rgba(41, 114, 37, 0.8);
+    border: 2px solid rgba(41, 114, 37, 0.8);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.pagina-login .custom-btn-cerrar {
+    background-color: rgba(227, 62, 62, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: "DM Serif Text", serif;
+    font-size: 1.1rem;
+    margin: 0px 0;
+    padding: 1px 1px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transition: background-color 0.5s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    width: 75%;
+}
+
+/* Efecto hover en el botón de ingresar */
+.pagina-login .custom-btn-cerrar:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: rgba(227, 62, 62, 0.8);
+    border: 2px solid rgba(227, 62, 62, 0.8);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 

@@ -37,6 +37,7 @@
         <form id="form_cargar_venta_delete"> 
             <div class="d-flex justify-content-center mb-4"> 
                 <div class="col-md-4" id="v_input_cod_venta_del"> 
+                    <label for="fecha" class="form-label custom-label">Venta</label>
                     <select class="form-select" id="v_cod_venta_del">
                         <option selected>Seleccione una venta</option>
                     </select>
@@ -62,7 +63,7 @@
     <script src="/js/ventasJs/ventaDelete.js"></script>
     <script>
         // Existe un usuario logeado?
-        if ("token" in sessionStorage === false ) {
+       if ("token" in sessionStorage === false ) {
             alert("Necesitas una sesion para acceder a este sitio, Logeate!");
             window.location = "/pages/login.html";
         }

@@ -39,28 +39,33 @@
         <form id="form_cargar_cliente"> 
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-2" id="input_nombre">
-                    <input type="text" class="form-control" id="nombre"  placeholder="Nombre"> <!-- input para nombre -->
+                    <label for="fecha" class="form-label custom-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre"  placeholder="Ingrese el nombre"> <!-- input para nombre -->
                 </div>
                 <div class="col-md-2" id="input_apellido">
-                    <input type="text" class="form-control" id="apellido"  placeholder="Apellido">  <!-- input para apellido -->
+                    <label for="fecha" class="form-label custom-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido"  placeholder="Ingrese el apellido">  <!-- input para apellido -->
                 </div>
             </div>
 
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-3" id="input_documento"> 
-                    <input type="number" class="form-control" min="1" id="documento"  placeholder="Número de documento">  <!-- input para documento -->
+                    <label for="fecha" class="form-label custom-label">Documento</label>
+                    <input type="number" class="form-control" min="1" id="documento"  placeholder="Ingrese el número de documento">  <!-- input para documento -->
                 </div>
             </div>
             
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-3" id="input_email">
-                    <input type="text" class="form-control" id="email"  placeholder="E-mail">  <!-- input para email -->
+                    <label for="fecha" class="form-label custom-label">E-mail</label>
+                    <input type="text" class="form-control" id="email"  placeholder="Ingrese el e-mail">  <!-- input para email -->
                 </div>  
             </div>
 
             <div class="mb-3 row justify-content-center">
                 <div class="col-md-3" id="input_telefono">
-                    <input type="number" class="form-control" min="1" id="telefono"  placeholder="Número teléfonico">  <!-- input para telefono -->
+                    <label for="fecha" class="form-label custom-label">Teléfono</label>
+                    <input type="number" class="form-control" min="1" id="telefono"  placeholder="Ingrese el número teléfonico">  <!-- input para telefono -->
                 </div>  
             </div>
         
@@ -72,8 +77,9 @@
             </div>
 
             <div class="mb-3 row justify-content-center">
-                <div class="col-md-3 " id="input_obra_social"> 
-                    <input type="text" class="form-control" id="obraSocial" placeholder="Obra social">  <!-- input para obra social -->
+                <div class="col-md-3 " id="input_obra_social">
+                    <label for="fecha" class="form-label custom-label">Obra social</label> 
+                    <input type="text" class="form-control" id="obraSocial" placeholder="Ingrese obra social">  <!-- input para obra social -->
                 </div>  
             </div>
         </div> 
@@ -93,8 +99,8 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"></script>
     <script>
         // Existe un usuario logeado?
-        if ("token" in sessionStorage === false ) {
-            alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+          if ("token" in sessionStorage === false ) {
+           alert("Necesitas una sesion para acceder a este sitio, Logeate!");
             window.location = "/pages/login.html";
         }
     </script>
