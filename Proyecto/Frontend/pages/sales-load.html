@@ -1,121 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CARGAR VENTA</title>
-    <link rel="stylesheet" href="../css/sales-lmce.css"> <!-- referencia a css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- referencia a Bootstrap -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet"> <!-- referencia a Google Fonts -->
-</head>
-<body class="pagina-principal">
+    <link rel="stylesheet" href="../css/sales-lmce.css" />
+    <!-- referencia a css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- referencia a Bootstrap -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <!-- referencia a Google Fonts -->
+  </head>
+  <body class="pagina-principal">
     <nav class="navbar bg-body-tertiary">
-        <form class="container-fluid justify-content-center">
-            <a href="index.html">
-                <button class="btn btn-sm btn-outline-secondary" type="button">DASHBOARD</button> <!-- botón para ir al DASHBOARD -->
-            </a> 
-            <button class="btn btn-outline-success me-2" type="button">VENTAS</button>  <!-- botón para ir a VENTAS -->
-            <a href="clients.html">
-                <button class="btn btn-sm btn-outline-secondary" type="button">CLIENTES</button> <!-- botón para ir a CLIENTES -->
-            </a>
-            <a href="login.html">
-            <button class="btn btn-sm btn-outline-secondary btn-exit" id="btn-cerrar-sesion" type="button">SALIR</button> <!-- botón para SALIR -->
-            </a>
-        </form>
+      <form class="container-fluid justify-content-center">
+        <a href="index.html">
+          <button class="btn btn-sm btn-outline-secondary" type="button">
+            DASHBOARD
+          </button>
+          <!-- botón para ir al DASHBOARD -->
+        </a>
+        <button class="btn btn-outline-success me-2" type="button">
+          VENTAS
+        </button>
+        <!-- botón para ir a VENTAS -->
+        <a href="clients.html">
+          <button class="btn btn-sm btn-outline-secondary" type="button">
+            CLIENTES
+          </button>
+          <!-- botón para ir a CLIENTES -->
+        </a>
+        <a href="login.html">
+          <button
+            class="btn btn-sm btn-outline-secondary btn-exit"
+            id="btn-cerrar-sesion"
+            type="button"
+          >
+            SALIR
+          </button>
+          <!-- botón para SALIR -->
+        </a>
+      </form>
     </nav>
 
     <div class="d-flex justify-content-center mt-4">
-        <p class="d-inline-flex gap-1 text-center">
-            <a class="btn btn-primary-active active" href="sales-load.html">CARGAR VENTA</a> <!-- botón para CARGAR VENTA -->
-            <a class="btn btn-primary" href="sales-edit.html">MODIFICAR VENTA</a> <!-- botón para MODIFICARR VENTA -->
-            <a class="btn btn-primary" href="sales-consult.html">CONSULTAR VENTA</a> <!-- botón para CONSULTAR VENTA -->
-            <a class="btn btn-primary-eliminate" href="sales-eliminate.html">ELIMINAR VENTA</a> <!-- botón para ELIMINAR VENTA -->
-        </p>
+      <p class="d-inline-flex gap-1 text-center">
+        <a class="btn btn-primary-active active" href="sales-load.html"
+          >CARGAR VENTA</a
+        >
+        <!-- botón para CARGAR VENTA -->
+        <a class="btn btn-primary" href="sales-edit.html">MODIFICAR VENTA</a>
+        <!-- botón para MODIFICARR VENTA -->
+        <a class="btn btn-primary" href="sales-consult.html">CONSULTAR VENTA</a>
+        <!-- botón para CONSULTAR VENTA -->
+        <a class="btn btn-primary-eliminate" href="sales-eliminate.html"
+          >ELIMINAR VENTA</a
+        >
+        <!-- botón para ELIMINAR VENTA -->
+      </p>
     </div>
 
     <!-- Aquí comienza el contenedor donde están los campos del formulario -->
     <div class="container mt-5">
-        <form id="form_cargar_venta_post">
-            <div class="mb-3 row justify-content-center" id="cliente-container">
-                <div class="col-md-4 d-flex justify-content-center">
-                    <div class="col-md-12" id="v_input_cliente_post"> 
-                        <label for="v_cliente_pos" class="form-label custom-label">Cliente</label>
-                        <select class="form-select" id="v_cliente_pos">
-                            <option selected>Seleccione un cliente</option>
-                            <!-- Aquí puedes agregar las opciones de clientes -->
-                        </select>
-                    </div>
-                </div>
+      <form id="form_cargar_venta_post">
+        <div class="mb-3 row justify-content-center" id="cliente-container">
+          <div class="col-md-4 d-flex justify-content-center">
+            <div class="col-md-12" id="v_input_cliente_post">
+              <label for="v_cliente_pos" class="form-label custom-label"
+                >Cliente</label
+              >
+              <select class="form-select" id="v_cliente_pos">
+                <option selected>Seleccione un cliente</option>
+                <!-- Aquí puedes agregar las opciones de clientes -->
+              </select>
             </div>
-        
-            <div class="mb-3 justify-content-center row" id="fecha-container">
-                <div class="col-md-4" id="v_input_fecha_post"> 
-                    <label for="fecha" class="form-label custom-label">Fecha de venta</label>
-                    <input type="date" class="form-control" id="fecha" min="1970-12-31" max="2025-11-9" placeholder="Selecciona una fecha">  <!-- input para fecha -->
-                </div>
-            </div>
+          </div>
+        </div>
 
-            <div id="productos-container"></div>
+        <div class="mb-3 justify-content-center row" id="fecha-container">
+          <div class="col-md-4" id="v_input_fecha_post">
+            <label for="fecha" class="form-label custom-label"
+              >Fecha de venta</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              id="fecha"
+              min="1970-12-31"
+              max="2025-11-9"
+              placeholder="Selecciona una fecha"
+            />
+            <!-- input para fecha -->
+          </div>
+        </div>
 
-            <div class="d-flex justify-content-center">
-                <button type="button" id="btn-agregar-campo" class="btn btn-primary mt-3">AGREGAR PRODUCTO</button> <!-- Botón para agregar campos -->
-            </div>
-        </form>
+        <div id="productos-container"></div>
+
+        <div class="d-flex justify-content-center">
+          <button
+            onclick="addDetail();"
+            type="button"
+            id="btn-agregar-campo"
+            class="btn btn-primary mt-3"
+          >
+            AGREGAR PRODUCTO
+          </button>
+          <!-- Botón para agregar campos -->
+        </div>
+      </form>
     </div>
 
     <div class="d-flex justify-content-center mt-3">
-        <div class="col-md-4 d-flex justify-content-center gap-3">
-            <button type="submit" form="form_cargar_venta_post" class="btn btn-primary">CARGAR VENTA</button>  <!-- botón para cargar venta -->
-            <button type="reset" form="form_cargar_venta_post" class="btn btn-secondary">CANCELAR</button>  <!-- boton para borrar campos -->
-        </div>
+      <div class="col-md-4 d-flex justify-content-center gap-3">
+        <button
+          type="submit"
+          form="form_cargar_venta_post"
+          class="btn btn-primary"
+        >
+          CARGAR VENTA
+        </button>
+        <!-- botón para cargar venta -->
+        <button
+          type="reset"
+          form="form_cargar_venta_post"
+          class="btn btn-secondary"
+        >
+          CANCELAR
+        </button>
+        <!-- boton para borrar campos -->
+      </div>
     </div>
 
     <footer class="custom-footer-index text-center mt-4">
-        <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
+      <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>
     </footer>
 
     <script src="/js/ventasJs/ventaPost.js"></script>
     <script>
-        let contadorProductos = 0;
+      // let contadorProductos = 0;
 
-        document.getElementById('btn-agregar-campo').addEventListener('click', function() {
-            contadorProductos++;
+      // document
+      //   .getElementById("btn-agregar-campo")
+      //   .addEventListener("click", AñadirDetalle());
+      // .addEventListener("click", function () {
+      //   contadorProductos++;
 
-            const contenedorProducto = document.createElement('div');
-            contenedorProducto.classList.add('mb-3', 'row', 'justify-content-center');
-            
+      //   CrearVenta();
+      //   const contenedorProducto = document.createElement("div");
+      //   contenedorProducto.classList.add(
+      //     "mb-3",
+      //     "row",
+      //     "justify-content-center"
+      //   );
 
-            contenedorProducto.innerHTML = `
-                <div class="col-md-4">
-                    <label for="cantidad${contadorProductos}" class="form-label custom-label">Número de detalle</label>
-                    <input type="number" class="form-control" id="cantidad${contadorProductos}" min="1" placeholder="Ingrese el número">
-                </div>
-                              <div class="col-md-4">
-                    <label for="cantidad${contadorProductos}" class="form-label custom-label">Nombre del producto</label>
-                    <input type="text" class="form-control" id="cantidad${contadorProductos}" min="1" placeholder="Ingrese el nombre">
-                </div>
-                <div class="col-md-4">
-                    <label for="cantidad${contadorProductos}" class="form-label custom-label">Cantidad</label>
-                    <input type="number" class="form-control" id="cantidad${contadorProductos}" min="1" placeholder="Cantidad">
-                </div>
-                <div class="col-md-4">
-                    <label for="precio${contadorProductos}" class="form-label custom-label">Precio</label>
-                    <input type="number" class="form-control" id="precio${contadorProductos}" min="0" step="0.01" placeholder="Precio">
-                </div>
-            `;
-        
-            document.getElementById('productos-container').appendChild(contenedorProducto);
-        });                                                    //Lo saqué de otro lado al código pero lo hice para moder modificar visualmente cómo se vería añadir más detalles
-                                                             // Fijarse si sirve para reescribirlo en JavaScript o usen el que quieran y luego lo adapto. No hay drama
-                                                            // También le agregaré un separador entre cada cantidad, etc.
+      //   contenedorProducto.innerHTML = `
+      //         <div class="col-md-4">
+      //             <label for="v_nroDetalle_pos${contadorProductos}" class="form-label custom-label">Número de detalle</label>
+      //             <input type="number" class="form-control" id="v_nroDetalle_pos${contadorProductos}" min="1" placeholder="Ingrese el número">
+      //         </div>
+      //                       <div class="col-md-4">
+      //             <label for="v_producto_pos${contadorProductos}" class="form-label custom-label">Nombre del producto</label>
+      //             <input type="text" class="form-control" id="v_producto_pos${contadorProductos}" min="1" placeholder="Ingrese el nombre">
+      //         </div>
+      //         <div class="col-md-4">
+      //             <label for="v_cantidad_pos${contadorProductos}" class="form-label custom-label">Cantidad</label>
+      //             <input type="number" class="form-control" id="v_cantidad_pos${contadorProductos}" min="1" placeholder="Cantidad">
+      //         </div>
+      //         <div class="col-md-4">
+      //             <label for="v_precio_pos${contadorProductos}" class="form-label custom-label">Precio</label>
+      //             <input type="number" class="form-control" id="v_precio_pos${contadorProductos}" min="0" step="0.01" placeholder="Precio">
+      //         </div>
+      //     `;
 
+      //   document
+      //     .getElementById("productos-container")
+      //     .appendChild(contenedorProducto);
+      // }); //Lo saqué de otro lado al código pero lo hice para moder modificar visualmente cómo se vería añadir más detalles
+      // Fijarse si sirve para reescribirlo en JavaScript o usen el que quieran y luego lo adapto. No hay drama
+      // También le agregaré un separador entre cada cantidad, etc.
 
-                                                                    // Existe un usuario logeado?
-       if ("token" in sessionStorage === false ) {
-            alert("Necesitas una sesion para acceder a este sitio, Logeate!");
-            window.location = "/pages/login.html";
-        }
-    </script>  
-    
-</body>
+      // Existe un usuario logeado?
+      if ("token" in sessionStorage === false) {
+        alert("Necesitas una sesion para acceder a este sitio, Logeate!");
+        window.location = "/pages/login.html";
+      }
+    </script>
+  </body>
 </html>
