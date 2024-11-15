@@ -1,4 +1,5 @@
 
+
 //Inputs cargar cliente 
 const $nombre = document.getElementById("nombre");
 const $apellido = document.getElementById("apellido");
@@ -70,7 +71,7 @@ $form_cargar_cliente.addEventListener('submit', async(e)=>{
     }
 })
 
-// Mensaje en login
+// Mensaje al cargar el cliente
 function divSucces(cliente) {
     
     $divSuccess.innerHTML = " ";

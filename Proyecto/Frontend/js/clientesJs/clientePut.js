@@ -9,6 +9,8 @@ const $telefonoP = document.getElementById("telefonoP");
 const $fechaP = document.getElementById("fechaP");
 const $documentoP = document.getElementById("documentoP");
 
+const $divSuccess = document.getElementById("mensajeSuccesCliente");
+
 //API_URL
 const API_URL = 'https://localhost:7022/api/';
 
@@ -57,18 +59,17 @@ $form_editar_cliente.addEventListener('submit', async(e)=>{
             body: JSON.stringify(clienteP) 
         })
         .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien");
-                alert("El cliente se actualizó con éxito!");
-                
+            return data = res.json();
+        })
+        .then(msg => {
+            console.log('Respuesta del servidor: ', msg); 
+            if(msg.success === 1) {
+                console.log("Cliente editado", clienteP);
+                divSucces(clienteP);
                 $form_editar_cliente.reset();
             } else {
                 console.log("error");
             }
-            return res.text();
-        })
-        .then(msg => {
-            console.log('Respuesta del servidor: ', msg); 
         })
         .catch(error => {
             console.error('Error:', error); 
@@ -80,18 +81,30 @@ $form_editar_cliente.addEventListener('submit', async(e)=>{
 function cargarCampos(){
 
     let persona = {
-        id: $cod_clienteP,
+        id: $cod_clienteP.value,
         nombre: $nombreP.value,
         apellido: $apellidoP.value,
-        documento: $documentoP.value,
-        email: $emailP.value,
+        dni: $documentoP.value,
         telefono : $telefonoP.value,
-        fecha: $fechaP.value,
+        fecha_nac: $fechaP.value,
         obraSocial: $obraSocialP.value
     };
 
     return persona;
 }
+
+//////
+// Evento on change que muestra el id seleccionado en el select
+function onClienteChange(event) {
+    const clientId = event.target.value; 
+    console.log("ID del cliente seleccionado:", clientId);
+    
+    cargarVistaPrevia(clientId);
+
+}
+$cod_clienteP.addEventListener("change", onClienteChange);
+//
+//////
 
 
 // Cargar select de clientes
@@ -107,26 +120,25 @@ async function cargarComponentes() {
             }
         })
         .then(res => {
-            if (res.ok) {
-                console.log("respuesta 200, todo bien", res);
-            } else {
-                console.log("error");
-                console.log("res", res);
-            }
-
-           //// convertir text a json
-            // const clientes = res.json();
-
-            // usando el array casero, luego poner la respuesta de la api
-            clientesArray.forEach(c => {
-            const opciones = document.createElement('option');
-            opciones.value = c.id; 
-            opciones.textContent = c.nombre; 
-            $cod_clienteP.appendChild(opciones);
-        });
+            return data = res.json();
         })
         .then(msg => {
             console.log('Respuesta del servidor: ', msg); 
+
+            if (msg.success === 1) {
+                console.log("msg data", msg.data);
+                $cod_clienteP.innerText= " ";
+                $cod_clienteP.innerHTML = `<option selected> Seleccione un cliente para modificar</option>`;
+                msg.data.forEach(c => {
+                    const opciones = document.createElement('option');
+                    opciones.value = c.id; 
+                    opciones.textContent = c.nombre + ' ' + c.apellido + " [" + c.dni + "]"; 
+                    $cod_clienteP.appendChild(opciones);
+                });
+            } else {
+                console.log("error");
+                console.log("res", msg);
+            }
         })
         .catch(error => {
             console.error('Error:', error); 
@@ -141,7 +153,7 @@ async function cargarComponentes() {
 function validarCampos(){
 
     // Codigo 
-    if ($cod_clienteP.value === "Seleccione un cliente"  | $cod_clienteP.value === '' | $cod_clienteP.value === null) {
+    if ($cod_clienteP.value === "Seleccione un cliente para modificar"  | $cod_clienteP.value === '' | $cod_clienteP.value === null) {
         document.getElementById('input_id_put').classList.add('inputError');
         // return false;
     } else {
@@ -172,14 +184,6 @@ function validarCampos(){
         document.getElementById('input_documento_put').classList.remove('inputError');
     } 
 
-     // El email no tiene @
-    if ( !emailValido() | $emailP.value === '' | $emailP.value === null) {
-        document.getElementById('input_email_put').classList.add('inputError');
-        // return false;
-    } else{
-        document.getElementById('input_email_put').classList.remove('inputError');
-    }
-
     //Telefono 
     if ( $telefonoP.value === '' | $telefonoP.value === null) {
         document.getElementById('input_telefono_put').classList.add('inputError');
@@ -208,14 +212,6 @@ function validarCampos(){
     return true;
 }
 
-function emailValido(){
-    let simbolos = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if($emailP.value.match(simbolos)){
-        // Contiene arroba       
-        return true;
-    } return false;
-    
-}
 
 function fechaActual(){
     let fecha = new Date();
@@ -233,47 +229,63 @@ function fechaActual(){
     return fecha_hoy;
 }
 
-// Array clientes, luego eliminar
-const clientesArray = [
-    {
-        id:1,
-        nombre: "Juan",
-        apellido: "Pérez",
-        telefono: "3523467891",
-        documento: "42346789",
-        email: "juanito@juanito.com",
-        fechaNacimiento:  new Date(1985, 5, 15),
-        obraSocial: "OSDE"
-    },
-    {
-        id:2,
-        nombre: "María",
-        apellido: "García",
-        telefono: "3513467891",
-        documento: "29346789",
-        email: "maria.garcia@delcarmen.com",
-        fechaNacimiento: new Date(1990, 10, 20), 
-        obraSocial: "Swiss Medical"
-    },
-    {
-        id:3,
-        nombre: "Carlos",
-        apellido: "López",
-        telefono: "3567891023",
-        documento: "42346789",
-        email: "carlos@lopez.com",
-        fechaNacimiento: new Date(1978, 3, 10), 
-        obraSocial: "Galeno"
-    },
-    {
-        id:4,
-        nombre: "Ana",
-        apellido: "Martínez",
-        telefono: "3516549187",
-        documento: "41346789",
-        email: "ana@martinez.com",
-        fechaNacimiento: new Date(1995/1/28), 
-        obraSocial: "Medicus"
+async function cargarVistaPrevia(cod_cliente) {
+    try {
+        fetch((`${API_URL}Client/${cod_cliente}`), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `${token}`
+            }
+        })
+        .then(res => {
+            return data = res.json();
+        })
+        .then(msg => {
+            console.log('Respuesta del servidor: ', msg); 
+            console.log("msg.data vista prev", msg.data);
+            let clientes = {};
+            clientes = msg.data;
+            imprimirCliente(clientes);
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+    } catch (error) {
+            console.error('Error al cargar cliente:', error);
+            alert('Ocurrió un error al cargar cliente');
     }
-];
-// fin array 
+};
+
+function imprimirCliente(obj){
+    // arregloClientes.forEach((obj) => {
+        $nombreP.value = obj.nombre;
+        $apellidoP.value = obj.apellido;
+        $documentoP.value = obj.dni;
+        $telefonoP.value = obj.telefono;
+        $fechaP.value = obj.fecha_nac;
+        $obraSocialP.value = obj.obraSocial;
+    // });
+    
+}
+
+
+// Mensaje al cargar el cliente
+function divSucces(cliente) {
+    
+    $divSuccess.innerHTML = " ";
+    $divSuccess.innerHTML += `
+                        <div class="alert alert-success mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </svg>
+                            <span class="sucessful">   Se ha modificado el cliente ${cliente.nombre} ${cliente.apellido} </span>
+                        </div>
+                    `;
+
+    setTimeout(() => {
+                            console.log("Mensaje luego de 2 seg");
+                            $divSuccess.innerHTML = " ";
+                        }, 2500);
+    return cliente;
+}
