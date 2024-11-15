@@ -216,3 +216,22 @@ body::before {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/*Cargar login */
+.inputError input{
+    border: 3px solid #bb2929;
+    opacity: 1;
+}
+
+.sucessful{
+    color: #29bb6d;
+    font-size: 20px;
+}
+
+.errorLogin {
+    color: #bb2929;
+    font-size: 20px;
+}
+
+#mensajeResLogin{
+    padding: 20px;
+}
