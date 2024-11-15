@@ -7,7 +7,8 @@ const $fecha = document.getElementById("fecha");
 const $cliente = document.getElementById("v_cliente_pos");
 
 const $btn_addDetalle = document.getElementById("btn-agregar-campo");
-
+let contadorProductos = 0;
+let cantDetalle = [];
 //API_URL
 const API_URL = "https://localhost:7022/api/";
 
@@ -28,12 +29,22 @@ document.getElementById("btn-cerrar-sesion").onclick =
 // Form ventas POST
 const $form_cargar_venta = document.getElementById("form_cargar_venta_post");
 
+
+
 $form_cargar_venta.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   // Obtener datos del formulario
   let venta = {};
-  venta = cargarDatos(cantDetalle);
+  console.log("cantidad: ", contadorProductos)
+  venta = cargarDatos(contadorProductos);
+  console.log("lista para enviar: ", venta)
+
+  let request = {
+    venta: venta
+  }
+  
+  
 
   // Validar campos
   if (!validarCampos()) {
@@ -47,7 +58,7 @@ $form_cargar_venta.addEventListener("submit", async (e) => {
         "Content-Type": "application/json",
         Authorization: `${token}`,
       },
-      body: JSON.stringify(venta),
+      body: JSON.stringify(request),
     })
       .then((res) => {
         if (res.ok) {
@@ -71,8 +82,7 @@ $form_cargar_venta.addEventListener("submit", async (e) => {
   }
 });
 
-let contadorProductos = 0;
-let cantDetalle = [];
+
 function addDetail() {
   const contenedorProducto = document.createElement("div");
   contenedorProducto.classList.add("mb-3", "row", "justify-content-center");
@@ -130,25 +140,26 @@ function CrearDetalle(nroDetalle, producto, precio, cantidad) {
   detalle.push(nroDetalle, producto, precio, cantidad);
   return detalle;
 }
-function cargarDatos(cantDetalles) {
+function cargarDatos(cantidad) {
   // Contruir detalles
 
-  // detalles.push({
-  //   nroDetalle: 0,
-  //   producto: "",
-  //   precio: $precio.value,
-  //   cantidad: $cantidad.value,
-  // });
+
   let detalles = [];
-  for (let i = 0; i < cantDetalles.length; i++) {
+  let det = { };
+  for (let i = 0; i < cantidad; i++) {
+
+    let $nroDetalleAsignar = document.getElementById(`v_nroDetalle_pos${i}`);
+    let $productoAsignar = document.getElementById(`v_producto_pos${i}`);
+    let $precioAsignar = document.getElementById(`v_precio_pos${i}`);
+    let $cantidadAsignar = document.getElementById(`v_cantidad_pos${i}`);
+
     console.log("hola", i);
 
-    detalles.push((element) => {
-      element.nroDetalle = contadorProductos;
-      element.producto = $producto.value;
-      element.precio = $precio.value;
-      element.cantidad = $cantidad.value;
-    });
+    det.nroDetalle = $nroDetalleAsignar.value;
+    det.producto = $productoAsignar.value;
+    det.precio = $precioAsignar.value;
+    det.cantidad = $cantidadAsignar.value;
+    detalles.push(det)
   }
 
   // detalles.forEach();
@@ -164,63 +175,63 @@ function cargarDatos(cantDetalles) {
   return venta;
 }
 
-function validarCampos() {
-  for (let i = 0; i < contadorProductos; i++) {
-    // Producto vacio
-    if (($producto.value === "") | ($producto.value === null)) {
-      document.getElementById(`v_producto_pos${i}`).classList.add("inputError");
-      return false;
-    } else {
-      document
-        .getElementById(`v_producto_pos${i}`)
-        .classList.remove("inputError");
-    }
+function validarCampos() {{
+  // for (let i = 0; i < contadorProductos; i++) {
+  //   // Producto vacio
+  //   if (($producto.value === "") | ($producto.value === null)) {
+  //     document.getElementById(`v_producto_pos${i}`).classList.add("inputError");
+  //     return false;
+  //   } else {
+  //     document
+  //       .getElementById(`v_producto_pos${i}`)
+  //       .classList.remove("inputError");
+  //   }
 
-    //Cantidad
-    if (($cantidad.value === "") | ($cantidad.value === null)) {
-      document.getElementById(`v_cantidad_pos${i}`).classList.add("inputError");
-      return false;
-    } else {
-      document
-        .getElementById(`v_cantidad_pos${i}`)
-        .classList.remove("inputError");
-    }
+  //   //Cantidad
+  //   if (($cantidad.value === "") | ($cantidad.value === null)) {
+  //     document.getElementById(`v_cantidad_pos${i}`).classList.add("inputError");
+  //     return false;
+  //   } else {
+  //     document
+  //       .getElementById(`v_cantidad_pos${i}`)
+  //       .classList.remove("inputError");
+  //   }
 
-    //Precio
-    if (($precio.value === "") | ($precio.value === null)) {
-      document.getElementById(`v_precio_pos${i}`).classList.add("inputError");
-      return false;
-    } else {
-      document
-        .getElementById(`v_precio_pos${i}`)
-        .classList.remove("inputError");
-    }
+  //   //Precio
+  //   if (($precio.value === "") | ($precio.value === null)) {
+  //     document.getElementById(`v_precio_pos${i}`).classList.add("inputError");
+  //     return false;
+  //   } else {
+  //     document
+  //       .getElementById(`v_precio_pos${i}`)
+  //       .classList.remove("inputError");
+  //   }
 
-    //Cliente vacio
-    if (
-      ($cliente.value === "Seleccione un cliente") |
-      ($cliente.value === "") |
-      ($cliente.value === null)
-    ) {
-      document.getElementById(`v_cliente_pos${i}`).classList.add("inputError");
-      return false;
-    } else {
-      document
-        .getElementById(`v_cliente_pos${i}`)
-        .classList.remove("inputError");
-    }
+  //   //Cliente vacio
+  //   if (
+  //     ($cliente.value === "Seleccione un cliente") |
+  //     ($cliente.value === "") |
+  //     ($cliente.value === null)
+  //   ) {
+  //     document.getElementById(`v_cliente_pos${i}`).classList.add("inputError");
+  //     return false;
+  //   } else {
+  //     document
+  //       .getElementById(`v_cliente_pos${i}`)
+  //       .classList.remove("inputError");
+  //   }
 
-    // Fecha invalida
-    if (
-      ($fecha.value > fechaActual()) |
-      ($fecha.value === "") |
-      ($fecha.value === null)
-    ) {
-      document.getElementById(`v_fecha_pos${i}`).classList.add("inputError");
-      return false;
-    } else {
-      document.getElementById(`v_fecha_pos${i}`).classList.remove("inputError");
-    }
+  //   // Fecha invalida
+  //   if (
+  //     ($fecha.value > fechaActual()) |
+  //     ($fecha.value === "") |
+  //     ($fecha.value === null)
+  //   ) {
+  //     document.getElementById(`v_fecha_pos${i}`).classList.add("inputError");
+  //     return false;
+  //   } else {
+  //     document.getElementById(`v_fecha_pos${i}`).classList.remove("inputError");
+  //   }
 
     return true;
   }
