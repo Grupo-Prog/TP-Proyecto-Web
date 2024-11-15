@@ -31,21 +31,26 @@ namespace FarmaciaWebAPI.Services
             _repo = repository;
         }
 
-        //to do only admins
+
         public async Task<List<T_User>?> GetAllAsync()
         {
-            //to do desencriptar pw
-            return await _repo.GetAllAsync(); 
+            //NO SE PUEDE DESENCRIPTAR
+            var lst = await _repo.GetAllAsync();
+            if (lst == null || lst.Count == 0) { return null; }
+
+            return lst;
+
         }
-        //to do only admins
-        public Task<bool> DeleteAsync(int id)
+
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _repo.DeleteAsync(id);
         }
-        public async Task<bool> Register(/*RegisterRequest*/)
+        public async Task<bool> Register(T_User user)
         {
-            //to do
-            throw new NotImplementedException();
+            string encripted = Encrypt.GetSHA256(user.Contraseña);
+            user.Contraseña = encripted;
+            return await _repo.SaveAsync(user);
         }
         public async Task<UserResponse?> Auth(AuthenticationRequest request)
         {
@@ -57,19 +62,29 @@ namespace FarmaciaWebAPI.Services
             string encriptedPassword = Encrypt.GetSHA256(request.Password);
             try
             {
-                //TO DO
-                //buscar los datos a traves de entity framework o repositorio
+
                 var usuario = await _repo.GetUserAsync(request.Email, encriptedPassword);
-                if (usuario == null) { return null; } 
-               
-                response.Email = request.Email;
-                response.Password = request.Password;
-                response.Token = GetToken(request);
+                if (usuario == null) { return null; }
+
+                if (request.Email == "admin@gmail.com" && request.Password == "admin")
+                {
+                    response.Token = GetTokenAdmin(request);
+                }
+                else
+                {
+                    response.Token = GetToken(request);
+                }
+
             }
             catch (Exception)
             {
                 return null;
                 throw;
+            }
+            finally
+            {
+                response.Email = request.Email;
+                response.Password = request.Password;
             }
             return response;
         }
@@ -86,22 +101,55 @@ namespace FarmaciaWebAPI.Services
                 Audience = _jwt.Audience,
                 Subject = new ClaimsIdentity(new Claim[]
                     {
-                        //new Claim (JwtRegisteredClaimNames.Sub, _jwt.Subject),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim(ClaimTypes.NameIdentifier, request.Email.Trim()),
                         new Claim("Password", request.Password),
-                        new Claim(ClaimTypes.Role,"user")
+                        new Claim(ClaimTypes.Role,"User")
                     }),
+
                 //to do poner 5 minutos
                 Expires = DateTime.UtcNow.AddMinutes(55),
                 SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            
+
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+        private string GetTokenAdmin(AuthenticationRequest request)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            //accedemos a la clave secreta y creamos la llave
+            //codificandola en un arreglo de bytes
+            var key = Encoding.ASCII.GetBytes(_jwt.Secret);
+
+            var tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Issuer = _jwt.Issuer,
+                Audience = _jwt.Audience,
+                Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, request.Email.Trim()),
+                        new Claim("Password", request.Password),
+                        new Claim(ClaimTypes.Role,"Admin")
+                    }),
+
+                //to do poner 5 minutos
+                Expires = DateTime.UtcNow.AddMinutes(55),
+                SigningCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
         }
     }
 }
+

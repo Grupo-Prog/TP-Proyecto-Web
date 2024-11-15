@@ -43,6 +43,11 @@ namespace DataAccess.Repositories
 
         public async Task<bool> SaveAsync(T_User entity)
         {
+            var exists = _context.T_Users
+                .Where(e => e.Email == entity.Email && e.Contraseña == entity.Contraseña)
+                .FirstOrDefault();
+            if(exists != null) { return false; }
+            
             _context.T_Users.Add(entity);
             return 1 == await _context.SaveChangesAsync();
         }

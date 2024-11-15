@@ -14,6 +14,6 @@ namespace FarmaciaWebAPI.Interfaces
         //devuelve una Respuesta
         //se le ingresa una peticion de autenticación
         Task<UserResponse?> Auth(AuthenticationRequest request);
-        Task<bool> Register(); 
+        Task<bool> Register(T_User newUser); 
     }
 }

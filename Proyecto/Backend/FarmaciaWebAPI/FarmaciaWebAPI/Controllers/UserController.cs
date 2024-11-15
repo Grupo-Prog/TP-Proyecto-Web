@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure;
 using DataAccess.Context;
 using FarmaciaWebAPI.Interfaces;
 using FarmaciaWebAPI.Models.Request;
@@ -23,10 +24,11 @@ namespace FarmaciaWebAPI.Controllers
             _userService = userService;
         }
 
-        //to do solo admin
+
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet]
 
-        public async Task<IActionResult> Get([FromBody]bool order = false)
+        public async Task<IActionResult> Get()
         {
             var response = new RequestResponse();
             try
@@ -104,12 +106,12 @@ namespace FarmaciaWebAPI.Controllers
         [AllowAnonymous]
         [Route("Register")]
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] string value)
+        public async Task<IActionResult> Register([FromBody] T_User newUser)
         {
             var response = new RequestResponse();
             try
             {
-                if(!await _userService.Register())
+                if (!await _userService.Register(newUser))
                 {
                     response.Success = 0;
                     response.Message = "Could not register, verify body parameters";
@@ -132,13 +134,25 @@ namespace FarmaciaWebAPI.Controllers
             }
         }
 
-        //to do solo admin
+
+        [Authorize(Policy = "AdminOnly")]
         [HttpDelete("User/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var response = new RequestResponse();
             try
             {
-                return Ok("to do");
+                var result = await _userService.DeleteAsync(id);
+                if (result == false)
+                {
+                    response.Success = 0;
+                    response.Message = "Could not delete user.";
+                    return BadRequest(response);
+                }
+
+                response.Success = 1;
+                response.Message = "User successfully deleted.";
+                return Ok(response);
             }
             catch (Exception ex)
             {
