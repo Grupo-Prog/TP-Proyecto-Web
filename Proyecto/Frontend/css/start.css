@@ -1,13 +1,12 @@
-/* Centra el contenido en el viewport */
 body {
-    min-height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: auto;
+    margin: 0;
 }
 
-/* Fondo difuminado de pantalla completa */
 body::before {
     content: "";
     position: absolute;
@@ -23,12 +22,12 @@ body::before {
     z-index: -1;
 }
 
-/* Ajusta la posición del contenido principal */
+
 .custom-position {
-    padding-top: 18vh;
+    padding-top: -30vh;
 }
 
-/* Caja de contenido con transparencia */
+
 .content {
     text-align: center;
     padding: 20px;
