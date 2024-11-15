@@ -43,28 +43,7 @@
                     </select>
                 </div>
             </div>
-            <div class="mb-3 row justify-content-center">
-                <div class="col-md-4 d-flex justify-content-center">
-                    <div class="col-md-12" id="v_input_cliente_get"> 
-                        <label for="fecha" class="form-label custom-label">Cliente</label>
-                        <select class="form-select" id="v_cliente_get">
-                            <option selected>Seleccione un cliente</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="mb-3 row justify-content-center">
-                <div class="col-md-4" id="v_input_fecha_get">
-                    <label for="fecha" class="form-label custom-label">Consultar por fecha inicial</label> <!-- input para fecha -->
-                    <input type="date" class="form-control" id="fecha">
-                </div>
-                <div class="col-md-4" id="v_input_fecha_get">
-                    <label for="fecha" class="form-label custom-label">Consultar por fecha final</label> <!-- input para fecha -->
-                    <input type="date" class="form-control" id="fecha">
-                </div>
-            </div>
-        </div> 
+        </div>
 
 
             <div class="mb-3 row justify-content-center mt-4">
@@ -73,24 +52,25 @@
                     <button type="reset" class="btn btn-secondary">CANCELAR</button> <!-- input para borrar campos -->
                 </div>
             </div>
-        </form> 
+        </form>
+    </div> 
 
 
-<!-- La tabla donde se mostrarán los clientes -->
-<div id="clientesContainer" style="display: none;">
-    <table class="table" id="clientesTable">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se cargarán aquí dinámicamente -->
-      </tbody>
-    </table>
-  </div>
+        <div id="clientesContainer">
+            <div class="card-container-consult d-flex flex-column align-items-center">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">FECHA</th>
+                            <th scope="col">MONTO</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ventas_body">
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     <footer class="custom-footer-index text-center mt-4">
         <p class="mb-0">© 2024 Grupo 15. Todos los derechos reservados.</p>

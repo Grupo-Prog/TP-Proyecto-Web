@@ -30,13 +30,16 @@ $form_mostrar_venta.addEventListener("submit", async (e) => {
   let venta = {};
   venta = cargarCampos(venta);
 
+  console.log(venta);
+  
+
   if (!validarCampos()) {
     alert("Por favor, completa los campos correctamente!");
     return false;
   } else {
     //Fetch get
     fetch(
-      `${API_URL}Master/${venta.cod_venta}`,
+      `${API_URL}Master/${$cod_venta.value}`,
       {
         method: "GET",
         headers: {
@@ -46,21 +49,22 @@ $form_mostrar_venta.addEventListener("submit", async (e) => {
       }
     )
       .then((res) => {
-        if (res.ok) {
-          console.log("respuesta 200, todo bien", res);
-          alert("La venta se mostró con éxito!");
-          // const ventas = res.json();
-          rellenarTVentas(ventasArray);
+        return data = res.json();
+      })
+      .then((msg) => {
+        console.log("Respuesta del servidor: ", msg);
+        
+        if (msg.success === 1) {
+          console.log("respuesta 200, todo bien", msg);
+          
+          rellenarTVentas(msg.data);
         } else {
           console.log("error");
           console.log("res", res);
 
           // de todas formas se muestra porque nunca va a dar una respuesta 200 sin db
-          rellenarTVentas(ventasArray);
+          // rellenarTVentas(msg.data);
         }
-      })
-      .then((msg) => {
-        console.log("Respuesta del servidor: ", msg);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -71,9 +75,7 @@ $form_mostrar_venta.addEventListener("submit", async (e) => {
 function cargarCampos() {
   // Construir venta
   let venta = {
-    cod_venta: $cod_venta.value,
-    fecha: $fecha.value,
-    cliente: $cliente.value,
+    cod_venta: $cod_venta.value
   };
 
   return venta;
@@ -81,32 +83,29 @@ function cargarCampos() {
 
 function rellenarTVentas(vta) {
   const tbody = document.getElementById("ventas_body");
+  const venta = [];
+  venta.push(vta)
 
-  console.log(vta);
+  console.log(venta);
 
-  tbody.innerHTML = "";
+  tbody.innerHTML = " ";
 
-  vta.forEach((venta) => {
+  venta.forEach((venta) => {
     const fila = document.createElement("tr");
 
-    // cod venta
-    const codVentaTd = document.createElement("td");
-    codVentaTd.textContent = venta.cod_venta;
-    fila.appendChild(codVentaTd);
-
     // cod cliente
-    const codClienteTd = document.createElement("td");
-    codClienteTd.textContent = venta.cliente;
-    fila.appendChild(codClienteTd);
+    // const codClienteTd = document.createElement("td");
+    // codClienteTd.textContent = venta.cliente;
+    // fila.appendChild(codClienteTd);
 
-    // fechaNac
+    // fecha
     const fechaTd = document.createElement("td");
     fechaTd.textContent = formateoFecha(venta.fecha);
     fila.appendChild(fechaTd);
 
-    // total
+    // totalVenta
     const totalTd = document.createElement("td");
-    totalTd.textContent = `$ ${venta.total}`;
+    totalTd.textContent = `$ ${venta.totalVenta}`;
     fila.appendChild(totalTd);
 
     // Agregar la fila a la tabla
@@ -165,83 +164,19 @@ function validarCampos() {
       .classList.remove("inputError");
   }
 
-  //Cliente vacio
-  if (
-    ($cliente.value === "Seleccione un cliente") |
-    ($cliente.value === "") |
-    ($cliente.value === null)
-  ) {
-    document.getElementById("v_input_cliente_get").classList.add("inputError");
-    return false;
-  } else {
-    document
-      .getElementById("v_input_cliente_get")
-      .classList.remove("inputError");
-  }
-
-  // Fecha invalida
-  if (
-    ($fecha.value > fechaActual()) |
-    ($fecha.value === "") |
-    ($fecha.value === null)
-  ) {
-    document.getElementById("v_input_fecha_get").classList.add("inputError");
-    return false;
-  } else {
-    document.getElementById("v_input_fecha_get").classList.remove("inputError");
-  }
 
   return true;
 }
 
-// Cargar select de clientes
-cargarComponentes();
-
-async function cargarComponentes() {
-  try {
-    fetch(`${API_URL}Client`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${token}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          console.log("respuesta 200, todo bien", res);
-        } else {
-          console.log("error");
-          console.log("res", res);
-        }
-
-        // const clientes = res.json();
-
-        clientesArray.forEach((c) => {
-          const opciones = document.createElement("option");
-          opciones.value = c.id;
-          opciones.textContent = c.nombre;
-          $cliente.appendChild(opciones);
-        });
-      })
-      .then((msg) => {
-        console.log("Respuesta del servidor: ", msg);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  } catch (error) {
-    console.error("Error al cargar combo clientes:", error);
-    alert("Ocurrió un error al cargar el combo clientes");
-  }
-}
 
 // cargar select ventas
 cargarComponentesVenta();
 
 async function cargarComponentesVenta() {
-  const cod_venta = $cod_venta.value;
+  
+  const verdad = true;
   try {
-    fetch(`${API_URL}Master/`, {
+    fetch(`${API_URL}Master/Order/${verdad}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -249,24 +184,20 @@ async function cargarComponentesVenta() {
       },
     })
       .then((res) => {
-        if (res.ok) {
-          console.log("respuesta 200, todo bien", res);
-        } else {
-          console.log("error");
-          console.log("res", res);
-        }
-
-        // const clientes = res.json();
-
-        ventasArray.forEach((v) => {
-          const opciones = document.createElement("option");
-          opciones.value = v.cod_venta;
-          opciones.textContent = v.cod_venta;
-          $cod_venta.appendChild(opciones);
-        });
+        return data = res.json();
       })
       .then((msg) => {
         console.log("Respuesta del servidor: ", msg);
+        if(msg.success === 1){
+          msg.data.forEach((v) => {
+            console.log("venta id", v.id);
+            
+            const opciones = document.createElement("option");
+            opciones.value = v.id;
+            opciones.textContent = 'Venta nro: ' + v.id;
+            $cod_venta.appendChild(opciones);
+          });
+        }
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -323,4 +323,41 @@ a.btn.btn-primary-active.eliminate:hover {
     margin-bottom: 10px;
 }
 
+.card-container-consult {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 0px; 
+    margin: 0 auto; 
+    margin-top: 5px;
+    width: 60%;
+    max-width: 1200px;
+    height: auto;
+    padding: 20px;
+    background-color: rgb(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.table th {
+    color: rgba(0, 0, 0, 0.8); 
+    font-family: "DM Serif Text", serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .table td {
+    color: rgb(52, 53, 52, 0.9);
+    font-family: "DM Serif Text", serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+
+  .table tbody tr:hover td {
+    background-color: rgb(41, 114, 37, 0.7); 
+  }
+
+  table th, table td {
+    border: 2px solid rgb(52, 53, 52, 0.9);
+  }
+
 
