@@ -194,14 +194,7 @@ async function cargarComponentes() {
             }
         })
         .then(res => {
-            
             return data = res.json();
-           //// convertir text a json
-            // const clientes = res.json();
-            // console.log("clientes", clientes);
-
-            // usando el array "clientesArray", luego poner el de la respuesta de la api
-            
         })
         .then(msg => {
             console.log('Respuesta del servidor: ', msg); 
@@ -209,7 +202,7 @@ async function cargarComponentes() {
                 msg.data.forEach(c => {
                     const opciones = document.createElement('option');
                     opciones.value = c.id; 
-                    opciones.textContent = c.nombre; 
+                    opciones.textContent = c.nombre + ' ' + c.apellido + ' ' + '[' + c.dni + ']'; 
                     $cliente.appendChild(opciones);
                 });
             } else {
