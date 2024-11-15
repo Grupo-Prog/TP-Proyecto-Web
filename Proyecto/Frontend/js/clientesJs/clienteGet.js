@@ -29,9 +29,6 @@ $form_mostrar_cliente.addEventListener('submit', async(e)=>{
     e.preventDefault();
 
     const id = $cliente.value;
-    const document = $documentoG.value;
-    const telefono = $telefonoG.value
-    const obraSocial = $obraSocialG.value
 
     if (!validarCampos()) {
         alert("Por favor, completa los campos correctamente!");
@@ -153,28 +150,6 @@ function validarCampos(){
     //     document.getElementById('v_input_cliente_get').classList.remove('inputError');
     // }
     //Documento
-    if ( $documentoG.value === '' | $documentoG.value === null) {
-        document.getElementById('input_documento_get').classList.add('inputError');
-        return false;
-    } else{
-        document.getElementById('input_documento_get').classList.remove('inputError');
-    } 
-
-    //Telefono 
-    if ( $telefonoG.value === '' | $telefonoG.value === null) {
-        document.getElementById('input_telefono_get').classList.add('inputError');
-        return false;
-    } else{
-        document.getElementById('input_telefono_get').classList.remove('inputError');
-    }
-
-    //Obra social vacio
-    if($obraSocialG.value === '' | $obraSocialG.value === null){
-        document.getElementById('input_obra_social_get').classList.add('inputError');
-        return false;
-    } else{
-        document.getElementById('input_obra_social_get').classList.remove('inputError');
-    }
 
     return true;
 }
