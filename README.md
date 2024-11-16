@@ -9,10 +9,11 @@
 
 
 - [@Mateo Del Lungo 412337](https://www.github.com/Mudo0)
-- [@Franco Chachaua 412139](https://www.github.com/Mudo0)
-- [@Santiago Cotaimich 412285](https://www.github.com/Mudo0)
+- [@Franco Chachaua 412139](https://github.com/FrancoCh-utn)
+- [@Santiago Cotaimich 412285](https://github.com/SantiagoCotaimich)
 - [@Tobias Zair Usandivara 412309](https://github.com/tobiaszairusandivara)
-
+- [@FernandoVerasteguiLopez 412440](https://github.com/405841-AlesandroSaavedra-1w1)
+- [@AlesandroSaavedra 405841](https://github.com/412440-FernandoVerasteguiLopez)
 
 
 
