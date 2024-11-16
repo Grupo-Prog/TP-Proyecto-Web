@@ -20,10 +20,9 @@ function eliminarClaveSessionStorage() {
 }
 document.getElementById("btn-cerrar-sesion").onclick =
   eliminarClaveSessionStorage;
-//
 
 async function CargarVentas() {
-  const order = false; // Esto probablemente será un parámetro que podrías modificar según necesites
+  const order = false; 
   try {
     const response = await fetch(`${API_URL}Master/Order/${order}`, {
       method: "GET",
@@ -49,7 +48,6 @@ async function CargarVentas() {
     alert("Ocurrió un error al cargar las ventas");
   }
 }
-
 
 function MostrarVentas(ventas) {
   const $table = document.querySelector("#tabla-Ventas tbody");

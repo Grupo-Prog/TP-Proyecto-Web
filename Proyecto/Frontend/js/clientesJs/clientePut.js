@@ -93,7 +93,7 @@ function cargarCampos(){
     return persona;
 }
 
-//////
+
 // Evento on change que muestra el id seleccionado en el select
 function onClienteChange(event) {
     const clientId = event.target.value; 
@@ -103,8 +103,6 @@ function onClienteChange(event) {
 
 }
 $cod_clienteP.addEventListener("change", onClienteChange);
-//
-//////
 
 
 // Cargar select de clientes
@@ -207,8 +205,6 @@ function validarCampos(){
     } else{
         document.getElementById('input_obra_social_put').classList.remove('inputError');
     }
-    
-
     return true;
 }
 
@@ -258,15 +254,12 @@ async function cargarVistaPrevia(cod_cliente) {
 };
 
 function imprimirCliente(obj){
-    // arregloClientes.forEach((obj) => {
-        $nombreP.value = obj.nombre;
-        $apellidoP.value = obj.apellido;
-        $documentoP.value = obj.dni;
-        $telefonoP.value = obj.telefono;
-        $fechaP.value = obj.fecha_nac;
-        $obraSocialP.value = obj.obraSocial;
-    // });
-    
+    $nombreP.value = obj.nombre;
+    $apellidoP.value = obj.apellido;
+    $documentoP.value = obj.dni;
+    $telefonoP.value = obj.telefono;
+    $fechaP.value = obj.fecha_nac;
+    $obraSocialP.value = obj.obraSocial;
 }
 
 

@@ -19,9 +19,57 @@ function eliminarClaveSessionStorage() {
   sessionStorage.removeItem(key);
   console.log(`La clave '${key}' ha sido eliminada del sessionStorage.`);
 }
-document.getElementById("btn-cerrar-sesion").onclick =
-  eliminarClaveSessionStorage;
-//
+document.getElementById("btn-cerrar-sesion").onclick = eliminarClaveSessionStorage;
+
+// Agregar evento change al select de ventas
+$cod_venta.addEventListener('change', async (e) => {
+    const ventaId = e.target.value;
+    
+    if (ventaId === "Seleccione una venta") {
+        // Limpiar formulario si no hay selección
+        $producto.value = "";
+        $cantidad.value = "";
+        $precio.value = "";
+        $fecha.value = "";
+        $cliente.value = "Seleccione un cliente";
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}Master/Order/${ventaId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token,
+            }
+        });
+
+        const data = await response.json();
+        
+        if (data.success === 1 && data.data) {
+            const venta = data.data;
+            
+            // Cargar fecha
+            $fecha.value = venta.fecha.split('T')[0]; // Asumiendo que la fecha viene en formato ISO
+            
+            // Cargar cliente
+            $cliente.value = venta.clienteId;
+            
+            // Cargar primer detalle (producto, cantidad, precio)
+            if (venta.detalle && venta.detalle.length > 0) {
+                const primerDetalle = venta.detalle[0];
+                $producto.value = primerDetalle.producto;
+                $cantidad.value = primerDetalle.cantidad;
+                $precio.value = primerDetalle.precio;
+            }
+        } else {
+            alert("No se encontraron datos para esta venta");
+        }
+    } catch (error) {
+        console.error("Error al cargar los datos de la venta:", error);
+        alert("Ocurrió un error al cargar los datos de la venta");
+    }
+});
 
 // Form ventas PUT
 const $form_cargar_venta_put = document.getElementById("form_cargar_venta_put");
@@ -57,9 +105,9 @@ $form_cargar_venta_put.addEventListener("submit", async (e) => {
         if (res.ok) {
           console.log("respuesta 200, todo bien");
           console.log("venta", venta);
-          alert("El cliente se cargó con éxito!");
+          alert("La venta se modificó con éxito!");
 
-          $form_cargar_venta.reset();
+          $form_cargar_venta_put.reset();
         } else {
           console.log("error");
           console.log("venta", venta);
@@ -77,20 +125,20 @@ $form_cargar_venta_put.addEventListener("submit", async (e) => {
 
 function cargarDatos(cantidad) {
   // Contruir detalles
-
   let detalles = [];
-  let det = {};
-
-  det.producto = $producto.value;
-  det.precio = $precio.value;
-  det.cantidad = $cantidad.value;
+  let det = {
+    producto: $producto.value,
+    precio: parseFloat($precio.value),
+    cantidad: parseInt($cantidad.value)
+  };
   detalles.push(det);
 
   // Construir ventas
   let venta = {
+    id: parseInt($cod_venta.value),
     fecha: $fecha.value,
-    clienteId: $cliente.value,
-    detalle: detalles,
+    clienteId: parseInt($cliente.value),
+    detalle: detalles
   };
   console.log("venta", venta);
   return venta;
@@ -209,7 +257,7 @@ async function cargarComponentes() {
         if (msg.success === 1) {
           console.log("msg data", msg.data);
           $cliente.innerText = " ";
-          $cliente.innerHTML = `<option selected> Seleccione un cliente a eliminar</option>`;
+          $cliente.innerHTML = `<option selected> Seleccione un cliente</option>`;
           msg.data.forEach((c) => {
             const opciones = document.createElement("option");
             opciones.value = c.id;
@@ -230,9 +278,7 @@ async function cargarComponentes() {
   }
 }
 
-//código de Franco
 cargarComponentesVenta();
-
 async function cargarComponentesVenta() {
   const verdad = true;
   try {

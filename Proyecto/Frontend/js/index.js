@@ -179,7 +179,5 @@ $form_create_account.addEventListener('submit', async(e)=>{
                 console.log("msg error pero msg", msg);
                 
             });
-
-        
     }
 })

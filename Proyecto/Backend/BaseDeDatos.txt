@@ -1,6 +1,6 @@
-CREATE DATABASE db_FarmaciaAPI;
+CREATE DATABASE db_FarmaciaApi;
 GO
-USE [db_FarmaciaAPI];
+USE [db_FarmaciaApi];
 GO
 
 CREATE TABLE [dbo].[T_Clientes](

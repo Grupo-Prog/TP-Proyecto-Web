@@ -29,8 +29,6 @@ document.getElementById("btn-cerrar-sesion").onclick =
 // Form ventas POST
 const $form_cargar_venta = document.getElementById("form_cargar_venta_post");
 
-
-
 $form_cargar_venta.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -44,8 +42,6 @@ $form_cargar_venta.addEventListener("submit", async (e) => {
     venta: venta
   }
   
-  
-
   // Validar campos
   if (!validarCampos()) {
     alert("Por favor, completa los campos correctamente!");
@@ -64,7 +60,7 @@ $form_cargar_venta.addEventListener("submit", async (e) => {
         if (res.ok) {
           console.log("respuesta 200, todo bien");
           console.log("venta", venta);
-          alert("El cliente se cargó con éxito!");
+          alert("La venta se cargó con éxito!");
 
           $form_cargar_venta.reset();
         } else {
@@ -82,8 +78,20 @@ $form_cargar_venta.addEventListener("submit", async (e) => {
   }
 });
 
-
 function addDetail() {
+  // Validar que los campos actuales no estén vacíos
+  if (contadorProductos > 0) {
+    const ultimoProducto = document.getElementById(`v_producto_pos${contadorProductos - 1}`);
+    const ultimaCantidad = document.getElementById(`v_cantidad_pos${contadorProductos - 1}`);
+    const ultimoPrecio = document.getElementById(`v_precio_pos${contadorProductos - 1}`);
+    
+    if (!ultimoProducto.value || !ultimaCantidad.value || !ultimoPrecio.value) {
+      alert("Completa todos los campos del detalle actual antes de agregar uno nuevo.");
+      return;
+    }
+  }
+
+  // Crear nuevo detalle
   const contenedorProducto = document.createElement("div");
   contenedorProducto.classList.add("mb-3", "row", "justify-content-center");
 
@@ -92,9 +100,9 @@ function addDetail() {
                     <label for="v_nroDetalle_pos${contadorProductos}" class="form-label custom-label">Número de detalle</label>
                     <input type="number" class="form-control" id="v_nroDetalle_pos${contadorProductos}" min="1" placeholder="Ingrese el número">
                 </div>
-                              <div class="col-md-4">
+                <div class="col-md-4">
                     <label for="v_producto_pos${contadorProductos}" class="form-label custom-label">Nombre del producto</label>
-                    <input type="text" class="form-control" id="v_producto_pos${contadorProductos}" min="1" placeholder="Ingrese el nombre">
+                    <input type="text" class="form-control" id="v_producto_pos${contadorProductos}" placeholder="Ingrese el nombre">
                 </div>
                 <div class="col-md-4">
                     <label for="v_cantidad_pos${contadorProductos}" class="form-label custom-label">Cantidad</label>
@@ -106,28 +114,10 @@ function addDetail() {
                 </div>
             `;
 
-  document
-    .getElementById("productos-container")
-    .appendChild(contenedorProducto);
-
-  $nroDetalle = document.getElementById(`v_nroDetalle_pos${contadorProductos}`);
-  $producto = document.getElementById(`v_producto_pos${contadorProductos}`);
-  $precio = document.getElementById(`v_precio_pos${contadorProductos}`);
-  $cantidad = document.getElementById(`v_cantidad_pos${contadorProductos}`);
-
-  // detalle.push(
-  //   CrearDetalle(
-  //     $nroDetalle.value,
-  //     $producto.value,
-  //     $precio.value,
-  //     $cantidad.value
-  //   )
-  // );
-  // console.log(detalle);
-
-  console.log("vuelta: ", contadorProductos);
+  document.getElementById("productos-container").appendChild(contenedorProducto);
   contadorProductos++;
 }
+
 
 function CrearVenta(fecha, clienteId, detalle) {
   let venta = [];
@@ -141,100 +131,61 @@ function CrearDetalle(nroDetalle, producto, precio, cantidad) {
   return detalle;
 }
 function cargarDatos(cantidad) {
-  // Contruir detalles
-
-
   let detalles = [];
-  let det = { };
+
   for (let i = 0; i < cantidad; i++) {
+    let nroDetalle = document.getElementById(`v_nroDetalle_pos${i}`).value;
+    let producto = document.getElementById(`v_producto_pos${i}`).value;
+    let precio = document.getElementById(`v_precio_pos${i}`).value;
+    let cantidad = document.getElementById(`v_cantidad_pos${i}`).value;
 
-    let $nroDetalleAsignar = document.getElementById(`v_nroDetalle_pos${i}`);
-    let $productoAsignar = document.getElementById(`v_producto_pos${i}`);
-    let $precioAsignar = document.getElementById(`v_precio_pos${i}`);
-    let $cantidadAsignar = document.getElementById(`v_cantidad_pos${i}`);
-
-    console.log("hola", i);
-
-    det.nroDetalle = $nroDetalleAsignar.value;
-    det.producto = $productoAsignar.value;
-    det.precio = $precioAsignar.value;
-    det.cantidad = $cantidadAsignar.value;
-    detalles.push(det)
+    detalles.push({
+      nroDetalle: nroDetalle,
+      producto: producto,
+      precio: parseFloat(precio),
+      cantidad: parseInt(cantidad),
+    });
   }
 
-  // detalles.forEach();
-
-  // Construir ventas
-  let venta = {
-    // cod_venta: $cod_venta.value,
+  return {
     fecha: $fecha.value,
     clienteId: $cliente.value,
     detalle: detalles,
   };
-  console.log("venta", venta);
-  return venta;
 }
 
-function validarCampos() {{
-  // for (let i = 0; i < contadorProductos; i++) {
-  //   // Producto vacio
-  //   if (($producto.value === "") | ($producto.value === null)) {
-  //     document.getElementById(`v_producto_pos${i}`).classList.add("inputError");
-  //     return false;
-  //   } else {
-  //     document
-  //       .getElementById(`v_producto_pos${i}`)
-  //       .classList.remove("inputError");
-  //   }
-
-  //   //Cantidad
-  //   if (($cantidad.value === "") | ($cantidad.value === null)) {
-  //     document.getElementById(`v_cantidad_pos${i}`).classList.add("inputError");
-  //     return false;
-  //   } else {
-  //     document
-  //       .getElementById(`v_cantidad_pos${i}`)
-  //       .classList.remove("inputError");
-  //   }
-
-  //   //Precio
-  //   if (($precio.value === "") | ($precio.value === null)) {
-  //     document.getElementById(`v_precio_pos${i}`).classList.add("inputError");
-  //     return false;
-  //   } else {
-  //     document
-  //       .getElementById(`v_precio_pos${i}`)
-  //       .classList.remove("inputError");
-  //   }
-
-  //   //Cliente vacio
-  //   if (
-  //     ($cliente.value === "Seleccione un cliente") |
-  //     ($cliente.value === "") |
-  //     ($cliente.value === null)
-  //   ) {
-  //     document.getElementById(`v_cliente_pos${i}`).classList.add("inputError");
-  //     return false;
-  //   } else {
-  //     document
-  //       .getElementById(`v_cliente_pos${i}`)
-  //       .classList.remove("inputError");
-  //   }
-
-  //   // Fecha invalida
-  //   if (
-  //     ($fecha.value > fechaActual()) |
-  //     ($fecha.value === "") |
-  //     ($fecha.value === null)
-  //   ) {
-  //     document.getElementById(`v_fecha_pos${i}`).classList.add("inputError");
-  //     return false;
-  //   } else {
-  //     document.getElementById(`v_fecha_pos${i}`).classList.remove("inputError");
-  //   }
-
-    return true;
+function validarCampos() {
+  // Verificar que al menos un detalle esté agregado
+  if (contadorProductos === 0) {
+    alert("Debes agregar al menos un detalle a la venta.");
+    return false;
   }
+
+  // Validar cada detalle
+  for (let i = 0; i < contadorProductos; i++) {
+    const producto = document.getElementById(`v_producto_pos${i}`).value;
+    const cantidad = document.getElementById(`v_cantidad_pos${i}`).value;
+    const precio = document.getElementById(`v_precio_pos${i}`).value;
+
+    if (!producto || !cantidad || !precio) {
+      alert(`Completa todos los campos del detalle ${i + 1}.`);
+      return false;
+    }
+  }
+
+  // Validar cliente
+  if (!$cliente.value || $cliente.value === "Seleccione un cliente") {
+    alert("Debes seleccionar un cliente.");
+    return false;
+  }
+
+  // Validar fecha
+  if (!$fecha.value || $fecha.value > fechaActual()) {
+    alert("La fecha no es válida.");
+    return false;
+  }
+
+  return true;
 }
 
 function fechaActual() {

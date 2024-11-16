@@ -102,9 +102,6 @@ function validarCampos() {
   return true;
 }
 
-// Cargar combobox ventas
-cargarComponentes();
-
 async function cargarComponentes() {
   const verdad = true;
   try {
@@ -122,8 +119,11 @@ async function cargarComponentes() {
         console.log("Respuesta del servidor: ", msg);
         if (msg.success === 1) {
           console.log("respuesta 200, todo bien", msg);
-          $cod_venta.innerText= " ";
+          // Limpia completamente el select
+          $cod_venta.innerHTML = '';
+          // Agrega la opción por defecto
           $cod_venta.innerHTML = `<option selected>Seleccione una venta para eliminar</option>`;
+          // Agrega las opciones de ventas
           msg.data.forEach((v) => {
             const opciones = document.createElement("option");
             opciones.value = v.id;
@@ -144,7 +144,7 @@ async function cargarComponentes() {
   }
 }
 
-
+cargarComponentes();
 
 // Vista previa al hacer click
 async function cargarVistaPrevia(cod_venta) {
@@ -220,46 +220,6 @@ function imprimirVenta(arregloVentas) {
       cardContainer.appendChild(clone);
   });
 }
-
-
-
-
-cargarComponentesVenta();
-
-async function cargarComponentesVenta() {
-  const verdad = true;
-  try {
-    fetch(`${API_URL}Master/Order/${verdad}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `${token}`,
-      },
-    })
-      .then((res) => {
-        return data = res.json();
-      })
-      .then((msg) => {
-        console.log("Respuesta del servidor: ", msg);
-        
-        msg.data.forEach((v) => {
-          console.log("venta id", v.id);
-          
-          const opciones = document.createElement("option");
-          opciones.value = v.id;
-          opciones.textContent = v.id;
-          $cod_venta.appendChild(opciones);
-        });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  } catch (error) {
-    console.error("Error al cargar combo ventas:", error);
-    alert("Ocurrió un error al cargar el combo ventas!");
-  }
-}
-
 
 
 // Mensaje al cargar el cliente
