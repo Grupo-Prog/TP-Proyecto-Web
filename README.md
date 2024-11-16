@@ -6,8 +6,7 @@
 ------------------------
 
 ### Autores
->[!IMPORTANT]
->PONGAN SUS LEGAJOS Y SUS PERFILES DE GITHUB
+
 
 - [@Mateo Del Lungo 412337](https://www.github.com/Mudo0)
 - [@Franco Chachaua 412139](https://www.github.com/Mudo0)
@@ -16,12 +15,8 @@
 
 
 
->[!TIP]
->PUEDEN AGREGAR CUALQUIER CAMBIO QUE CONSIDEREN NECESARIO AL README
 
 
-
-Proyecto de Aplicación Web
 <div align="center">
        Desarrollo Backend: 
        <p></p>
